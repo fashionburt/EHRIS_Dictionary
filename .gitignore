@@ -1,0 +1,26 @@
+﻿.vs/
+bin/
+obj/
+Debug/
+packages/
+WebResource/
+WebResourceRWD/
+WebControls/
+
+Web.Debug.config
+Web.Release.config
+
+*.dll
+*.pdb
+*.dll.config
+*.user
+*.xml
+
+
+01.Source Code/啟動方案/
+02.各項文件/*.cdb
+
+#指定不忽略的文件或目錄, 加上 !
+#!01.Source Code/ComLib/YSeHRMS.Lib/Lib
+
+!01.Source Code/referDLL/*.dll
