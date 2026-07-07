@@ -1,0 +1,129 @@
+﻿@inject EHRIS.Security.User.IUserContextService userContext
+
+@using EHRIS.Web.Shared.Models
+@{
+    bool isAjax = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+    Layout = isAjax ? null : "_AdminLayout";
+}
+
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+<link href="~/css/AdminButton.css" rel="stylesheet" />
+
+<section class="content admin-workspace">
+    <div class="container-fluid">
+        <div class="card" style="border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
+            <div class="card-body">
+                <div class="row g-2 align-items-center">
+
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="form-label mb-0 text-nowrap">公告日期</label>
+                            <input type="date" id="filterDateStart" class="form-control form-control-sm" />
+                            <span class="text-muted">~</span>
+                            <input type="date" id="filterDateEnd" class="form-control form-control-sm" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="filterSysnType" class="form-label mb-0 text-nowrap">｜訊息等級</label>
+                            <select id="filterSysnType" class="form-select form-select-sm">
+                                <option value="">全部</option>
+                                <option value="0">緊急</option>
+                                <option value="1">重要</option>
+                                <option value="2">一般</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 d-flex gap-2 justify-content-end">
+                        <button id="btnSearch" type="button" class="btn btn-primary btn-sm" style="min-width:60px;">查詢</button>
+                        <button id="btnReset" type="button" class="btn btn-secondary btn-sm" style="min-width:60px;">重設</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "sysNoticeTable",
+            Columns = new[]
+            {
+                new TableColDef("類型", "dt-col-min"),
+                new TableColDef("公告標題", "dt-col-max"),
+                new TableColDef("日期", "dt-col-mid"),
+                new TableColDef("顯示開始", "dt-col-mid"),
+                new TableColDef("顯示結束", "dt-col-mid"),
+                new TableColDef("置頂", "dt-col-action"),
+                new TableColDef("修改", "dt-col-action"),
+                new TableColDef("刪除", "dt-col-action")
+            }
+        })
+    </div>
+</section>
+
+<div class="modal modal-admin" id="sysNoticeModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sysNoticeModalLabel">公告編輯</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="sysNoticeForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="sysnNo" />
+                    <div class="col-md-6">
+                        <label class="form-label">訊息等級<span class="text-danger">*</span></label>
+                        <select class="form-select" id="sysnType">
+                            <option value="0">緊急</option>
+                            <option value="1">重要</option>
+                            <option value="2" selected>一般</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">公告日期<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="sysnPublicDt" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">顯示開始時間<span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control" id="sysnStartTime" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">顯示結束時間<span class="text-danger">*</span></label>
+                        <input type="datetime-local" class="form-control" id="sysnEndTime" />
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">公告內容<span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="sysnContent" rows="5" maxlength="2000"></textarea>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="sysnTop" />
+                            <label class="form-check-label" for="sysnTop">置頂顯示</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" id="btnSaveSysNotice">儲存</button>
+                <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.sysNoticeAction = {
+        list: '@Url.Action("GetSysNoticeData")',
+        data: '@Url.Action("GetSysNoticeForEdit")',
+        create: '@Url.Action("CreateSysNotice")',
+        update: '@Url.Action("UpdateSysNotice")',
+        del: '@Url.Action("DeleteSysNotice")',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasAdd: @(ViewBag.AddStatus?.ToString().ToLower() ?? "false"),
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")'
+    };
+</script>

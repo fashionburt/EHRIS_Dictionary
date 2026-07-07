@@ -1,0 +1,483 @@
+@using EHRIS.Services.Common
+@using EHRIS.Web.Shared.Models
+@*
+    [TEST] 元件測試頁 — 日後正式上線請移除此檔案
+    路徑：/DevTest/DevTest
+*@
+
+@{
+    ViewData["Title"] = "元件測試頁";
+    Layout = "_LayoutSub";
+}
+
+<div class="container-fluid">
+    <div class="alert alert-warning d-flex align-items-center mb-3" role="alert">
+        <i class="fas fa-flask me-2"></i>
+        <strong>開發測試專用</strong>&nbsp;— 此頁面僅供測試元件，正式上線時請移除。
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         1. ehrisAlert 訊息測試
+    ═══════════════════════════════════════ -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-bell me-1"></i>ehrisAlert 訊息測試
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-danger btn-sm" onclick="ehrisAlert.error('這是錯誤訊息測試')">
+                    <i class="fas fa-times-circle me-1"></i>error
+                </button>
+                <button class="btn btn-success btn-sm" onclick="ehrisAlert.success('這是成功訊息測試')">
+                    <i class="fas fa-check-circle me-1"></i>success
+                </button>
+                <button class="btn btn-warning btn-sm" onclick="ehrisAlert.warning('這是警告訊息測試')">
+                    <i class="fas fa-exclamation-triangle me-1"></i>warning
+                </button>
+                <button class="btn btn-info btn-sm text-white" onclick="ehrisAlert.info('這是提示訊息測試')">
+                    <i class="fas fa-info-circle me-1"></i>info
+                </button>
+                <button class="btn btn-outline-primary btn-sm" onclick="ehrisAlert.info('即將導向登入頁', '/Account/Login')">
+                    <i class="fas fa-external-link-alt me-1"></i>info + 導向
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         2. File Upload 元件測試
+    ═══════════════════════════════════════ -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-upload me-1"></i>File Upload 檔案上傳測試
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>單一檔案上傳</h6>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="singleFile" />
+                        <button class="btn btn-outline-primary" type="button" onclick="testUpload('singleFile')">
+                            <i class="fas fa-upload me-1"></i>上傳
+                        </button>
+                    </div>
+                    <div id="singleFileInfo" class="text-muted small"></div>
+                </div>
+                <div class="col-md-6">
+                    <h6>多檔案上傳</h6>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="multiFile" multiple />
+                        <button class="btn btn-outline-primary" type="button" onclick="testUpload('multiFile')">
+                            <i class="fas fa-upload me-1"></i>上傳
+                        </button>
+                    </div>
+                    <div id="multiFileInfo" class="text-muted small"></div>
+                </div>
+            </div>
+            <hr />
+            <h6>拖放上傳區</h6>
+            <div id="dropZone" class="border border-2 border-dashed rounded p-4 text-center"
+                 style="border-color: #adb5bd !important; cursor: pointer; transition: all 0.3s;">
+                <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2 d-block"></i>
+                <span class="text-muted">將檔案拖放至此處，或 <a href="#" onclick="document.getElementById('dropFileInput').click(); return false;">點擊選擇</a></span>
+                <input type="file" id="dropFileInput" multiple style="display:none" onchange="handleDropFiles(this.files)" />
+            </div>
+            <div id="dropFileInfo" class="mt-2 text-muted small"></div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         3. 民國日期選擇器測試
+    ═══════════════════════════════════════ -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-calendar-alt me-1"></i>民國日期選擇器測試（roc-datepicker）
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="form-label">日期模式</label>
+                    <input type="text" class="form-control" id="testDate" autocomplete="off" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">年月模式</label>
+                    <input type="text" class="form-control" id="testMonth" autocomplete="off" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">取值結果</label>
+                    <div id="dateResult" class="form-control bg-light" style="min-height:38px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ═══════════════════════════════════════
+         4. 大頭照 元件測試
+    ═══════════════════════════════════════ -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-upload me-1"></i>大頭照 檔案上傳測試
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>基本上傳（無浮水印）</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("PeoplePhoto", new
+                        {
+                            model = new PeoplePhotoModel
+                            {
+                                ComponentId = "photo1",
+                                FieldName = "Photo1FileName",
+                                WatermarkFieldName = "Photo1WmFileName",
+                                WatermarkText = ""
+                            }
+                        })
+                    </div>
+                   
+                </div>
+                <div class="col-md-6">
+                    <h6>含浮水印</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("PeoplePhoto", new
+                        {
+                            model = new PeoplePhotoModel
+                            {
+                                ComponentId = "photo2",
+                                FieldName = "Photo2FileName",
+                                WatermarkFieldName = "Photo2WmFileName"
+                            }
+                        })
+                    </div>
+                   
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <!-- ═══════════════════════════════════════
+         5. 樹狀部門 元件測試
+    ═══════════════════════════════════════ -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-upload me-1"></i>樹狀部門測試
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>複選權責機關</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgSelector", new
+                        {
+                            model = new OrgSelectorModel
+                            {
+                                ComponentId = "orgPicker1",
+                                FieldName = "DepIds1",
+                                Scope = OrgSelectorScope.AuthorizedUnit,
+                                ButtonText = "選擇權責機關",
+                                ModalTitle = "選擇權責機關",
+                                IncludeChildrenDefault = false,
+                                Multiple = true
+                            }
+                        })
+                    </div>
+
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>複選權責單位</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgSelector", new
+                        {
+                            model = new OrgSelectorModel
+                            {
+                                ComponentId = "orgPicker2",
+                                FieldName = "DepIds2",
+                                Scope = OrgSelectorScope.AuthorizedDept,
+                                ButtonText = "選擇權責單位",
+                                ModalTitle = "選擇權責單位",
+                                IncludeChildrenDefault = true,
+                                Multiple = true
+                            }
+                        })
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>單選權責單位</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgSelector", new
+                        {
+                            model = new OrgSelectorModel
+                            {
+                                ComponentId = "orgPicker3",
+                                FieldName = "DepIds3",
+                                Scope = OrgSelectorScope.AuthorizedDept,
+                                ButtonText = "選擇權責單位",
+                                ModalTitle = "選擇單一權責單位",
+                                IncludeChildrenDefault = false,
+                                Multiple = false
+                            }
+                        })
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ═══════════════════════════════════════
+         6. 下拉部門 元件測試
+    ═══════════════════════════════════════ -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-upload me-1"></i>下拉部門測試
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>權責機關</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgSelectorDropdown", new
+                        {
+                            model = new OrgSelectorDropdownModel
+                            {
+                                ComponentId = "orgDd1",
+                                FieldName = "DdId1",
+                                Scope = OrgSelectorScope.AuthorizedUnit,
+                                Placeholder = "請選擇權責機關"
+                            }
+                        })
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>權責單位</h6>
+                    <div class="input-group mb-3">
+                       @await Component.InvokeAsync("OrgSelectorDropdown", new
+                        {
+                            model = new OrgSelectorDropdownModel
+                            {
+                                ComponentId = "orgDd2",
+                                FieldName = "DdId2",
+                                Scope = OrgSelectorScope.AuthorizedDept,
+                                Placeholder = "請選擇權責單位"
+                            }
+                        })
+                      
+                    </div>
+
+                </div>
+
+            </div>
+        
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         7. 部門人員樹測試（上下分區 + DataTable）
+    ═══════════════════════════════════════ -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-users me-1"></i>部門人員樹測試（上：部門樹／下：DataTable）
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>複選人員（勾部門 = 全選底下在職人員）</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgPeoplePicker", new
+                        {
+                            model = new OrgPeoplePickerModel
+                            {
+                                ComponentId = "orgPeople1",
+                                FieldName = "PeoIds1",
+                                ButtonText = "選擇人員",
+                                ModalTitle = "選擇人員（複選）",
+                                Multiple = true
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h6>單選人員（只能選一人，無部門全選）</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgPeoplePicker", new
+                        {
+                            model = new OrgPeoplePickerModel
+                            {
+                                ComponentId = "orgPeople2",
+                                FieldName = "PeoId2",
+                                ButtonText = "選擇單一人員",
+                                ModalTitle = "選擇人員（單選）",
+                                Multiple = false
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h6>複選人員（含在職＋離職、排除自己）</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgPeoplePicker", new
+                        {
+                            model = new OrgPeoplePickerModel
+                            {
+                                ComponentId = "orgPeople3",
+                                FieldName = "PeoIds3",
+                                ButtonText = "選擇人員（含離職）",
+                                ModalTitle = "選擇人員（含離職、排除自己）",
+                                Multiple = true,
+                                PeopleStatus = EHRIS.Core.Models.Common.PeopleStatus.All,
+                                ShowSelf = EHRIS.Core.Models.Common.PeopleShowSelf.False
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h6>只自己部門（NodeType = Self）</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgPeoplePicker", new
+                        {
+                            model = new OrgPeoplePickerModel
+                            {
+                                ComponentId = "orgPeople4",
+                                FieldName = "PeoIds4",
+                                ButtonText = "選擇人員（只自己部門）",
+                                ModalTitle = "選擇人員（NodeType=Self）",
+                                Multiple = true,
+                                NodeType = EHRIS.Core.Models.Common.NodeType.Self
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h6>同層部門（NodeType = Parallel）</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgPeoplePicker", new
+                        {
+                            model = new OrgPeoplePickerModel
+                            {
+                                ComponentId = "orgPeople5",
+                                FieldName = "PeoIds5",
+                                ButtonText = "選擇人員（同層部門）",
+                                ModalTitle = "選擇人員（NodeType=Parallel）",
+                                Multiple = true,
+                                NodeType = EHRIS.Core.Models.Common.NodeType.Parallel
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h6>全部部門對照組（NodeType = All，永遠不卡權限）</h6>
+                    <div class="input-group mb-3">
+                        @await Component.InvokeAsync("OrgPeoplePicker", new
+                        {
+                            model = new OrgPeoplePickerModel
+                            {
+                                ComponentId = "orgPeople6",
+                                FieldName = "PeoIds6",
+                                ButtonText = "選擇人員（全部部門）",
+                                ModalTitle = "選擇人員（NodeType=All）",
+                                Multiple = true,
+                                NodeType = EHRIS.Core.Models.Common.NodeType.All
+                            }
+                        })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h6>取值示範（值在 hidden 欄位，表單原生送出，不需 JS 取值）</h6>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="showPeoVal()">
+                        <i class="fas fa-eye me-1"></i>顯示目前選取值
+                    </button>
+                    <pre id="peoValResult" class="bg-light p-2 mt-2 mb-0 small" style="white-space:pre-wrap;"></pre>
+                    <div class="form-text">
+                        值由 hidden input 承載（<code>name=PeoIds1</code> / <code>PeoId2</code>），放進 &lt;form&gt; 後端用同名參數即可收到；
+                        此處只是把欄位內容讀出來顯示。<code>window.orgPeople1_getTokens()</code> 為備用 JS API，回傳同一份 token。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 人員選擇器取值示範：值就在 hidden 欄位，這裡只是讀出來顯示
+    window.showPeoVal = function () {
+        var v1 = (document.getElementsByName('PeoIds1')[0] || {}).value || '(空)';
+        var v2 = (document.getElementsByName('PeoId2')[0] || {}).value || '(空)';
+        var v3 = (document.getElementsByName('PeoIds3')[0] || {}).value || '(空)';
+        var api = (typeof window.orgPeople1_getTokens === 'function') ? window.orgPeople1_getTokens() : '(無)';
+        document.getElementById('peoValResult').textContent =
+            'PeoIds1（複選，hidden 欄位） = ' + v1 + '\n' +
+            'PeoId2（單選，hidden 欄位）  = ' + v2 + '\n' +
+            'PeoIds3（含離職+排除自己）  = ' + v3 + '\n' +
+            'JS API orgPeople1_getTokens() = ' + api;
+    };
+
+    // 日期選擇器初始化
+    $('#testDate').datepicker();
+    $('#testMonth').datepicker({ minViewMode: 'months' });
+
+    // 日期取值顯示
+    $('#testDate, #testMonth').on('changeDate change input', function () {
+        var dateVal = $('#testDate').val() || '(空)';
+        var monthVal = $('#testMonth').val() || '(空)';
+        $('#dateResult').html('日期：<b>' + dateVal + '</b>　年月：<b>' + monthVal + '</b>');
+    });
+
+    // 檔案上傳測試（僅顯示資訊，不實際上傳）
+    function testUpload(inputId) {
+        var input = document.getElementById(inputId);
+        var files = input.files;
+        if (!files.length) {
+            ehrisAlert.warning('請先選擇檔案');
+            return;
+        }
+        var info = [];
+        for (var i = 0; i < files.length; i++) {
+            var size = (files[i].size / 1024).toFixed(1);
+            info.push(files[i].name + ' (' + size + ' KB)');
+        }
+        document.getElementById(inputId + 'Info').innerHTML =
+            '<i class="fas fa-file me-1"></i>已選擇 ' + files.length + ' 個檔案：<br>' + info.join('<br>');
+        ehrisAlert.success('已讀取 ' + files.length + ' 個檔案（測試模式，未實際上傳）');
+    }
+
+    // 拖放上傳
+    (function () {
+        var zone = document.getElementById('dropZone');
+        zone.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            zone.style.borderColor = '#0d6efd';
+            zone.style.background = 'rgba(13,110,253,0.05)';
+        });
+        zone.addEventListener('dragleave', function () {
+            zone.style.borderColor = '#adb5bd';
+            zone.style.background = '';
+        });
+        zone.addEventListener('drop', function (e) {
+            e.preventDefault();
+            zone.style.borderColor = '#adb5bd';
+            zone.style.background = '';
+            handleDropFiles(e.dataTransfer.files);
+        });
+    })();
+
+    function handleDropFiles(files) {
+        if (!files.length) return;
+        var info = [];
+        for (var i = 0; i < files.length; i++) {
+            var size = (files[i].size / 1024).toFixed(1);
+            info.push('<i class="fas fa-file me-1"></i>' + files[i].name + ' (' + size + ' KB)');
+        }
+        document.getElementById('dropFileInfo').innerHTML = '拖放了 ' + files.length + ' 個檔案：<br>' + info.join('<br>');
+        ehrisAlert.success('已讀取 ' + files.length + ' 個檔案（測試模式，未實際上傳）');
+    }
+</script>

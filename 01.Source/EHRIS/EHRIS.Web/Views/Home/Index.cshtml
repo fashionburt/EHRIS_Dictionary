@@ -1,0 +1,1185 @@
+@{
+    Layout = "_Layout"; 
+    string userName = ViewBag.PeoName ;
+}
+
+@* ═══════════════════════════════════════════════════════ 
+   設計目標：延伸上方子系統列的深藍底色，形成視覺連貫的頂部帶
+   效果：深藍漸層 + 磨砂玻璃通透感 + 纖細白色線條圖示 + 青色狀態高亮
+════════════════════════════════════════════════════════ *@
+<style>
+    /* ── 英雄橫幅主容器 ──
+       Header 使用完全相同的漸層 + 質感底紋 
+       形成 Header ＋ 橫幅「一整個連續藍色區塊」的視覺效果
+       border-top: none 確保與 Header 無縫銜接 ── */
+    .home-hero {
+        position: relative;
+        background-image:
+            radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0%, transparent 20%),
+            radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 30%),
+            linear-gradient(135deg, var(--theme-c1) 0%, var(--theme-c2) 50%, var(--theme-c3) 100%);
+        background-color: var(--theme-c1); /* fallback */
+        background-attachment: fixed;  /*  固定在 viewport，與 Header 共用同一漸層座標 */
+        background-size: 100% 100%;
+        padding: 0.9rem 1.75rem;
+        overflow: hidden;
+        border-top: none;                                    /* 與 Header 無縫接合 */
+        border-bottom: 1px solid rgba(255,255,255,0.10);    /* 同 txt border-bottom */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.18);           /* 整塊區域底部陰影 */
+        padding-bottom: 4rem;                               /* 卡片浮入預留空間 */
+    }
+
+    /* 頂部光澤反射層（磨砂玻璃通透感） */
+    .home-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg,
+            rgba(255,255,255,0.05) 0%,
+            rgba(255,255,255,0.00) 100%);
+        pointer-events: none;
+    }
+
+    /* 左側角落輻射光暈，製造科技深度感 */
+    .hero-glow {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        filter: blur(40px);
+        opacity: 0.35;
+    }
+    .hero-glow-l {
+        width: 280px; height: 280px;
+        left: -80px; top: -120px;
+        background: radial-gradient(circle, rgba(40,120,255,0.7), transparent 70%);
+    }
+    .hero-glow-r {
+        width: 220px; height: 220px;
+        right: 60px; top: -100px;
+        background: radial-gradient(circle, rgba(0,200,255,0.45), transparent 70%);
+    }
+
+    /* 底部青色發光線條：呼應 Header active 底線設計 */
+    .hero-bottom-line {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 2px;
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(0,210,255,0.7) 20%,
+            rgba(100,180,255,0.9) 50%,
+            rgba(0,210,255,0.7) 80%,
+            transparent 100%);
+        box-shadow: 0 0 10px rgba(0,200,255,0.5);
+    }
+
+    /* ── 橫幅主體：三欄 Flex 佈局 ── */
+    .hero-body {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    /* 左欄：使用者資訊 */
+    .hero-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-shrink: 0;
+        min-width: 160px;
+    }
+    .hero-avatar-icon {
+        font-size: 2rem;
+        color: rgba(255,255,255,0.75);
+        line-height: 1;
+    }
+    .hero-username {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 0.04em;
+    }
+    .hero-subtitle {
+        font-size: 0.72rem;
+        color: rgba(160,210,255,0.65);
+        margin-top: 2px;
+        letter-spacing: 0.06em;
+    }
+
+    /* 分隔線 */
+    .hero-vdivider {
+        width: 1px;
+        height: 36px;
+        background: rgba(255,255,255,0.15);
+        flex-shrink: 0;
+    }
+
+    /* 中欄：狀態統計卡（纖細圖示 + 青色高亮） */
+    .hero-stats {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        flex: 1;
+        justify-content: center;
+    }
+    .hero-stat-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.3rem 1.1rem;
+        border-radius: 8px;
+        cursor: default;
+        transition: background 0.2s;
+        min-width: 80px;
+    }
+    .hero-stat-card:hover {
+        background: rgba(255,255,255,0.07);
+    }
+    /* [Claude] 青色高亮狀態：當前選中/重要項目 */
+    .hero-stat-card.is-active {
+        background: rgba(0,210,255,0.1);
+        border: 1px solid rgba(0,210,255,0.3);
+        box-shadow: 0 0 16px rgba(0,210,255,0.15);
+    }
+    .hero-stat-card.is-active .stat-icon  { color: #00d4ff; }
+    .hero-stat-card.is-active .stat-value { color: #00d4ff; text-shadow: 0 0 8px rgba(0,210,255,0.6); }
+
+    .stat-icon {
+        font-size: 1.1rem;
+        color: rgba(200,225,255,0.7);
+        line-height: 1;
+        margin-bottom: 3px;
+    }
+    .stat-value {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #ffffff;
+        line-height: 1.1;
+    }
+    .stat-label {
+        font-size: 0.68rem;
+        color: rgba(160,200,255,0.6);
+        letter-spacing: 0.04em;
+        margin-top: 2px;
+        white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════════════════
+       [Claude] 主儀表板區域樣式
+       參考 2026032305.png / 2026032306.png 設計
+       卡片往上浮，融入藍色底圖
+    ══════════════════════════════════════════════ */
+
+    /* ── 外層容器：負 margin-top 讓卡片浮入藍底下半 ──
+       [Claude] gradient 背景：頂部透明→漸變為頁面背景色
+       使卡片「從藍色中長出」的視覺效果 */
+    .dashboard-wrap {
+        margin-top: -4.5rem;
+        padding: 0 1.25rem 1.25rem;
+        position: relative;
+        z-index: 5;
+        background: linear-gradient(to bottom,
+            transparent 0%,
+            transparent 2.8rem,
+            #f0f4f8 4rem);
+        min-height: calc(100vh - 200px);
+    }
+
+    /* ── 通用卡片 ── */
+    .dash-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+        padding: 1rem 1.15rem 0.9rem;
+        height: 100%;
+    }
+
+    /* [Claude] 卡片標題：放大 + 彩色圖示圓角方塊，讓主頁生動活潑 */
+    .dash-card-title {
+        font-size: 0.92rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        margin-bottom: 0.7rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding-bottom: 0.55rem;
+        border-bottom: 2px solid #f0f3f8;
+    }
+    .dash-card-title i {
+        font-size: 0.95rem;
+        width: 30px; height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        flex-shrink: 0;
+    }
+    /* [Claude] 各卡片色系（標題文字 + 圖示底色） */
+    .t-blue   { color: #1a4ea8; border-bottom-color: #dbeafe !important; }
+    .t-blue   i { background: #dbeafe; color: #2563eb; }
+    .t-green  { color: #065f46; border-bottom-color: #d1fae5 !important; }
+    .t-green  i { background: #d1fae5; color: #059669; }
+    .t-orange { color: #92400e; border-bottom-color: #fef3c7 !important; }
+    .t-orange i { background: #fef3c7; color: #d97706; }
+    .t-purple { color: #4c1d95; border-bottom-color: #ede9fe !important; }
+    .t-purple i { background: #ede9fe; color: #7c3aed; }
+    .t-red    { color: #991b1b; border-bottom-color: #fee2e2 !important; }
+    .t-red    i { background: #fee2e2; color: #dc2626; }
+    .t-teal   { color: #134e4a; border-bottom-color: #ccfbf1 !important; }
+    .t-teal   i { background: #ccfbf1; color: #0d9488; }
+    .t-indigo { color: #312e81; border-bottom-color: #e0e7ff !important; }
+    .t-indigo i { background: #e0e7ff; color: #4f46e5; }
+    .t-pink   { color: #831843; border-bottom-color: #fce7f3 !important; }
+    .t-pink   i { background: #fce7f3; color: #db2777; }
+    .t-slate  { color: #1e293b; border-bottom-color: #e2e8f0 !important; }
+    .t-slate  i { background: #e2e8f0; color: #475569; }
+
+    /* ── ① 出勤打卡卡片 ── */
+    .attend-card {
+        text-align: center;
+    }
+    .attend-date-row {
+        font-size: 0.78rem;
+        color: #8a9bb0;
+        margin-bottom: 0.25rem;
+    }
+    /* [Claude] 大時鐘：仿參考圖深藍數字、字寬等比 */
+    .attend-clock {
+        font-size: 2.6rem;
+        font-weight: 300;
+        color: #1a3a5f;
+        letter-spacing: 0.05em;
+        font-variant-numeric: tabular-nums;
+        line-height: 1;
+        margin: 0.2rem 0 0.7rem;
+    }
+    /* [Claude] 打卡按鈕區 */
+    .punch-btns {
+        display: flex;
+        gap: 0.6rem;
+        justify-content: center;
+    }
+    .btn-punch-in {
+        flex: 1;
+        max-width: 110px;
+        padding: 0.45rem 0;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: none;
+        background: linear-gradient(135deg, #2a6fd4 0%, #1a4ea8 100%);
+        color: #fff;
+        box-shadow: 0 3px 10px rgba(42,111,212,0.35);
+        transition: transform 0.15s, box-shadow 0.15s;
+        cursor: pointer;
+    }
+    .btn-punch-in:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 14px rgba(42,111,212,0.45);
+    }
+    .btn-punch-out {
+        flex: 1;
+        max-width: 110px;
+        padding: 0.45rem 0;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: none;
+        background: linear-gradient(135deg, #f78c2a 0%, #e06a00 100%);
+        color: #fff;
+        box-shadow: 0 3px 10px rgba(247,140,42,0.35);
+        transition: transform 0.15s, box-shadow 0.15s;
+        cursor: pointer;
+    }
+    .btn-punch-out:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 14px rgba(247,140,42,0.45);
+    }
+
+    /* ── ② 待簽核卡片 ── */
+    .pending-count {
+        font-size: 2.6rem;
+        font-weight: 700;
+        color: #2a6fd4;
+        line-height: 1;
+        margin: 0.3rem 0 0.2rem;
+    }
+    .pending-sub {
+        font-size: 0.72rem;
+        color: #aab4c0;
+    }
+
+    /* ── ③ 退件申請卡片 ── */
+    .returned-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+        margin-top: 0.3rem;
+    }
+    .returned-num {
+        font-size: 2.2rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+    .returned-num.primary { color: #2a6fd4; }
+    .returned-num.muted   { color: #c5cdd8; }
+    .returned-label {
+        font-size: 0.7rem;
+        color: #aab4c0;
+        margin-bottom: 4px;
+    }
+
+    /* ── ④ 異常訊息卡片 ── */
+    .except-list {
+        margin: 0; padding: 0;
+        list-style: none;
+    }
+    .except-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.45rem;
+        padding: 0.28rem 0;
+        font-size: 0.76rem;
+        color: #4a5568;
+        border-bottom: 1px solid #f0f2f5;
+    }
+    .except-list li:last-child { border-bottom: none; }
+    .except-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+    }
+    .except-dot.warn  { background: #f59e0b; }
+    .except-dot.error { background: #ef4444; }
+    .except-dot.info  { background: #3b82f6; }
+    .except-time {
+        font-size: 0.68rem;
+        color: #aab4c0;
+        white-space: nowrap;
+    }
+
+    /* ── ⑤ 第二列統計卡 ── */
+    .stat2-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .stat2-icon-wrap {
+        width: 44px; height: 44px;
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+    .stat2-icon-wrap.blue   { background: rgba(42,111,212,0.12); color: #2a6fd4; }
+    .stat2-icon-wrap.orange { background: rgba(247,140,42,0.12); color: #f78c2a; }
+    .stat2-icon-wrap.green  { background: rgba(16,185,129,0.12); color: #10b981; }
+    .stat2-body { flex: 1; }
+    .stat2-num {
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: #1a2d56;
+        line-height: 1;
+    }
+    .stat2-label {
+        font-size: 0.72rem;
+        color: #8a9bb0;
+        margin-top: 2px;
+    }
+    .stat2-badge {
+        font-size: 0.68rem;
+        padding: 0.15rem 0.45rem;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+    .stat2-badge.warn  { background: #fef3c7; color: #92400e; }
+    .stat2-badge.ok    { background: #d1fae5; color: #065f46; }
+
+    /* ── ⑥ 出勤記錄表 ── */
+    .attend-log-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.78rem;
+    }
+    .attend-log-table thead th {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #8a9bb0;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.3rem 0.5rem 0.5rem;
+        border-bottom: 1px solid #e8ecf0;
+    }
+    .attend-log-table tbody td {
+        padding: 0.45rem 0.5rem;
+        color: #3a4a5c;
+        border-bottom: 1px solid #f2f5f8;
+        vertical-align: middle;
+    }
+    .attend-log-table tbody tr:last-child td { border-bottom: none; }
+    .attend-log-table tbody tr:hover td { background: #f7f9fc; }
+
+    /* [Claude] 出勤狀態標籤 */
+    .attend-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 0.15rem 0.55rem;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+    .attend-status.present { background: #d1fae5; color: #065f46; }
+    .attend-status.absent  { background: #fee2e2; color: #991b1b; }
+    .attend-status.late    { background: #fef3c7; color: #92400e; }
+    .attend-status.leave   { background: #e0e7ff; color: #3730a3; }
+
+    /* [Claude] 出勤狀態圓點 */
+    .status-dot {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .status-dot.present { background: #10b981; }
+    .status-dot.absent  { background: #ef4444; }
+    .status-dot.late    { background: #f59e0b; }
+    .status-dot.leave   { background: #6366f1; }
+
+    /* ── ⑦ 公告/個人訊息分頁 ── */
+    .msg-tabs {
+        display: flex;
+        gap: 0;
+        border-bottom: 2px solid #e8ecf0;
+        margin-bottom: 0.75rem;
+    }
+    .msg-tab-btn {
+        padding: 0.35rem 0.9rem 0.55rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #8a9bb0;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        cursor: pointer;
+        transition: color 0.15s, border-color 0.15s;
+    }
+    .msg-tab-btn.active {
+        color: #2a6fd4;
+        border-bottom-color: #2a6fd4;
+    }
+    .msg-tab-btn:hover:not(.active) { color: #4a5568; }
+
+    .msg-tab-panel { display: none; }
+    .msg-tab-panel.active { display: block; }
+
+    .msg-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.76rem;
+    }
+    .msg-table thead th {
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: #8a9bb0;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.25rem 0.4rem 0.45rem;
+        border-bottom: 1px solid #e8ecf0;
+    }
+    .msg-table tbody td {
+        padding: 0.42rem 0.4rem;
+        color: #3a4a5c;
+        border-bottom: 1px solid #f2f5f8;
+        vertical-align: middle;
+    }
+    .msg-table tbody tr:last-child td { border-bottom: none; }
+    .msg-table tbody tr:hover td { background: #f7f9fc; cursor: pointer; }
+
+    .msg-title-cell {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .msg-new-badge {
+        display: inline-block;
+        background: #ef4444;
+        color: #fff;
+        font-size: 0.6rem;
+        font-weight: 700;
+        border-radius: 3px;
+        padding: 0 4px;
+        margin-right: 3px;
+        vertical-align: middle;
+        line-height: 1.5;
+    }
+
+    /* ── [Claude] 右上角 IP 顯示（英雄橫幅右側，參考 2026032307.png） ── */
+    .hero-ip {
+        margin-left: auto;
+        flex-shrink: 0;
+        font-size: 1rem;
+        color: rgba(160,210,255,0.65);
+        letter-spacing: 0.03em;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        white-space: nowrap;
+    }
+    .hero-ip i { font-size: 0.75rem; }
+
+    /* ── [Claude] 圓型打卡按鈕（參考 2026032307_Sample.png） ── */
+    .punch-circle-wrap {
+        display: flex;
+        gap: 1.4rem;
+        justify-content: center;
+        margin: 0.4rem 0 0.9rem;
+    }
+    .btn-punch-circle {
+        width: 82px;
+        height: 82px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #fff;
+        transition: transform 0.15s, box-shadow 0.15s;
+        position: relative;
+    }
+    .btn-punch-circle::after {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn-punch-circle i { font-size: 1.5rem; line-height: 1; }
+    .btn-punch-circle:hover { transform: scale(1.07); }
+    .punch-in-circle {
+        background: linear-gradient(145deg, #3a7fe8 0%, #1a4ea8 100%);
+        box-shadow: 0 6px 18px rgba(42,111,212,0.45);
+    }
+    .punch-out-circle {
+        background: linear-gradient(145deg, #fca040 0%, #e06a00 100%);
+        box-shadow: 0 6px 18px rgba(247,140,42,0.45);
+    }
+    .punch-in-circle:hover  { box-shadow: 0 8px 24px rgba(42,111,212,0.55); }
+    .punch-out-circle:hover { box-shadow: 0 8px 24px rgba(247,140,42,0.55); }
+
+    /* ── [Claude] 今日刷卡記錄（打卡卡片下方） ── */
+    .punch-log-wrap {
+        border-top: 1px solid #f0f2f5;
+        margin-top: 0.3rem;
+        padding-top: 0.55rem;
+        text-align: left;
+    }
+    .punch-log-header {
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: #8a9bb0;
+        margin-bottom: 0.3rem;
+        letter-spacing: 0.03em;
+    }
+    .punch-log-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.72rem;
+    }
+    .punch-log-table th {
+        font-size: 0.63rem;
+        color: #aab4c0;
+        font-weight: 600;
+        padding: 0.18rem 0.3rem;
+        border-bottom: 1px solid #f0f2f5;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+    .punch-log-table td {
+        padding: 0.28rem 0.3rem;
+        color: #4a5568;
+        border-bottom: 1px solid #f7f9fc;
+    }
+    .punch-log-table tbody tr:last-child td { border-bottom: none; }
+    .punch-log-empty {
+        text-align: center;
+        color: #c0cad8;
+        font-size: 0.7rem;
+        padding: 0.5rem 0;
+    }
+    .punch-type-badge {
+        display: inline-block;
+        padding: 0.1rem 0.4rem;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 600;
+    }
+    .punch-type-badge.in  { background: #dbeafe; color: #1e40af; }
+    .punch-type-badge.out { background: #ffedd5; color: #9a3412; }
+
+    /* ── [Claude] 簽核類統計卡（大數字 + 各色區分） ── */
+    .approval-count { font-size: 2.8rem; font-weight: 800; line-height: 1; margin: 0.2rem 0 0.2rem; }
+    .approval-count.clr-blue   { color: #2563eb; }
+    .approval-count.clr-green  { color: #059669; }
+    .approval-count.clr-orange { color: #d97706; }
+    .approval-count.clr-purple { color: #7c3aed; }
+    .approval-sub { font-size: 0.74rem; color: #94a3b8; font-weight: 500; }
+
+    /* ══════════════════════════════════════════════
+       [Claude] 待處理事項大卡片（參考 2026032308.png）
+       外層大卡片 + 內部小卡片格，彩色頂部色條設計
+    ══════════════════════════════════════════════ */
+
+    /* ── 外層大卡片：與出勤打卡卡片等高 ── */
+    .pending-main-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+        padding: 1rem 1.15rem 0.9rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .pending-main-title {
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: #1a2d56;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.55rem;
+        border-bottom: 2px solid #f0f3f8;
+        flex-shrink: 0;
+    }
+    .pending-main-title i {
+        font-size: 0.95rem;
+        width: 30px; height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: #fef3c7;
+        color: #d97706;
+    }
+
+    /* ── 小卡片格（最多15張，5欄3列） ── */
+    .pending-grid {
+        flex: 1;
+        display: grid;
+        /* [Claude] 桌面版5欄，滿3列後可捲動 */
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.6rem;
+        align-content: start;
+        overflow-y: auto;
+    }
+
+    /* ── 待處理小卡片 ── */
+    .pmc {
+        border-radius: 10px;
+        border: 1px solid #e8ecf0;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.15s;
+        display: flex;
+        flex-direction: column;
+        min-height: 100px;
+        background: #ffffff;
+    }
+    .pmc:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+        border-color: transparent;
+    }
+
+    /* [Claude] 小卡片頂部彩色色條（圖示 + 標題） */
+    .pmc-top {
+        padding: 0.4rem 0.55rem;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        flex-shrink: 0;
+        line-height: 1.2;
+    }
+    .pmc-top i { font-size: 0.85rem; }
+
+    /* [Claude] 小卡片內容區（大數字 + 小說明） */
+    .pmc-body {
+        padding: 0.3rem 0.55rem 0.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .pmc-num {
+        font-size: 1.65rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 0.1rem;
+    }
+    .pmc-num-row {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        margin-bottom: 0.15rem;
+    }
+    .pmc-num-main { font-size: 1.65rem; font-weight: 800; line-height: 1; }
+    .pmc-num-sub  { font-size: 1.2rem; font-weight: 700; color: #c5cdd8; line-height: 1; }
+    .pmc-label { font-size: 0.62rem; color: #94a3b8; font-weight: 500; white-space: nowrap; }
+
+    /* [Claude] 各色系（頂部背景/文字 + 數字色） */
+    .pmc-blue   .pmc-top { background: #dbeafe; color: #1d4ed8; }
+    .pmc-blue   .pmc-num, .pmc-blue   .pmc-num-main { color: #2563eb; }
+    .pmc-green  .pmc-top { background: #d1fae5; color: #065f46; }
+    .pmc-green  .pmc-num, .pmc-green  .pmc-num-main { color: #059669; }
+    .pmc-orange .pmc-top { background: #fef3c7; color: #92400e; }
+    .pmc-orange .pmc-num, .pmc-orange .pmc-num-main { color: #d97706; }
+    .pmc-purple .pmc-top { background: #ede9fe; color: #4c1d95; }
+    .pmc-purple .pmc-num, .pmc-purple .pmc-num-main { color: #7c3aed; }
+    .pmc-red    .pmc-top { background: #fee2e2; color: #991b1b; }
+    .pmc-red    .pmc-num, .pmc-red    .pmc-num-main { color: #dc2626; }
+    .pmc-teal   .pmc-top { background: #ccfbf1; color: #134e4a; }
+    .pmc-teal   .pmc-num, .pmc-teal   .pmc-num-main { color: #0d9488; }
+    .pmc-pink   .pmc-top { background: #fce7f3; color: #831843; }
+    .pmc-pink   .pmc-num, .pmc-pink   .pmc-num-main { color: #db2777; }
+    .pmc-indigo .pmc-top { background: #e0e7ff; color: #312e81; }
+    .pmc-indigo .pmc-num, .pmc-indigo .pmc-num-main { color: #4f46e5; }
+
+    /* ── 查看更多 footer ── */
+    .pending-footer {
+        flex-shrink: 0;
+        text-align: right;
+        margin-top: 0.6rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid #f0f3f8;
+    }
+    .pending-more-btn {
+        font-size: 0.75rem;
+        color: #2563eb;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+        transition: gap 0.15s;
+    }
+    .pending-more-btn:hover { gap: 0.4rem; }
+
+    /* ── 響應式 ── */
+    @@media (max-width: 768px) {
+        .home-hero {
+            padding-bottom: 2rem;
+        }
+        .dashboard-wrap {
+            padding: 0 0.75rem 0.75rem;
+            margin-top: -1.2rem;
+        }
+        .attend-clock  { font-size: 2rem; }
+        /* [Claude] 手機版：2欄排列 */
+        .pending-grid  { grid-template-columns: repeat(2, 1fr); }
+    }
+    @@media (min-width: 769px) and (max-width: 991px) {
+        /* 平板：3欄 */
+        .pending-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+</style>
+
+<div class="home-hero">
+    <!-- [Claude] 角落光暈裝飾 -->
+    <div class="hero-glow hero-glow-l"></div>
+    <div class="hero-glow hero-glow-r"></div>
+
+    <div class="hero-body">
+
+        <!-- [Claude] 左：使用者資訊 -->
+        <div class="hero-left">
+            <i class="bi bi-person-circle hero-avatar-icon"></i>
+            <div>
+                <div class="hero-username">@userName</div>
+                <div class="hero-subtitle">歡迎回來</div>
+            </div>
+        </div>
+
+        <!-- [Claude] 右：IP 位置（參考 2026032307.png 右上角，ViewBag.ClientIP 由 Controller 傳入） -->
+        <div class="hero-ip">
+            <i class="bi bi-hdd-network"></i>
+            目前位置：<span id="heroIpText">@(ViewBag.ClientIP ?? "—")</span>
+        </div>
+
+    </div>
+
+    <!-- [Claude] 底部青色發光線條 -->
+    <div class="hero-bottom-line"></div>
+</div>
+
+@* ═══════════════════════════════════════════════════════
+   [Claude] 主儀表板內容區
+   參考 2026032305.png 紅框內容：
+   列1：打卡時鐘 + 待簽核 + 退件申請 + 異常訊息
+   列2：出勤警告 + 未打卡 + 班別申請
+   列3：出勤記錄表（左）+ 公告/個人訊息（右）
+════════════════════════════════════════════════════════ *@
+<div class="dashboard-wrap">
+
+    @* ══ 第一列：出勤打卡 + 五張審核卡 ══ *@
+    @* [Claude] 出勤打卡(xl-4) + 5 張 auto-width 統計卡共用剩餘 8 cols *@
+    <div class="row g-3 mb-3">
+
+        <!-- ① 出勤打卡 -->
+        <div class="col-12 col-xl-4">
+            <div class="dash-card attend-card">
+                <div class="dash-card-title t-blue">
+                    <i class="bi bi-clock-fill"></i> 出勤打卡
+                </div>
+                <div class="attend-date-row" id="dashDate"></div>
+                <div class="attend-clock" id="dashClock">--:--:--</div>
+                <div class="punch-circle-wrap">
+                    <button class="btn-punch-circle punch-in-circle" onclick="confirmPunch('in')">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span>上班</span>
+                    </button>
+                    <button class="btn-punch-circle punch-out-circle" onclick="confirmPunch('out')">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>下班</span>
+                    </button>
+                </div>
+                @* [Claude] 今日刷卡記錄（示意資料，未來由 ViewBag.TodayPunchLogs 傳入） *@
+                <div class="punch-log-wrap">
+                    <div class="punch-log-header">
+                        <i class="bi bi-list-ul me-1"></i>您今日刷卡紀錄
+                    </div>
+                    <table class="punch-log-table">
+                        <thead>
+                            <tr><th>刷卡類別</th><th>卡號</th><th>刷卡時間</th></tr>
+                        </thead>
+                        <tbody id="punchLogBody">
+                            <tr>
+                                <td><span class="punch-type-badge in">上班</span></td>
+                                <td>9999999999</td>
+                                <td>115-03-23 08:30:15</td>
+                            </tr>
+                            <tr>
+                                <td><span class="punch-type-badge out">下班</span></td>
+                                <td>9999999999</td>
+                                <td>115-03-23 11:58:23</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ② 待處理事項大卡片（含所有審核類小卡片）-->
+        @* [Claude] 參考 2026032308.png：大卡片容納最多 15 張小卡片（5欄×3列）
+           高度與出勤打卡卡片一致（h-100）；未來依單位動態產生小卡片 *@
+        <div class="col-12 col-xl-8">
+            <div class="pending-main-card">
+
+                <!-- 大卡片標題 -->
+                <div class="pending-main-title">
+                    <i class="bi bi-bell-fill"></i>
+                    待處理事項
+                </div>
+
+                <!-- 小卡片格（目前5張，最多可到15張） -->
+                @* [Claude] 各小卡片由後端依權限動態產生；此為示意5張
+                   顏色色系：.pmc-blue / .pmc-green / .pmc-orange / .pmc-purple / .pmc-red
+                   頂部色條由 .pmc-top 搭配色系 class 自動套用 *@
+                <div class="pending-grid">
+
+                    <!-- 待簽核 -->
+                    <div class="pmc pmc-blue">
+                        <div class="pmc-top">
+                            <i class="bi bi-hourglass-split"></i> 待簽核
+                        </div>
+                        <div class="pmc-body">
+                            <div class="pmc-num">@(ViewBag.PendingCount ?? 0)</div>
+                            <div class="pmc-label">筆待簽核單據</div>
+                        </div>
+                    </div>
+
+                    <!-- 代理簽核 -->
+                    <div class="pmc pmc-green">
+                        <div class="pmc-top">
+                            <i class="bi bi-person-check-fill"></i> 代理簽核
+                        </div>
+                        <div class="pmc-body">
+                            <div class="pmc-num">@(ViewBag.ProxyApprovalCount ?? 0)</div>
+                            <div class="pmc-label">筆代理簽核</div>
+                        </div>
+                    </div>
+
+                    <!-- 送審文件 -->
+                    <div class="pmc pmc-orange">
+                        <div class="pmc-top">
+                            <i class="bi bi-file-earmark-arrow-up-fill"></i> 送審文件
+                        </div>
+                        <div class="pmc-body">
+                            <div class="pmc-num">@(ViewBag.SubmittedDocCount ?? 0)</div>
+                            <div class="pmc-label">筆送審中文件</div>
+                        </div>
+                    </div>
+
+                    <!-- 代理移轉審核 -->
+                    <div class="pmc pmc-purple">
+                        <div class="pmc-top">
+                            <i class="bi bi-arrow-left-right"></i> 代理移轉審核
+                        </div>
+                        <div class="pmc-body">
+                            <div class="pmc-num">@(ViewBag.TransferApprovalCount ?? 0)</div>
+                            <div class="pmc-label">筆移轉審核</div>
+                        </div>
+                    </div>
+
+                    <!-- 退件申請（雙數字：待補件 / 已補件） -->
+                    <div class="pmc pmc-red">
+                        <div class="pmc-top">
+                            <i class="bi bi-arrow-return-left"></i> 退件申請
+                        </div>
+                        <div class="pmc-body">
+                            <div class="pmc-num-row">
+                                <span class="pmc-num-main">@(ViewBag.ReturnedCount ?? 0)</span>
+                                <span class="pmc-num-sub">@(ViewBag.SupplementedCount ?? 0)</span>
+                            </div>
+                            <div class="pmc-label">待補件 ／ 已補件</div>
+                        </div>
+                    </div>
+
+                </div><!-- /pending-grid -->
+
+                <!-- 查看更多 -->
+                <div class="pending-footer">
+                    <a href="#" class="pending-more-btn">
+                        查看更多 <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div><!-- /第一列 -->
+
+    @* ══ 第二列：[公告/代理/個人訊息] 頁籤 + [異常訊息/近期出勤] 頁籤 ══ *@
+    <div class="row g-3">
+
+        <!-- 左：公告訊息、代理訊息、個人訊息（三頁籤） -->
+        <div class="col-12 col-lg-6">
+            <div class="dash-card">
+                <div class="msg-tabs" id="tabsLeft">
+                    <button class="msg-tab-btn active" onclick="switchDashTab('tabsLeft','panel-announce',this)">
+                        <i class="bi bi-megaphone-fill me-1"></i>公告訊息
+                    </button>
+                    <button class="msg-tab-btn" onclick="switchDashTab('tabsLeft','panel-proxy',this)">
+                        <i class="bi bi-people-fill me-1"></i>代理訊息
+                    </button>
+                    <button class="msg-tab-btn" onclick="switchDashTab('tabsLeft','panel-personal',this)">
+                        <i class="bi bi-envelope-fill me-1"></i>個人訊息
+                    </button>
+                </div>
+
+                <!-- 公告訊息 -->
+                @* [Claude] ViewBag.Announcements（示意資料） *@
+                <div id="panel-announce" class="msg-tab-panel active">
+                    <table class="msg-table">
+                        <thead>
+                            <tr>
+                                <th style="width:88px;">日期</th>
+                                <th>內容</th>
+                                <th style="width:55px;">發布者</th>
+                                <th style="width:88px;">截止日期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2024-05-07</td><td class="msg-title-cell"><span class="msg-new-badge">NEW</span>人事行政注意事項公告</td><td>人事室</td><td>2024-05-31</td></tr>
+                            <tr><td>2024-05-06</td><td class="msg-title-cell">教職員工差假規則修正說明</td><td>人事室</td><td>2024-05-10</td></tr>
+                            <tr><td>2024-04-30</td><td class="msg-title-cell">113學年度第2學期差勤作業說明</td><td>總務處</td><td>2024-05-15</td></tr>
+                            <tr><td>2024-04-25</td><td class="msg-title-cell">五一勞動節假期出勤加班說明</td><td>人事室</td><td>2024-04-30</td></tr>
+                            <tr><td>2024-04-18</td><td class="msg-title-cell">健康檢查時程通知（教職員）</td><td>衛生組</td><td>2024-05-31</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 代理訊息 -->
+                @* [Claude] ViewBag.ProxyMessages（示意資料） *@
+                <div id="panel-proxy" class="msg-tab-panel">
+                    <ul class="except-list">
+                        <li>
+                            <span class="except-dot info"></span>
+                            <span class="flex-fill">王小明 已指定您為代理人（115-03-20 起）</span>
+                            <span class="except-time">昨天</span>
+                        </li>
+                        <li>
+                            <span class="except-dot warn"></span>
+                            <span class="flex-fill">您有 2 筆代理簽核待處理</span>
+                            <span class="except-time">今天</span>
+                        </li>
+                        <li>
+                            <span class="except-dot info"></span>
+                            <span class="flex-fill">代理移轉：陳大華 → 您（差勤申請）</span>
+                            <span class="except-time">3天前</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 個人訊息 -->
+                @* [Claude] ViewBag.PersonalMessages（示意資料） *@
+                <div id="panel-personal" class="msg-tab-panel">
+                    <table class="msg-table">
+                        <thead>
+                            <tr>
+                                <th style="width:88px;">日期</th>
+                                <th>內容</th>
+                                <th style="width:55px;">來源</th>
+                                <th style="width:50px;">狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2024-05-07</td><td class="msg-title-cell"><span class="msg-new-badge">NEW</span>您的請假申請已核准</td><td>系統通知</td><td><span class="attend-status present" style="font-size:0.65rem;padding:0.1rem 0.4rem;">已讀</span></td></tr>
+                            <tr><td>2024-05-06</td><td class="msg-title-cell"><span class="msg-new-badge">NEW</span>加班申請待主管審核</td><td>系統通知</td><td><span class="attend-status late" style="font-size:0.65rem;padding:0.1rem 0.4rem;">未讀</span></td></tr>
+                            <tr><td>2024-04-29</td><td class="msg-title-cell">差勤異常通知 - 請確認打卡記錄</td><td>人事室</td><td><span class="attend-status present" style="font-size:0.65rem;padding:0.1rem 0.4rem;">已讀</span></td></tr>
+                            <tr><td>2024-04-18</td><td class="msg-title-cell">健康檢查提醒（教職員）</td><td>衛生組</td><td><span class="attend-status present" style="font-size:0.65rem;padding:0.1rem 0.4rem;">已讀</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右：異常訊息、近期出勤記錄（兩頁籤） -->
+        <div class="col-12 col-lg-6">
+            <div class="dash-card">
+                <div class="msg-tabs" id="tabsRight">
+                    <button class="msg-tab-btn active" onclick="switchDashTab('tabsRight','panel-exception',this)">
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i>異常訊息
+                    </button>
+                    <button class="msg-tab-btn" onclick="switchDashTab('tabsRight','panel-attendlog',this)">
+                        <i class="bi bi-calendar2-check-fill me-1"></i>近期出勤記錄
+                    </button>
+                </div>
+
+                <!-- 異常訊息 -->
+                @* [Claude] ViewBag.ExceptionMessages（示意資料） *@
+                <div id="panel-exception" class="msg-tab-panel active">
+                    <ul class="except-list">
+                        <li>
+                            <span class="except-dot warn"></span>
+                            <span class="flex-fill">115-02-25 上班未打卡，請補打卡申請</span>
+                            <span class="except-time">09:30</span>
+                        </li>
+                        <li>
+                            <span class="except-dot error"></span>
+                            <span class="flex-fill">115-02-20 差勤異常，出勤時數不足</span>
+                            <span class="except-time">17:05</span>
+                        </li>
+                        <li>
+                            <span class="except-dot info"></span>
+                            <span class="flex-fill">115-02-18 請假申請待主管核准</span>
+                            <span class="except-time">昨天</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 近期出勤記錄 -->
+                @* [Claude] ViewBag.AttendLogs（示意資料） *@
+                <div id="panel-attendlog" class="msg-tab-panel">
+                    <table class="attend-log-table">
+                        <thead>
+                            <tr><th>日期</th><th>內容</th><th>狀態</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>115-02-25</td><td>上班 / 下班</td><td><span class="attend-status present"><span class="status-dot present"></span>正常</span></td></tr>
+                            <tr><td>115-02-24</td><td>上班 / 下班</td><td><span class="attend-status present"><span class="status-dot present"></span>正常</span></td></tr>
+                            <tr><td>115-02-21</td><td>上班 / 午午卡</td><td><span class="attend-status late"><span class="status-dot late"></span>異常</span></td></tr>
+                            <tr><td>115-02-20</td><td>上班 / 下班</td><td><span class="attend-status present"><span class="status-dot present"></span>正常</span></td></tr>
+                            <tr><td>115-02-19</td><td>事假</td><td><span class="attend-status leave"><span class="status-dot leave"></span>請假</span></td></tr>
+                            <tr><td>115-02-18</td><td>上班 / 下班</td><td><span class="attend-status present"><span class="status-dot present"></span>正常</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /第二列 -->
+
+</div><!-- /dashboard-wrap -->
+
+@section Scripts {
+<script>
+    // [Claude] 打卡卡片即時時鐘
+    (function () {
+        const clockEl = document.getElementById('dashClock');
+        const dateEl  = document.getElementById('dashDate');
+        const weekNames = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+        function updateDashClock() {
+            const now = new Date();
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            const ss = String(now.getSeconds()).padStart(2, '0');
+
+            // [Claude] 民國年換算
+            const rocYear = now.getFullYear() - 1911;
+            const mo = String(now.getMonth() + 1).padStart(2, '0');
+            const dd = String(now.getDate()).padStart(2, '0');
+            const wd = weekNames[now.getDay()];
+
+            if (clockEl) clockEl.textContent = `${hh}:${mm}:${ss}`;
+            if (dateEl) dateEl.textContent = `${wd}　${rocYear}-${mo}-${dd}`;
+        }
+
+        updateDashClock();
+        setInterval(updateDashClock, 1000);
+    })();
+
+    // [Claude] 打卡確認（使用 SweetAlert2 確認彈窗）
+    function confirmPunch(type) {
+        const isIn = type === 'in';
+        Swal.fire({
+            title: isIn ? '確認上班打卡？' : '確認下班打卡？',
+            html: `<div style="font-size:0.9rem;color:#6b7c93;">打卡時間將記錄為目前時間</div>`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: isIn ? '<i class="bi bi-box-arrow-in-right me-1"></i>確認上班' : '<i class="bi bi-box-arrow-right me-1"></i>確認下班',
+            cancelButtonText: '取消',
+            confirmButtonColor: isIn ? '#2a6fd4' : '#f78c2a',
+            cancelButtonColor: '#aab4c0',
+        }).then(result => {
+            if (result.isConfirmed) {
+                // [Claude] 打卡 API 呼叫區：未來接 /Attend/Punch
+                Swal.fire({
+                    icon: 'success',
+                    title: isIn ? '上班打卡成功' : '下班打卡成功',
+                    text: `打卡時間：${new Date().toLocaleTimeString('zh-TW')}`,
+                    confirmButtonColor: '#2a6fd4',
+                    timer: 2500,
+                    timerProgressBar: true,
+                });
+            }
+        });
+    }
+
+    // [Claude] 通用頁籤切換（containerId 限定作用範圍，避免跨容器影響）
+    function switchDashTab(containerId, panelId, btn) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        // 找此 container 的父卡片，在其內切換 panel
+        const card = container.closest('.dash-card');
+        card.querySelectorAll('.msg-tab-panel').forEach(p => p.classList.remove('active'));
+        container.querySelectorAll('.msg-tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(panelId).classList.add('active');
+        btn.classList.add('active');
+    }
+</script>
+}

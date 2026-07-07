@@ -1,0 +1,50 @@
+﻿@model List<(string Text, string Url)>
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0" style="font-size:15px;">
+                        <li class="breadcrumb-item">
+                            <a href="~/Home/Index" class="breadcrumb-link">
+                                <i class="fas fa-home me-1"></i> 首頁
+                            </a>
+                        </li>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (string.IsNullOrEmpty(item.Url))
+                                {
+                                    <li class="breadcrumb-item active fw-semibold text-dark" aria-current="page">
+                                        @item.Text
+                                    </li>
+                                }
+                                else
+                                {
+                                   
+                                    <li class="breadcrumb-item">
+                                       
+                                        <a href="#" class="breadcrumb-link ajax-link" data-url="@item.Url">
+                                            @item.Text
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    string titleBarText = null;
+
+    if (Model != null && Model.Any())
+    {
+        titleBarText = Model.Last().Text;
+    }
+}

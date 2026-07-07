@@ -1,0 +1,84 @@
+﻿/*確認、取消按鈕設定*/
+.modal-footer {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+    .modal-footer .btn-secondary {
+        background-color: #d8d2dc; /* Morandi 淺灰紫 */
+        border-color: #d8d2dc;
+        color: #3f3a44; /* 深灰字體 */
+    }
+
+    .modal-footer .btn-primary {
+        background-color: #6c5b7b; /* Morandi 深紫灰 */
+        border-color: #6c5b7b; /* 邊框也要改，否則會有藍色邊框 */
+        color: #fff;
+    }
+
+.form-switch {
+    --switch-scale: 0.6;
+    padding-left: calc(3.5em * var(--switch-scale));
+}
+
+    .form-switch .form-check-input {
+        width: calc(3em * var(--switch-scale));
+        height: calc(1.5em * var(--switch-scale));
+        margin-left: calc(-3.5em * var(--switch-scale));
+        position: relative;
+        cursor: pointer;
+        appearance: none;
+        background-color: #ccc;
+        border-radius: 3em;
+        border: 1px solid #aaa;
+        transition: background-color 0.2s ease-in-out;
+        background-image: none;
+    }
+
+        .form-switch .form-check-input::before {
+            content: '';
+            position: absolute;
+            width: calc(1.1em * var(--switch-scale));
+            height: calc(1.1em * var(--switch-scale));
+            border-radius: 50%;
+            background-color: white;
+            top: calc(0.15em * var(--switch-scale));
+            left: calc(0.15em * var(--switch-scale));
+            transition: transform 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .form-switch .form-check-input:checked {
+            background: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+            .form-switch .form-check-input:checked::before {
+                transform: translateX(calc(1.5em * var(--switch-scale)));
+            }
+
+    .form-switch .form-check-label {
+        font-size: 1rem;
+    }
+
+#roleTable th,
+#roleTable td {
+    border: 1px solid #dee2e6;
+}
+
+.icon-btn {
+    background: none; /* 移除按鈕背景 */
+    border: none; /* 移除邊框 */
+    padding: 0; /* 去掉內距 */
+    cursor: pointer;
+    font-size: 1.1rem; /* icon 大小，可調整 */
+}
+
+    .icon-btn:hover {
+        opacity: 0.7; /* 滑鼠 hover 有點透明效果 */
+    }
+
+
+.treegrid-expander {
+    background-image: none !important;
+}

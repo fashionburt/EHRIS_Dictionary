@@ -1,0 +1,107 @@
+﻿@using EHRIS.Web.Shared.Models
+@{
+    ViewData["Title"] = "假別資料管理";
+    Layout = "_LayoutSub";
+}
+
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "holidayTable",
+                Columns = new[]
+                {
+                new TableColDef("代號",     "dt-col-min"),
+                new TableColDef("假別名稱", "dt-col-max"),
+                new TableColDef("統計",     "dt-col-min"),
+                new TableColDef("公務假別", "dt-col-min"),
+                new TableColDef("排序",     "dt-col-order"),
+                new TableColDef("修建者",   "dt-col-mod"),
+                new TableColDef("修建時間", "dt-col-time"),
+                new TableColDef("修改",     "dt-col-action"),
+                new TableColDef("刪除",     "dt-col-action"),
+                }
+                })
+    </div>
+</section>
+
+<div class="modal modal-morandi" id="holidayModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <span id="modal-mode-indicator" class="ms-2"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="holidayForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="holNo" />
+                    <div class="col-md-6">
+                        <label for="holCode" class="form-label">代號<span class="text-danger">*(長度為2位數)</span></label>
+                        <input type="text" class="form-control" id="holCode" required maxlength="2" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="holOrder" class="form-label">排序<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="holOrder" required value="0" min="0" />
+                    </div>
+                    <div class="col-md-12">
+                        <label for="holName" class="form-label">假別名稱<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="holName" required maxlength="100" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">是否統計<span class="text-danger">*</span></label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="holStatistics" id="statsYes" value="1">
+                                <label class="form-check-label" for="statsYes">是</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="holStatistics" id="statsNo" value="0">
+                                <label class="form-check-label" for="statsNo">否</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">是否為公務假別<span class="text-danger">*</span></label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="holOfficial" id="officialYes" value="1">
+                                <label class="form-check-label" for="officialYes">是</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="holOfficial" id="officialNo" value="0">
+                                <label class="form-check-label" for="officialNo">否</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" id="btnSave">儲存</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.permissionAction = {
+        pageUrl: '@Url.Action("SYS202006", "SYS202006")',
+        getHolidayData: '@Url.Action("GetHolidayData", "SYS202006")',
+        getHolidayForEdit: '@Url.Action("GetHolidayForEdit", "SYS202006")',
+        createHoliday: '@Url.Action("CreateHoliday", "SYS202006")',
+        updateHoliday: '@Url.Action("UpdateHoliday", "SYS202006")',
+        deleteHoliday: '@Url.Action("DeleteHoliday", "SYS202006")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @Html.Raw(Json.Serialize(ViewBag.AddStatus ?? false)),
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")'
+    };
+</script>

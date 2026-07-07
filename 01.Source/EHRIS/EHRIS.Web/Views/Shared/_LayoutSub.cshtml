@@ -1,0 +1,14 @@
+﻿@{
+    Layout = null;
+    var breadcrumb = ViewData["Breadcrumb"] as List<(string Text, string Url)>;
+}
+
+<div id="breadcrumbContainer">
+    @await Html.PartialAsync("_Breadcrumb", breadcrumb)
+</div>
+
+<div id="mvcContent">
+    @RenderBody()
+</div>
+
+@await Html.PartialAsync("_SwalMessages")

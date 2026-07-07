@@ -1,0 +1,625 @@
+﻿.bg-gray-300 {
+    background-color: #D1D5DB; /* 灰色 300 */
+    /*display: inline-block;*/ /* 讓 padding 與背景色生效 */
+    /*padding: 2px 6px;*/ /* 內距 */
+    border-radius: 2px; /* 可選，圓角美化 */
+    font-family: Arial, sans-serif;
+}
+/* 狀態色 */
+.bg-success-soft {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.bg-warning-soft {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.bg-danger-soft {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+/* ── [Claude] 左上角系統 Logo 區塊
+   改為白底深色文字，與側邊欄 Menu 視覺一致（標示2：去除 Menu 上方藍底）
+   高度維持 75px，與頂部 Header 對齊 ── */
+.sidebar-brand {
+    background-color: #ffffff !important; /* [Claude] 白底，移除原本的深藍色 */
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #dde3ef;
+}
+
+    .sidebar-brand .brand-link {
+        background-color: #ffffff !important;
+        color: #1a2d56 !important; /* [Claude] 深藍文字，白底上清晰可讀 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 75px;
+        text-decoration: none;
+    }
+
+/* [Claude] 標示1：Logo 文字自動縮放 — 依側欄寬度 clamp 字型，允許換行 */
+.sidebar-brand .brand-text {
+    color: #1a2d56 !important;
+    font-weight: 700;
+    margin-left: 6px;
+    /* clamp(最小, 偏好, 最大) — 隨視窗寬度自動縮放，不超出側欄 */
+    font-size: clamp(0.56rem, 1.05vw, 0.82rem);
+    white-space: normal;       /* 允許換行 */
+    line-height: 1.3;
+    word-break: break-all;
+    text-align: left;
+    max-width: calc(100% - 50px); /* 保留 Logo 圖片寬度 */
+}
+
+/* ══════════════════════════════════════════════════
+   [Claude] 標示2：功能清單全面美化（參考 2026032309.png）
+   主功能：彩色漸層圖示方塊 + 滑動動畫
+   次功能：彩色小圓點 + 縮排層次
+   ══════════════════════════════════════════════════ */
+
+/* ── 側欄本體：白底 ── */
+.app-sidebar {
+    background-color: #ffffff !important;
+}
+.sidebar-wrapper {
+    background-color: #ffffff !important;
+    color: #1a2d56;
+    border-right: 1px solid #e0e6f0;
+}
+
+/* ── [Claude] 側欄主功能色系 CSS 變數（2026032311）
+   每個 nth-child 定義 --mc(主), --mc-d(深), --mc-l(淺背景), --mc-sh(陰影)
+   子項目直接繼承父項顏色，無需 JS ── */
+.sidebar-menu > .nav-item:nth-child(6n+1) {
+    --mc: #3b82f6; --mc-d: #1d4ed8; --mc-l: #eff6ff; --mc-sh: rgba(59,130,246,0.25);
+}
+.sidebar-menu > .nav-item:nth-child(6n+2) {
+    --mc: #10b981; --mc-d: #047857; --mc-l: #ecfdf5; --mc-sh: rgba(16,185,129,0.25);
+}
+.sidebar-menu > .nav-item:nth-child(6n+3) {
+    --mc: #f59e0b; --mc-d: #b45309; --mc-l: #fffbeb; --mc-sh: rgba(245,158,11,0.25);
+}
+.sidebar-menu > .nav-item:nth-child(6n+4) {
+    --mc: #8b5cf6; --mc-d: #6d28d9; --mc-l: #f5f3ff; --mc-sh: rgba(139,92,246,0.25);
+}
+.sidebar-menu > .nav-item:nth-child(6n+5) {
+    --mc: #0d9488; --mc-d: #0f766e; --mc-l: #f0fdfa; --mc-sh: rgba(13,148,136,0.25);
+}
+.sidebar-menu > .nav-item:nth-child(6n+6) {
+    --mc: #ec4899; --mc-d: #be185d; --mc-l: #fdf2f8; --mc-sh: rgba(236,72,153,0.25);
+}
+
+/* ── 主功能項目（第2層）：粗體 + 大字 ── */
+.sidebar-menu > .nav-item > .nav-link,
+.sidebar-menu > .nav-item.has-treeview > .nav-link {
+    padding: 0.42rem 0.5rem !important;
+    border-radius: 10px;
+    margin: 2px 4px;
+    transition: all 0.22s ease;
+    color: #2c3e50 !important;
+    font-weight: 700;
+    font-size: 0.92rem;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+}
+.sidebar-menu > .nav-item > .nav-link p,
+.sidebar-menu > .nav-item.has-treeview > .nav-link p {
+    flex: 1 1 auto;
+    text-align: left !important;
+    margin: 0 !important;
+}
+/* hover：全項目換上色彩漸層底色 */
+.sidebar-menu > .nav-item > .nav-link:hover {
+    background: linear-gradient(135deg, var(--mc-l) 0%, color-mix(in srgb, var(--mc) 15%, white) 100%) !important;
+    color: var(--mc-d) !important;
+    transform: translateX(4px);
+    box-shadow: 0 2px 12px var(--mc-sh);
+}
+.sidebar-menu > .nav-item.menu-open > .nav-link {
+    background: linear-gradient(135deg, var(--mc-l) 0%, color-mix(in srgb, var(--mc) 18%, white) 100%) !important;
+    color: var(--mc-d) !important;
+}
+.sidebar-menu > .nav-item > .nav-link.active {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--mc) 20%, white) 0%, color-mix(in srgb, var(--mc) 30%, white) 100%) !important;
+    color: var(--mc-d) !important;
+    border-left: 3px solid var(--mc) !important;
+}
+
+/* ── 主功能圖示方塊（2字 28px）── */
+.sidebar-menu > .nav-item > .nav-link .nav-icon {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 7px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #ffffff !important;
+    flex-shrink: 0;
+    margin-right: 6px;
+    background: linear-gradient(135deg, var(--mc), var(--mc-d));
+    box-shadow: 0 3px 8px var(--mc-sh);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.sidebar-menu > .nav-item > .nav-link:hover .nav-icon {
+    transform: scale(1.1) rotate(-4deg);
+    box-shadow: 0 5px 14px var(--mc-sh);
+}
+
+/* ── [Claude] 功能前兩字動態圖示（2026032311）
+   顯示2個中文字，縮側欄後仍可識別功能 ── */
+.sidebar-menu .nav-char-icon {
+    font-style: normal !important;
+    font-family: "Microsoft JhengHei", "微軟正黑體", "PingFang TC", sans-serif !important;
+    font-weight: 900 !important;
+    font-size: 0.72rem !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1 !important;
+    min-width: 28px;
+    text-align: center;
+}
+
+/* ── 展開箭頭 ── */
+.sidebar-menu .nav-arrow {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    transition: transform 0.22s ease, color 0.22s;
+    margin-left: auto;
+}
+.sidebar-menu .nav-item.menu-open > .nav-link .nav-arrow {
+    transform: rotate(90deg);
+    color: var(--mc);
+}
+
+/* ── 次功能子選單容器：使用父色系左邊框 ── */
+.sidebar-menu .nav-treeview {
+    background-color: #f9fafb !important;
+    border-left: 2px solid color-mix(in srgb, var(--mc) 30%, white);
+    margin: 0 8px 4px 14px;
+    border-radius: 0 0 10px 10px;
+    padding: 2px 0 4px;
+}
+
+/* ── 次功能項目（第3層）── */
+.sidebar-menu .nav-treeview .nav-item .nav-link {
+    padding: 0.35rem 0.6rem 0.35rem 0.7rem !important;
+    border-radius: 7px;
+    margin: 1px 6px;
+    font-size: 0.82rem;
+    color: color-mix(in srgb, var(--mc) 70%, #334155) !important;
+    transition: all 0.18s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+.sidebar-menu .nav-treeview .nav-item .nav-link:hover {
+    background: color-mix(in srgb, var(--mc) 12%, white) !important;
+    color: var(--mc-d) !important;
+    padding-left: 1rem !important;
+    font-weight: 600;
+}
+.sidebar-menu .nav-treeview .nav-item .nav-link.active {
+    background: color-mix(in srgb, var(--mc) 18%, white) !important;
+    color: var(--mc-d) !important;
+    border-left: 2px solid var(--mc) !important;
+    font-weight: 600;
+}
+
+/* [Claude] 次功能 nav-icon → 父色系小圓點（2026032313） */
+.sidebar-menu .nav-treeview .nav-item .nav-link .nav-icon {
+    width: 8px !important;
+    height: 8px !important;
+    min-width: 8px;
+    border-radius: 50% !important;
+    background: var(--mc) !important;
+    box-shadow: 0 1px 4px var(--mc-sh) !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    flex-shrink: 0;
+    margin-right: 10px;
+    transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+    display: inline-block !important;
+    vertical-align: middle;
+}
+.sidebar-menu .nav-treeview .nav-item .nav-link:hover .nav-icon {
+    background: var(--mc-d) !important;
+    transform: scale(1.5);
+    box-shadow: 0 2px 6px var(--mc-sh) !important;
+}
+.sidebar-menu .nav-treeview .nav-item .nav-link.active .nav-icon {
+    background: var(--mc-d) !important;
+    box-shadow: 0 2px 6px var(--mc-sh) !important;
+}
+
+/* ── [Claude] 側欄縮合／展開行為定義（2026032318）
+   縮合：兩字圖示在側欄全寬內水平置中，完整文字隱藏（AdminLTE 原生）
+   展開（hover）：兩字圖示 + 完整文字靠左對齊 ── */
+
+/* ① 縮合時隱藏子選單（AdminLTE 不會自動隱藏） */
+.sidebar-mini.sidebar-collapse .sidebar-menu > .nav-item > .nav-treeview {
+    display: none;
+}
+
+/* ② 縮合時：nav-link 填滿全寬讓圖示真正置中 */
+.sidebar-mini.sidebar-collapse .sidebar-menu > .nav-item > .nav-link,
+.sidebar-mini.sidebar-collapse .sidebar-menu > .nav-item.has-treeview > .nav-link {
+    width: 100% !important;
+    justify-content: center !important;
+    padding:  0.28rem 1rem !important;
+    margin: 1px 0 !important;
+    transform: none !important;
+}
+.sidebar-mini.sidebar-collapse .sidebar-menu > .nav-item > .nav-link .nav-icon,
+.sidebar-mini.sidebar-collapse .sidebar-menu > .nav-item.has-treeview > .nav-link .nav-icon {
+    margin-right: 0 !important;
+}
+
+/* ③ 展開時（hover）：寬度還原，圖示＋文字靠左 */
+.sidebar-mini.sidebar-collapse .app-sidebar:hover
+.sidebar-menu > .nav-item > .nav-link,
+.sidebar-mini.sidebar-collapse .app-sidebar:hover
+.sidebar-menu > .nav-item.has-treeview > .nav-link {
+    width: auto !important;
+    justify-content: flex-start !important;
+    padding: 0.42rem 0.5rem !important;
+    margin: 2px 4px !important;
+}
+.sidebar-mini.sidebar-collapse .app-sidebar:hover
+.sidebar-menu > .nav-item > .nav-link .nav-icon,
+.sidebar-mini.sidebar-collapse .app-sidebar:hover
+.sidebar-menu > .nav-item.has-treeview > .nav-link .nav-icon {
+    margin-right: 6px !important;
+}
+
+/* ④ 展開時：已展開主項目重新顯示子選單 */
+.sidebar-mini.sidebar-collapse .app-sidebar:hover
+.sidebar-menu > .nav-item.menu-open > .nav-treeview {
+    display: block;
+}
+
+/* ── [Claude] 主內容區背景（標示1：防止 Header 深藍穿透到內容區）
+   明確指定系統標準頁面背景色，藍色僅存在於 Header 高度範圍內 ── */
+.app-main,
+.app-wrapper {
+    background-color: #f0f4f8 !important;
+}
+
+/* ── [Claude] 頂部 Header：與首頁橫幅共用同一漸層，形成連續的整塊藍色區域
+   漸層來源：2026032304.txt，加入半透明輻射圓使底紋更有科技層次感 ── */
+.app-header.navbar {
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 30%),
+        linear-gradient(135deg, var(--theme-c1) 0%, var(--theme-c2) 50%, var(--theme-c3) 100%) !important;
+    background-color: var(--theme-c1) !important; /* fallback */
+    background-attachment: fixed !important;  /* [Claude] 固定在 viewport，與 hero 共用同一漸層座標 */
+    background-size: 100% 100% !important;
+    color: #fff;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+    /* [Claude] Header 內連結：白色 */
+    .app-header.navbar .nav-link {
+        color: rgba(255, 255, 255, 0.88) !important;
+    }
+
+        .app-header.navbar .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+    /* [Claude] 子系統 hover：磨砂感白色半透明底（同 txt .nav-item:hover） */
+    .app-header.navbar .module-link:hover {
+        background: rgba(255,255,255,0.10) !important;
+        border-radius: 8px;
+        transform: translateY(-1px);
+        transition: all 0.3s ease;
+    }
+
+    /* [Claude] 子系統 active：青色發光底 + 底部發光線（同 txt .nav-item.active） */
+    .app-header.navbar .module-link.active,
+    .app-header.navbar .module-link.active.text-primary {
+        color: #ffffff !important;
+        background: rgba(0,212,255,0.20) !important;
+        border-bottom: 2px solid #00d4ff !important;
+        border-radius: 8px 8px 0 0;
+        font-weight: 700;
+    }
+
+    /* [Claude] 使用者名稱 */
+    .app-header.navbar .user-name-small {
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    /* [Claude] 使用者名稱旁三點圖示（提示可點擊展開選單） */
+    .app-header.navbar .user-menu-dots {
+        font-size: 0.65rem;
+        color: rgba(255, 255, 255, 0.55);
+        margin-left: 2px;
+        vertical-align: middle;
+        transition: color 0.18s;
+    }
+    .app-header.navbar .user-menu-toggle:hover .user-menu-dots,
+    .app-header.navbar .user-menu-toggle.show .user-menu-dots {
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+
+
+/* 頁籤 */
+.function-tabs .nav-link {
+    background-color: #adb5bd; /* 深藍灰 */
+    color: #ECF0F1; /* 淡灰文字 */
+    border: 1px solid #34495E; /* 深邊框 */
+    border-bottom: none; /* 去掉底線，看起來像卡片標題 */
+    font-weight: 500;
+    padding: 5px 15px; /* 調整上下左右間距，縮小高度 */
+    line-height: 1.2; /* 行高縮小，更扁平 */
+    font-size: 0.9rem; /* 可微調文字大小 */
+}
+
+.function-tabs .nav-link.active {
+    background-color: #2C3E50; /* 點選時深藍灰 */
+    color: white;
+}
+
+.function-tabs .nav-item {
+    margin-right: 2px; /* 小間距，看起來整齊 */
+}
+
+/* DataTable 全域樣式 */
+table.dataTable tbody tr:hover {
+    background-color: #f1f8ff !important;
+}
+/* 表格底色透明（可選，如果想保留 Bootstrap table bg 可忽略） */
+.table-striped {
+    --bs-table-bg: transparent;
+}
+
+
+/* 強制格線顯示 */
+.table th,
+.table td {
+    border: 1px solid #2e3a46 !important; /* #adb5bd   深灰邊線  #495057 深紫灰邊框  #5a4e57   深墨綠邊框 #2f3e3e  深藍灰邊框  #2e3a46*/
+    padding: 0.2rem 0.2rem;
+}
+
+/* 表頭 */
+.table thead th {
+    background-color: #5d6d7e !important; /* 淺藍灰 #e3f2fd   莫蘭迪紫灰 #9a8c98   莫蘭迪墨綠灰  #556b61  莫蘭迪藍灰  #5d6d7e */
+    color: #fff; /* 深灰字#333   深灰  #4a4a4a */
+    font-weight: 600;
+    border: 1px solid #2e3a46 !important; /* #adb5bd     深紫灰邊框  #5a4e57 深墨綠邊框 #2f3e3e  深藍灰邊框  #2e3a46 */
+}
+
+/* 斑馬紋 */
+.table.table-striped tbody tr:nth-child(odd) {
+    background-color: #fdfdfd !important; /* #ffffff   幾乎白 #fdfdfd   */
+}
+
+.table.table-striped tbody tr:nth-child(even) {
+    background-color: #d0d6dc !important; /* 斑馬色 #f2f6fa 灰粉  #d8cfc4  莫蘭迪奶灰 #ede7e3  莫蘭迪淺綠灰 #dfe6e1  加深的藍灰 #d0d6dc */
+}
+/* hover */
+.table.table-hover tbody tr:hover td,
+table.dataTable tbody tr:hover td  a{
+    background-color: #34495e !important; /* 柔和米灰 #d8cfc4  深一點的莫蘭迪灰褐 #b8a99a 深莫蘭迪灰褐  #8c7b75  深莫蘭迪灰綠 #7a918d 深藍灰高亮 #34495e */
+    color: #fff !important;
+    
+}
+/* 連結樣式 */
+.table a {
+    color: #003060;
+    text-decoration: none;
+    font-weight: 600;    
+}
+    .table a:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+/* 表尾 */
+.table tfoot th {
+    background-color: #a9cce3 !important; /* #deeaf6  灰綠  #b7c4b2  莫蘭迪粉灰 #c9ada7  莫蘭迪淺灰綠    #a3b18a 淺莫蘭迪藍 #a9cce3*/
+    color: #2c2c2c !important; /* #222   深藍灰字體  #2c2c2c   */
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #2e3a46 !important; /* #adb5bd   深灰邊線  #495057 深紫灰邊框  #5a4e57  深墨綠邊框 #2f3e3e   深藍灰邊框  #2e3a46  */
+}
+/* DataTable 下方筆數列*/
+.dataTables_length,
+.dataTables_info {
+    margin-bottom: 0 !important;
+}
+
+.dataTables_length label {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* label 與 select 間距 */
+    margin-bottom: 0;
+}
+
+/* 控制 select 高度，與 input-group 高度一致 */
+.dataTables_length select.form-select,
+.dataTables_length select {
+    height: 34px !important;
+    padding: 0 6px;
+    font-size: 0.875rem;
+}
+
+/* info 文字與 select 對齊 */
+.dataTables_info {
+    line-height: 34px; /* 對齊 select 高度 */
+    padding-top: 0 !important;
+}
+
+.dataTables_length select.form-select {
+    padding: 4px 2rem 4px 0.5rem !important;
+    height: calc(1.5em + 0.75rem + 2px) !important;
+    line-height: 1.5;
+    background-position: right 0.75rem center;
+}
+/* 搜尋欄靠左顯示 */
+.dataTables_filter {
+    float: left !important;
+    text-align: left !important;
+}
+
+    /* 若想讓搜尋框與表格貼齊可加 */
+    .dataTables_filter label {
+        margin-left: 0.5rem;
+        margin-bottom: 0;
+    }
+div.dataTables_info {
+    white-space: nowrap !important; /* 不換行 */
+    font-size: 1rem; /* 可以調整，例如 1.1rem、14px 等 */
+    min-width: 400px; /* 拉寬一點，避免擠壓換行 */
+}
+/* 下拉選單 hover 顏色 */
+.dropdown-menu .dropdown-item:hover {
+    background-color: #8c7b75; /* 可以調整  #d0e4ff  淺藍高亮 #d1dae5  柔和米灰 #d8cfc4  深一點的莫蘭迪灰褐 #b8a99a 深莫蘭迪灰褐  #8c7b75 */
+    color: #000; /* 可設定文字顏色 */
+}
+/* radio box 基本框線加粗、顏色加深 */
+.form-check-input[type="radio"] {
+    border: 1px solid #495057; /* 邊框加粗加深 */
+}
+
+.form-check-input[type="radio"]:checked {
+    background-color: #0d6efd; /* 勾選後顏色 */
+    border-color: #0d6efd;
+}
+/* checkbox 基本框線加粗、顏色加深 */
+.form-check-input[type="checkbox"] {
+    border: 1px solid #495057; /* 深灰邊框 */
+    width: 1.1em;
+    height: 1.1em;
+}
+
+/* hover 時提示互動 */
+.form-check-input[type="checkbox"]:hover {
+    border-color: #0d6efd; /* 藍框 */
+}
+
+/* 勾選後樣式 */
+.form-check-input[type="checkbox"]:checked {
+    background-color: #0d6efd; /* 藍底 */
+    border-color: #0d6efd; /* 藍框 */
+}
+
+/* 改變 Bootstrap tooltip 背景與文字顏色 */
+.tooltip-inner {
+    background-color: #e6f2ff !important; /* 淡藍底 */
+    color: #003366 !important; /* 深藍字 */
+    border: 1px solid #bcd0e5; /* 淡邊框讓它更明顯 */
+}
+
+/* 改變 tooltip 箭頭顏色 */
+.bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before,
+.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: #e6f2ff !important;
+}
+
+.bs-tooltip-auto[data-popper-placement^="bottom"] .tooltip-arrow::before,
+.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: #e6f2ff !important;
+}
+
+.bs-tooltip-auto[data-popper-placement^="left"] .tooltip-arrow::before,
+.bs-tooltip-start .tooltip-arrow::before {
+    border-left-color: #e6f2ff !important;
+}
+
+.bs-tooltip-auto[data-popper-placement^="right"] .tooltip-arrow::before,
+.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: #e6f2ff !important;
+}
+/* 讓 tooltip 內文字靠左（預設是置中） */
+.tooltip-inner {
+    text-align: left !important;
+}
+
+/* 訊息框 */
+.exporting-modal-content {
+    background-color: rgba(255, 255, 255, 0.85); /* 半透明白底 */
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    backdrop-filter: blur(2px); /* 可選：模糊背景 */
+}
+.pagination .page-link {
+    border-radius: 0 !important;
+}
+
+.pagination .page-item:first-child .page-link {
+    border-top-left-radius: 0.375rem !important;
+    border-bottom-left-radius: 0.375rem !important;
+}
+
+.pagination .page-item:last-child .page-link {
+    border-top-right-radius: 0.375rem !important;
+    border-bottom-right-radius: 0.375rem !important;
+}
+.tooltip-inner {
+    max-width: none !important; /* 取消預設 200px 限制 */
+    width: auto; /* 依內容自動調整 */
+    white-space: normal; /* 允許換行 */
+}
+/* 日期框大小 */
+.fixed-month {
+   /* width: 120px;  固定寬度，可依需求調整 */
+    min-width: 120px; /* 防止被壓縮 */
+    max-width: 120px; /* 不因視窗變寬而變大 */
+}
+/******* sweetalert2 覆寫 *******/
+.swal2-icon.swal2-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.swal2-success-ring {
+    border: none;
+}
+
+.swal2-success-line-tip,
+.swal2-success-line-long {
+    background-color: #fff;
+}
+/*  Error 紅色實心圓  */
+.swal2-icon.swal2-error {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.swal2-error [class^='swal2-x-mark-line'] {
+    background-color: #fff;
+}
+/*  Warning 黃色實心圓  */
+.swal2-icon.swal2-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #fff;
+}
+
+/* Info 藍色實心圓  */
+.swal2-icon.swal2-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+}
+/*  Question 灰藍實心圓 */
+.swal2-icon.swal2-question {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}

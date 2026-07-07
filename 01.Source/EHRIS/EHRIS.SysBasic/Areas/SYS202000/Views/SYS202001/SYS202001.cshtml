@@ -1,0 +1,138 @@
+﻿@using EHRIS.Web.Shared.Models
+@{
+    ViewData["Title"] = "部門管理";
+    Layout = "_LayoutSub";
+}
+
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "departmentTable",
+                Columns = new[]
+                {
+                new TableColDef("部門代碼", "dt-col-mid"),
+                new TableColDef("部門名稱", "dt-col-max"),
+                new TableColDef("排序",     "dt-col-order"),
+                new TableColDef("修建者",   "dt-col-mod"),
+                new TableColDef("修建時間", "dt-col-time"),
+                new TableColDef("修改",     "dt-col-action"),
+                new TableColDef("刪除",     "dt-col-action"),
+                }
+                })
+    </div>
+</section>
+
+<div class="modal modal-morandi" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1000px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">編輯部門</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="editModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-morandi" id="subDepartmentModal" tabindex="-1" aria-labelledby="subModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="subModalLabel"></h5>
+                <span id="sub-modal-mode-indicator" class="text-danger ms-2"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="subDepartmentForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="subDeptId" />
+                    <div class="col-12">
+                        <label class="form-label">上層部門</label>
+                        <input type="text" class="form-control" id="subParentDeptName" readonly />
+                    </div>
+                    <div class="col-12">
+                        <label for="subDeptCode" class="form-label">部門代碼<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="subDeptCode" required placeholder="可手動輸入，或點右側按鈕產生建議" />
+                            <button class="btn btn-outline-secondary" type="button" id="btnSuggestCode">產生建議</button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="subDeptName" class="form-label">部門名稱<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="subDeptName" required />
+                    </div>
+                    <div class="col-12">
+                        <label for="subDeptOrder" class="form-label">排序編號<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="subDeptOrder" required min="0" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" id="btnSaveSubDept">儲存</button>
+                <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-morandi" id="departmentModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">新增部門</h5>
+                <span id="modal-mode-indicator" class="text-danger ms-2"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="departmentForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deptId" />
+                    <div class="col-12">
+                        <label for="parentDeptName" class="form-label">上層部門</label>
+                        <input type="text" class="form-control" id="parentDeptName" readonly />
+                    </div>
+                    <div class="col-12">
+                        <label for="deptCode" class="form-label">部門代碼<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="deptCode" required />
+                    </div>
+                    <div class="col-12">
+                        <label for="deptName" class="form-label">部門名稱<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="deptName" required />
+                    </div>
+                    <div class="col-12">
+                        <label for="deptOrder" class="form-label">排序編號<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="deptOrder" required min="0" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" id="btnSaveNewDept">儲存</button>
+                <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.permissionAction = {
+        pageUrl: '@Url.Action("SYS202001", "SYS202001")',
+        getDepartmentsUrl: '@Url.Action("GetDepartments", "SYS202001")',
+        getSubDepartmentsUrl: '@Url.Action("GetSubDepartments", "SYS202001")',
+        getEditPartialUrl: '@Url.Action("GetEditDepartmentPartial", "SYS202001")',
+        getDetailsUrl: '@Url.Action("GetDepartmentDetails", "SYS202001")',
+        createUrl: '@Url.Action("CreateDepartment", "SYS202001")',
+        updateUrl: '@Url.Action("UpdateDepartment", "SYS202001")',
+        deleteUrl: '@Url.Action("DeleteDepartment", "SYS202001")',
+        suggestCodeUrl: '@Url.Action("GetSuggestedSubDeptCode", "SYS202001")',
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @(ViewBag.AddStatus?.ToString().ToLower() ?? "false")
+    };
+</script>

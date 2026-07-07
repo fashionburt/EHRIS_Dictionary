@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EHRIS.Core\EHRIS.Core.csproj" />
+    <ProjectReference Include="..\EHRIS.Security\EHRIS.Security.csproj" />
+    <ProjectReference Include="..\EHRIS.Services\EHRIS.Services.csproj" />
+    <ProjectReference Include="..\EHRIS.Tools\EHRIS.Tools.csproj" />
+    <ProjectReference Include="..\EHRIS.Web.Shared\EHRIS.Web.Shared.csproj" />
+  </ItemGroup>
+
+
+
+</Project>

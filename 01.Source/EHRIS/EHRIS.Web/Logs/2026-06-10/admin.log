@@ -1,0 +1,801 @@
+2026-06-10 08:34:12 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Home/Index | IP=::1 | Start=2026-06-10 08:34:11.681 | Elapsed=351ms | Status=Completed
+2026-06-10 08:34:18 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ADS999002/ADS999002 | Message=GET /ADS999002/ADS999002
+2026-06-10 08:34:18 | INF | ACTION_TRACE | Acc=admin | Path=/ADS999002/ADS999002 | IP=::1 | Start=2026-06-10 08:34:18.700 | Elapsed=120ms | Status=Completed
+2026-06-10 08:34:18 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ADS999002/GetAllRoleList | Message=POST /ADS999002/GetAllRoleList
+2026-06-10 08:34:18 | INF | ACTION_TRACE | Acc=admin | Path=/ADS999002/GetAllRoleList | IP=::1 | Start=2026-06-10 08:34:18.903 | Elapsed=88ms | Status=Completed
+2026-06-10 08:34:22 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ADS999002/GetRoleByNo | Message=GET /ADS999002/GetRoleByNo
+2026-06-10 08:34:22 | INF | ACTION_TRACE | Acc=admin | Path=/ADS999002/GetRoleByNo | IP=::1 | Start=2026-06-10 08:34:22.622 | Elapsed=45ms | Status=Completed
+2026-06-10 08:34:52 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ADS999002/GetPermission | Message=POST /ADS999002/GetPermission
+2026-06-10 08:34:52 | INF | ACTION_TRACE | Acc=admin | Path=/ADS999002/GetPermission | IP=::1 | Start=2026-06-10 08:34:52.270 | Elapsed=32ms | Status=Completed
+2026-06-10 08:41:06 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:41:06 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:41:06 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:41:06 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:41:06 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:41:06 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:41:06 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:41:06 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:41:06 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:41:12 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 08:41:13 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 08:41:05.765 | Elapsed=7886ms | Status=Completed
+2026-06-10 08:41:13 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7886ms
+2026-06-10 08:41:13 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 08:41:13.941 | Elapsed=53ms | Status=Completed
+2026-06-10 08:41:14 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 08:41:14.014 | Elapsed=142ms | Status=Completed
+2026-06-10 08:42:30 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 08:42:23.026 | Elapsed=7608ms | Status=Completed
+2026-06-10 08:42:30 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 7608ms
+2026-06-10 08:42:30 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 08:42:30.652 | Elapsed=335ms | Status=Completed
+2026-06-10 08:42:40 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 08:42:40.650 | Elapsed=45ms | Status=Completed
+2026-06-10 08:43:03 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/SYS202001 | Message=GET /SYS202001/SYS202001
+2026-06-10 08:43:03 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/SYS202001 | IP=::1 | Start=2026-06-10 08:43:02.981 | Elapsed=116ms | Status=Completed
+2026-06-10 08:43:03 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetDepartments | Message=POST /SYS202001/GetDepartments
+2026-06-10 08:43:03 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetDepartments | IP=::1 | Start=2026-06-10 08:43:03.176 | Elapsed=325ms | Status=Completed
+2026-06-10 08:43:03 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetDepartments | Message=POST /SYS202001/GetDepartments
+2026-06-10 08:43:03 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetDepartments | IP=::1 | Start=2026-06-10 08:43:03.543 | Elapsed=22ms | Status=Completed
+2026-06-10 08:43:05 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetEditDepartmentPartial | Message=GET /SYS202001/GetEditDepartmentPartial
+2026-06-10 08:43:05 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetEditDepartmentPartial | IP=::1 | Start=2026-06-10 08:43:05.645 | Elapsed=38ms | Status=Completed
+2026-06-10 08:43:05 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetSubDepartments | Message=POST /SYS202001/GetSubDepartments
+2026-06-10 08:43:05 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetSubDepartments | IP=::1 | Start=2026-06-10 08:43:05.707 | Elapsed=56ms | Status=Completed
+2026-06-10 08:43:05 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetSubDepartments | Message=POST /SYS202001/GetSubDepartments
+2026-06-10 08:43:05 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetSubDepartments | IP=::1 | Start=2026-06-10 08:43:05.779 | Elapsed=22ms | Status=Completed
+2026-06-10 08:43:08 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetEditDepartmentPartial | Message=GET /SYS202001/GetEditDepartmentPartial
+2026-06-10 08:43:08 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetEditDepartmentPartial | IP=::1 | Start=2026-06-10 08:43:08.395 | Elapsed=6ms | Status=Completed
+2026-06-10 08:43:08 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetSubDepartments | Message=POST /SYS202001/GetSubDepartments
+2026-06-10 08:43:08 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetSubDepartments | IP=::1 | Start=2026-06-10 08:43:08.422 | Elapsed=15ms | Status=Completed
+2026-06-10 08:43:08 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetSubDepartments | Message=POST /SYS202001/GetSubDepartments
+2026-06-10 08:43:08 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetSubDepartments | IP=::1 | Start=2026-06-10 08:43:08.456 | Elapsed=15ms | Status=Completed
+2026-06-10 08:43:10 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetSubDepartments | Message=POST /SYS202001/GetSubDepartments
+2026-06-10 08:43:10 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetSubDepartments | IP=::1 | Start=2026-06-10 08:43:05.783 | Elapsed=4572ms | Status=Completed
+2026-06-10 08:43:10 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/SYS202001/GetSubDepartments | Reason=SlowRequest 4572ms
+2026-06-10 08:43:10 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetSubDepartments | Message=POST /SYS202001/GetSubDepartments
+2026-06-10 08:43:10 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetSubDepartments | IP=::1 | Start=2026-06-10 08:43:08.461 | Elapsed=1898ms | Status=Completed
+2026-06-10 08:56:35 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:56:35 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:56:35 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:56:35 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:56:35 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:56:35 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:56:35 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:56:35 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:56:35 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 08:56:41 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 08:56:42 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 08:56:34.745 | Elapsed=7597ms | Status=Completed
+2026-06-10 08:56:42 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7597ms
+2026-06-10 08:56:42 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 08:56:42.643 | Elapsed=41ms | Status=Completed
+2026-06-10 08:56:42 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 08:56:42.698 | Elapsed=121ms | Status=Completed
+2026-06-10 08:57:17 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 08:57:08.047 | Elapsed=9841ms | Status=Completed
+2026-06-10 08:57:17 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 9841ms
+2026-06-10 08:57:18 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 08:57:17.907 | Elapsed=324ms | Status=Completed
+2026-06-10 08:57:25 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 08:57:25.700 | Elapsed=49ms | Status=Completed
+2026-06-10 08:57:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/SYS202100 | Message=GET /SYS202100/SYS202100
+2026-06-10 08:57:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/SYS202100 | IP=::1 | Start=2026-06-10 08:57:29.582 | Elapsed=251ms | Status=Completed
+2026-06-10 08:57:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDepartmentOptions | Message=GET /SYS202100/GetDepartmentOptions
+2026-06-10 08:57:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDepartmentOptions | IP=::1 | Start=2026-06-10 08:57:29.878 | Elapsed=80ms | Status=Completed
+2026-06-10 08:57:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 08:57:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 08:57:29.897 | Elapsed=99ms | Status=Completed
+2026-06-10 08:57:30 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 08:57:30 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 08:57:30.043 | Elapsed=13ms | Status=Completed
+2026-06-10 08:57:32 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetByVariable | Message=GET /SYS202100/GetByVariable
+2026-06-10 08:57:32 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetByVariable | IP=::1 | Start=2026-06-10 08:57:32.184 | Elapsed=33ms | Status=Completed
+2026-06-10 08:57:44 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/SYS202100 | Message=GET /SYS202100/SYS202100
+2026-06-10 08:57:44 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/SYS202100 | IP=::1 | Start=2026-06-10 08:57:44.420 | Elapsed=69ms | Status=Completed
+2026-06-10 08:57:44 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDepartmentOptions | Message=GET /SYS202100/GetDepartmentOptions
+2026-06-10 08:57:44 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDepartmentOptions | IP=::1 | Start=2026-06-10 08:57:44.500 | Elapsed=8ms | Status=Completed
+2026-06-10 08:57:44 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 08:57:44 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 08:57:44.518 | Elapsed=7ms | Status=Completed
+2026-06-10 08:57:44 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 08:57:44 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 08:57:44.557 | Elapsed=7ms | Status=Completed
+2026-06-10 08:57:46 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetByVariable | Message=GET /SYS202100/GetByVariable
+2026-06-10 08:57:46 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetByVariable | IP=::1 | Start=2026-06-10 08:57:46.834 | Elapsed=3ms | Status=Completed
+2026-06-10 09:08:32 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:08:32 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:08:32 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:08:32 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:08:32 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:08:32 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:08:32 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:08:32 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:08:32 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:08:37 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:08:39 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:08:31.311 | Elapsed=7722ms | Status=Completed
+2026-06-10 09:08:39 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7722ms
+2026-06-10 09:08:39 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:08:39.445 | Elapsed=40ms | Status=Completed
+2026-06-10 09:08:39 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:08:39.498 | Elapsed=306ms | Status=Completed
+2026-06-10 09:08:56 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-06-10 09:08:56.150 | Elapsed=151ms | Status=Completed
+2026-06-10 09:08:56 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:08:56.461 | Elapsed=4ms | Status=Completed
+2026-06-10 09:08:56 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:08:56.471 | Elapsed=15ms | Status=Completed
+2026-06-10 09:09:04 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:09:04 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:09:08 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-06-10 09:08:59.594 | Elapsed=9338ms | Status=Completed
+2026-06-10 09:09:08 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/AdminPortal/Account/Login | Reason=SlowRequest 9338ms
+2026-06-10 09:09:09 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Home/Index | IP=::1 | Start=2026-06-10 09:09:08.949 | Elapsed=210ms | Status=Completed
+2026-06-10 09:09:25 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:09:25 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ADS999999/ADS999999 | Message=GET /ADS999999/ADS999999
+2026-06-10 09:09:25 | INF | ACTION_TRACE | Acc=admin | Path=/ADS999999/ADS999999 | IP=::1 | Start=2026-06-10 09:09:25.297 | Elapsed=110ms | Status=Completed
+2026-06-10 09:10:19 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-06-10 09:10:19.469 | Elapsed=7ms | Status=Completed
+2026-06-10 09:10:19 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:10:19.629 | Elapsed=1ms | Status=Completed
+2026-06-10 09:10:19 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:10:19.640 | Elapsed=33ms | Status=Completed
+2026-06-10 09:10:23 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:10:22.510 | Elapsed=1296ms | Status=Completed
+2026-06-10 09:10:23 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:10:23.968 | Elapsed=2ms | Status=Completed
+2026-06-10 09:10:24 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:10:23.986 | Elapsed=31ms | Status=Completed
+2026-06-10 09:10:35 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:10:29.943 | Elapsed=5370ms | Status=Completed
+2026-06-10 09:10:35 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 5370ms
+2026-06-10 09:10:35 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:10:35.321 | Elapsed=190ms | Status=Completed
+2026-06-10 09:10:38 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:10:38.815 | Elapsed=16ms | Status=Completed
+2026-06-10 09:10:40 | ERR | An exception occurred while iterating over the results of a query for context type 'EHRIS.Core.DbContext.ApplicationDbContext'.
+System.InvalidCastException: Unable to cast object of type 'System.Byte' to type 'System.String'.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method918(Closure, DbDataReader, Int32[])
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadObject(DbDataReader reader, Int32 ordinal, ReaderColumn column)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadRow()
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.InitializeAsync(DbDataReader reader, IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-06-10 09:11:03 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:11:03 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:11:03 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:11:03 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:11:03 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:11:03 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:11:03 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:11:03 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:11:03 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:11:08 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:11:09 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:11:02.378 | Elapsed=7410ms | Status=Completed
+2026-06-10 09:11:09 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7410ms
+2026-06-10 09:11:10 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:11:09.998 | Elapsed=40ms | Status=Completed
+2026-06-10 09:11:10 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:11:10.069 | Elapsed=104ms | Status=Completed
+2026-06-10 09:11:16 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:11:14.602 | Elapsed=1426ms | Status=Completed
+2026-06-10 09:11:16 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:11:16.318 | Elapsed=2ms | Status=Completed
+2026-06-10 09:11:16 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:11:16.329 | Elapsed=21ms | Status=Completed
+2026-06-10 09:11:25 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:11:19.922 | Elapsed=5882ms | Status=Completed
+2026-06-10 09:11:25 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 5882ms
+2026-06-10 09:11:26 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:11:25.820 | Elapsed=280ms | Status=Completed
+2026-06-10 09:11:27 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:11:27.517 | Elapsed=43ms | Status=Completed
+2026-06-10 09:11:29 | ERR | An exception occurred while iterating over the results of a query for context type 'EHRIS.Core.DbContext.ApplicationDbContext'.
+System.InvalidCastException: Unable to cast object of type 'System.Byte' to type 'System.String'.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method682(Closure, DbDataReader, Int32[])
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadObject(DbDataReader reader, Int32 ordinal, ReaderColumn column)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadRow()
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.InitializeAsync(DbDataReader reader, IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-06-10 09:14:04 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:14:04 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:14:04 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:14:04 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:14:04 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:14:04 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:14:04 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:14:04 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:14:04 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:14:09 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:14:10 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:14:03.372 | Elapsed=7613ms | Status=Completed
+2026-06-10 09:14:10 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7613ms
+2026-06-10 09:14:11 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:14:11.220 | Elapsed=41ms | Status=Completed
+2026-06-10 09:14:11 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:14:11.301 | Elapsed=123ms | Status=Completed
+2026-06-10 09:14:23 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:14:15.427 | Elapsed=8562ms | Status=Completed
+2026-06-10 09:14:23 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 8562ms
+2026-06-10 09:14:24 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:14:24.004 | Elapsed=269ms | Status=Completed
+2026-06-10 09:14:26 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:14:26.012 | Elapsed=92ms | Status=Completed
+2026-06-10 09:14:29 | ERR | An exception occurred while iterating over the results of a query for context type 'EHRIS.Core.DbContext.ApplicationDbContext'.
+System.InvalidCastException: Unable to cast object of type 'System.Byte' to type 'System.String'.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method682(Closure, DbDataReader, Int32[])
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadObject(DbDataReader reader, Int32 ordinal, ReaderColumn column)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadRow()
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.InitializeAsync(DbDataReader reader, IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-06-10 09:16:41 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:16:41 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:16:41 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:16:41 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:16:41 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:16:41 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:16:41 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:16:41 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:16:41 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:16:46 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:16:48 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:16:40.599 | Elapsed=7842ms | Status=Completed
+2026-06-10 09:16:48 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7842ms
+2026-06-10 09:16:48 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:16:48.668 | Elapsed=100ms | Status=Completed
+2026-06-10 09:16:49 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:16:48.919 | Elapsed=113ms | Status=Completed
+2026-06-10 09:17:10 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:17:03.679 | Elapsed=6923ms | Status=Completed
+2026-06-10 09:17:10 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 6923ms
+2026-06-10 09:17:10 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:17:10.619 | Elapsed=274ms | Status=Completed
+2026-06-10 09:17:22 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:17:22.111 | Elapsed=39ms | Status=Completed
+2026-06-10 09:17:25 | ERR | An exception occurred while iterating over the results of a query for context type 'EHRIS.Core.DbContext.ApplicationDbContext'.
+System.InvalidCastException: Unable to cast object of type 'System.Byte' to type 'System.String'.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method682(Closure, DbDataReader, Int32[])
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadObject(DbDataReader reader, Int32 ordinal, ReaderColumn column)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadRow()
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.InitializeAsync(DbDataReader reader, IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-06-10 09:22:21 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:22:21 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:22:21 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:22:21 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:22:21 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:22:21 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:22:21 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:22:21 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:22:21 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:22:26 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:22:27 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:22:20.417 | Elapsed=7510ms | Status=Completed
+2026-06-10 09:22:27 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7510ms
+2026-06-10 09:22:28 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:22:28.226 | Elapsed=54ms | Status=Completed
+2026-06-10 09:22:28 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:22:28.294 | Elapsed=150ms | Status=Completed
+2026-06-10 09:22:42 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:22:35.008 | Elapsed=7113ms | Status=Completed
+2026-06-10 09:22:42 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 7113ms
+2026-06-10 09:22:42 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:22:42.134 | Elapsed=309ms | Status=Completed
+2026-06-10 09:22:44 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:22:44.201 | Elapsed=112ms | Status=Completed
+2026-06-10 09:22:48 | ERR | An exception occurred while iterating over the results of a query for context type 'EHRIS.Core.DbContext.ApplicationDbContext'.
+System.InvalidCastException: Unable to cast object of type 'System.Byte' to type 'System.String'.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method682(Closure, DbDataReader, Int32[])
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadObject(DbDataReader reader, Int32 ordinal, ReaderColumn column)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadRow()
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.InitializeAsync(DbDataReader reader, IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-06-10 09:39:08 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:39:08 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:39:08 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:39:08 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:39:08 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:39:08 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:39:08 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:39:08 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:39:08 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:39:13 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:39:14 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:39:07.245 | Elapsed=7315ms | Status=Completed
+2026-06-10 09:39:14 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7315ms
+2026-06-10 09:39:14 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:39:14.873 | Elapsed=49ms | Status=Completed
+2026-06-10 09:39:15 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:39:14.935 | Elapsed=132ms | Status=Completed
+2026-06-10 09:39:27 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:39:18.963 | Elapsed=8356ms | Status=Completed
+2026-06-10 09:39:27 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 8356ms
+2026-06-10 09:39:27 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:39:27.333 | Elapsed=219ms | Status=Completed
+2026-06-10 09:39:29 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:39:29.010 | Elapsed=20ms | Status=Completed
+2026-06-10 09:39:31 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 09:39:31 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 09:39:30.880 | Elapsed=209ms | Status=Completed
+2026-06-10 09:39:31 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:39:31 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:39:31.203 | Elapsed=118ms | Status=Completed
+2026-06-10 09:39:31 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:39:31 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:39:31.354 | Elapsed=16ms | Status=Completed
+2026-06-10 09:39:33 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:39:33 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:39:34 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAdminDetails | Message=GET /SYS201001/GetAdminDetails
+2026-06-10 09:39:34 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAdminDetails | IP=::1 | Start=2026-06-10 09:39:33.868 | Elapsed=155ms | Status=Completed
+2026-06-10 09:39:34 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:39:34 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:39:34.067 | Elapsed=6ms | Status=Completed
+2026-06-10 09:39:34 | ERR | An exception occurred while iterating over the results of a query for context type 'EHRIS.Core.DbContext.ApplicationDbContext'.
+System.InvalidCastException: Unable to cast object of type 'System.Byte' to type 'System.String'.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method940(Closure, DbDataReader, Int32[])
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadObject(DbDataReader reader, Int32 ordinal, ReaderColumn column)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadRow()
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.InitializeAsync(DbDataReader reader, IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-06-10 09:39:47 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllPersonnelTypes | Message=GET /SYS201001/GetAllPersonnelTypes
+2026-06-10 09:39:47 | ERR | REQUEST_EXCEPTION | Path=/SYS201001/GetAllPersonnelTypes | Method=GET
+2026-06-10 09:39:47 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201002/SYS201002 | Message=GET /SYS201002/SYS201002
+2026-06-10 09:39:47 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/SYS201001/GetAllPersonnelTypes | Reason=SlowRequest 13705ms
+2026-06-10 09:39:48 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllRoles | Message=GET /SYS201001/GetAllRoles
+2026-06-10 09:39:48 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllRoles | IP=::1 | Start=2026-06-10 09:39:47.587 | Elapsed=531ms | Status=Completed
+2026-06-10 09:39:48 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201002/SYS201002 | IP=::1 | Start=2026-06-10 09:39:47.487 | Elapsed=638ms | Status=Completed
+2026-06-10 09:39:49 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 09:39:49 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 09:39:49.424 | Elapsed=19ms | Status=Completed
+2026-06-10 09:39:49 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:39:49 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:39:49.484 | Elapsed=6ms | Status=Completed
+2026-06-10 09:39:49 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:39:49 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:39:49.513 | Elapsed=12ms | Status=Completed
+2026-06-10 09:39:50 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201002/SYS201002 | Message=GET /SYS201002/SYS201002
+2026-06-10 09:39:50 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201002/SYS201002 | IP=::1 | Start=2026-06-10 09:39:50.538 | Elapsed=3ms | Status=Completed
+2026-06-10 09:39:52 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:39:47.588 | Elapsed=4628ms | Status=Completed
+2026-06-10 09:39:52 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Home/Index | Reason=SlowRequest 4628ms
+2026-06-10 09:40:06 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:40:06 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:40:06 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:40:06 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:40:06 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:40:06 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:40:06 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:40:06 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:40:06 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:40:12 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:40:13 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:40:05.575 | Elapsed=8281ms | Status=Completed
+2026-06-10 09:40:13 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 8281ms
+2026-06-10 09:40:14 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:40:14.108 | Elapsed=41ms | Status=Completed
+2026-06-10 09:40:14 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:40:14.181 | Elapsed=119ms | Status=Completed
+2026-06-10 09:40:25 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:40:18.143 | Elapsed=6916ms | Status=Completed
+2026-06-10 09:40:25 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 6916ms
+2026-06-10 09:40:25 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:40:25.073 | Elapsed=266ms | Status=Completed
+2026-06-10 09:40:27 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:40:26.960 | Elapsed=39ms | Status=Completed
+2026-06-10 09:40:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 09:40:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 09:40:29.265 | Elapsed=226ms | Status=Completed
+2026-06-10 09:40:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:40:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:40:29.554 | Elapsed=86ms | Status=Completed
+2026-06-10 09:40:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:40:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:40:29.668 | Elapsed=9ms | Status=Completed
+2026-06-10 09:40:33 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:40:33 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:40:33 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAdminDetails | Message=GET /SYS201001/GetAdminDetails
+2026-06-10 09:40:33 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAdminDetails | IP=::1 | Start=2026-06-10 09:40:33.028 | Elapsed=89ms | Status=Completed
+2026-06-10 09:40:33 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:40:33 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:40:33.148 | Elapsed=41ms | Status=Completed
+2026-06-10 09:40:33 | ERR | An exception occurred while iterating over the results of a query for context type 'EHRIS.Core.DbContext.ApplicationDbContext'.
+System.InvalidCastException: Unable to cast object of type 'System.Byte' to type 'System.String'.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method940(Closure, DbDataReader, Int32[])
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadObject(DbDataReader reader, Int32 ordinal, ReaderColumn column)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadRow()
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.InitializeAsync(DbDataReader reader, IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-06-10 09:41:02 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:41:02 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:41:02 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:41:02 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:41:02 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:41:02 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:41:02 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:41:02 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:41:02 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:41:07 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:41:08 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:41:01.670 | Elapsed=7243ms | Status=Completed
+2026-06-10 09:41:08 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7243ms
+2026-06-10 09:41:09 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:41:09.131 | Elapsed=38ms | Status=Completed
+2026-06-10 09:41:09 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:41:09.190 | Elapsed=114ms | Status=Completed
+2026-06-10 09:41:19 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:41:12.446 | Elapsed=6905ms | Status=Completed
+2026-06-10 09:41:19 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 6905ms
+2026-06-10 09:41:19 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:41:19.366 | Elapsed=240ms | Status=Completed
+2026-06-10 09:41:22 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:41:22.705 | Elapsed=49ms | Status=Completed
+2026-06-10 09:41:24 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 09:41:25 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 09:41:24.786 | Elapsed=233ms | Status=Completed
+2026-06-10 09:41:25 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:41:25 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:41:25.080 | Elapsed=88ms | Status=Completed
+2026-06-10 09:41:25 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:41:25 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:41:25.196 | Elapsed=8ms | Status=Completed
+2026-06-10 09:41:27 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:41:27 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:41:27 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAdminDetails | Message=GET /SYS201001/GetAdminDetails
+2026-06-10 09:41:28 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAdminDetails | IP=::1 | Start=2026-06-10 09:41:27.920 | Elapsed=81ms | Status=Completed
+2026-06-10 09:41:28 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:41:28 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:41:28.032 | Elapsed=8ms | Status=Completed
+2026-06-10 09:41:28 | ERR | An exception occurred while iterating over the results of a query for context type 'EHRIS.Core.DbContext.ApplicationDbContext'.
+System.InvalidCastException: Unable to cast object of type 'System.Byte' to type 'System.String'.
+   at Microsoft.Data.SqlClient.SqlDataReader.GetString(Int32 i)
+   at lambda_method940(Closure, DbDataReader, Int32[])
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadObject(DbDataReader reader, Int32 ordinal, ReaderColumn column)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.ReadRow()
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.BufferedDataRecord.InitializeAsync(DbDataReader reader, IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.BufferedDataReader.InitializeAsync(IReadOnlyList`1 columns, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.FromSqlQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-06-10 09:45:52 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:45:52 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:45:52 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:45:52 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:45:52 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:45:52 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:45:52 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:45:52 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:45:52 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:45:57 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:45:58 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:45:51.556 | Elapsed=7127ms | Status=Completed
+2026-06-10 09:45:58 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7127ms
+2026-06-10 09:45:58 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:45:58.896 | Elapsed=41ms | Status=Completed
+2026-06-10 09:45:59 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:45:58.974 | Elapsed=108ms | Status=Completed
+2026-06-10 09:46:09 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:46:02.206 | Elapsed=6889ms | Status=Completed
+2026-06-10 09:46:09 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 6889ms
+2026-06-10 09:46:09 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:46:09.112 | Elapsed=285ms | Status=Completed
+2026-06-10 09:46:13 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:46:12.835 | Elapsed=217ms | Status=Completed
+2026-06-10 09:46:14 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 09:46:15 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 09:46:14.811 | Elapsed=215ms | Status=Completed
+2026-06-10 09:46:15 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:46:15 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:46:15.093 | Elapsed=90ms | Status=Completed
+2026-06-10 09:46:15 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:46:15 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:46:15.215 | Elapsed=12ms | Status=Completed
+2026-06-10 09:46:17 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:46:17 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:46:17 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAdminDetails | Message=GET /SYS201001/GetAdminDetails
+2026-06-10 09:46:17 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAdminDetails | IP=::1 | Start=2026-06-10 09:46:16.996 | Elapsed=83ms | Status=Completed
+2026-06-10 09:46:17 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllRoles | Message=GET /SYS201001/GetAllRoles
+2026-06-10 09:46:17 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:46:17 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:46:17.114 | Elapsed=9ms | Status=Completed
+2026-06-10 09:46:17 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllRoles | IP=::1 | Start=2026-06-10 09:46:17.090 | Elapsed=35ms | Status=Completed
+2026-06-10 09:46:21 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllPersonnelTypes | Message=GET /SYS201001/GetAllPersonnelTypes
+2026-06-10 09:46:21 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllPersonnelTypes | IP=::1 | Start=2026-06-10 09:46:21.626 | Elapsed=36ms | Status=Completed
+2026-06-10 09:46:24 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAdminDetails | Message=GET /SYS201001/GetAdminDetails
+2026-06-10 09:46:24 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAdminDetails | IP=::1 | Start=2026-06-10 09:46:24.710 | Elapsed=26ms | Status=Completed
+2026-06-10 09:46:24 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllRoles | Message=GET /SYS201001/GetAllRoles
+2026-06-10 09:46:24 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllRoles | IP=::1 | Start=2026-06-10 09:46:24.744 | Elapsed=4ms | Status=Completed
+2026-06-10 09:46:24 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:46:24 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:46:24.754 | Elapsed=7ms | Status=Completed
+2026-06-10 09:46:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllPersonnelTypes | Message=GET /SYS201001/GetAllPersonnelTypes
+2026-06-10 09:46:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllPersonnelTypes | IP=::1 | Start=2026-06-10 09:46:24.744 | Elapsed=4534ms | Status=Completed
+2026-06-10 09:46:29 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/SYS201001/GetAllPersonnelTypes | Reason=SlowRequest 4534ms
+2026-06-10 09:46:41 | ERR | Failed executing DbCommand (6ms) [Parameters=[@account_PeoUid='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[peo_uid], [p].[bas_id], [p].[dep_no], [p].[peo_account], [p].[peo_createname], [p].[peo_createtime], [p].[peo_edate], [p].[peo_jobtype], [p].[peo_modifyname], [p].[peo_modifytime], [p].[peo_sdate], [p].[pro_no], [p].[pty_no]
+FROM [people] AS [p]
+WHERE [p].[peo_uid] = @account_PeoUid
+2026-06-10 09:46:41 | ERR | An exception occurred while iterating over the results of a query for context type 'EHRIS.Core.DbContext.ApplicationDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): 無效的資料行名稱 'peo_edate'。
+無效的資料行名稱 'peo_sdate'。
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:2ffeda95-a33e-4b30-a776-b697f65386ee
+Error Number:207,State:1,Class:16
+2026-06-10 09:48:52 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:48:52 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:48:52 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:48:52 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:48:52 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:48:52 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:48:52 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:48:52 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:48:52 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:48:57 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:48:58 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:48:51.146 | Elapsed=7198ms | Status=Completed
+2026-06-10 09:48:58 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7198ms
+2026-06-10 09:48:58 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:48:58.572 | Elapsed=49ms | Status=Completed
+2026-06-10 09:48:58 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:48:58.649 | Elapsed=123ms | Status=Completed
+2026-06-10 09:49:10 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:49:02.670 | Elapsed=7380ms | Status=Completed
+2026-06-10 09:49:10 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 7380ms
+2026-06-10 09:49:10 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:49:10.064 | Elapsed=272ms | Status=Completed
+2026-06-10 09:49:14 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:49:14.923 | Elapsed=18ms | Status=Completed
+2026-06-10 09:49:21 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 09:49:21 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 09:49:20.960 | Elapsed=223ms | Status=Completed
+2026-06-10 09:49:21 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:49:21 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:49:21.248 | Elapsed=80ms | Status=Completed
+2026-06-10 09:49:21 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:49:21 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:49:21.357 | Elapsed=10ms | Status=Completed
+2026-06-10 09:49:37 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:49:37 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:49:37 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAdminDetails | Message=GET /SYS201001/GetAdminDetails
+2026-06-10 09:49:37 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAdminDetails | IP=::1 | Start=2026-06-10 09:49:37.061 | Elapsed=229ms | Status=Completed
+2026-06-10 09:49:37 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllRoles | Message=GET /SYS201001/GetAllRoles
+2026-06-10 09:49:37 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:49:37 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:49:37.321 | Elapsed=6ms | Status=Completed
+2026-06-10 09:49:37 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllRoles | IP=::1 | Start=2026-06-10 09:49:37.299 | Elapsed=29ms | Status=Completed
+2026-06-10 09:49:41 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllPersonnelTypes | Message=GET /SYS201001/GetAllPersonnelTypes
+2026-06-10 09:49:41 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllPersonnelTypes | IP=::1 | Start=2026-06-10 09:49:41.826 | Elapsed=18ms | Status=Completed
+2026-06-10 09:50:38 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/UpdateAdmin | Message=POST /SYS201001/UpdateAdmin
+2026-06-10 09:50:38 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/UpdateAdmin | IP=::1 | Start=2026-06-10 09:49:47.737 | Elapsed=51109ms | Status=Completed
+2026-06-10 09:50:38 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/SYS201001/UpdateAdmin | Reason=SlowRequest 51109ms
+2026-06-10 09:50:42 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 09:50:42 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 09:50:42.152 | Elapsed=17ms | Status=Completed
+2026-06-10 09:50:42 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:50:42 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:50:42.208 | Elapsed=8ms | Status=Completed
+2026-06-10 09:50:42 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:50:42 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:50:42.230 | Elapsed=6ms | Status=Completed
+2026-06-10 09:50:45 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAdminDetails | Message=GET /SYS201001/GetAdminDetails
+2026-06-10 09:50:45 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAdminDetails | IP=::1 | Start=2026-06-10 09:50:45.967 | Elapsed=7ms | Status=Completed
+2026-06-10 09:50:45 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllPersonnelTypes | Message=GET /SYS201001/GetAllPersonnelTypes
+2026-06-10 09:50:45 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllRoles | Message=GET /SYS201001/GetAllRoles
+2026-06-10 09:50:45 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllRoles | IP=::1 | Start=2026-06-10 09:50:45.982 | Elapsed=6ms | Status=Completed
+2026-06-10 09:50:45 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllPersonnelTypes | IP=::1 | Start=2026-06-10 09:50:45.982 | Elapsed=6ms | Status=Completed
+2026-06-10 09:50:46 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:50:46 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:50:45.991 | Elapsed=10ms | Status=Completed
+2026-06-10 09:50:52 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201002/SYS201002 | Message=GET /SYS201002/SYS201002
+2026-06-10 09:50:52 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201002/SYS201002 | IP=::1 | Start=2026-06-10 09:50:52.043 | Elapsed=60ms | Status=Completed
+2026-06-10 09:50:55 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:50:55.522 | Elapsed=68ms | Status=Completed
+2026-06-10 09:50:57 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:50:57.091 | Elapsed=46ms | Status=Completed
+2026-06-10 09:50:59 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201002/SYS201002 | Message=GET /SYS201002/SYS201002
+2026-06-10 09:50:59 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201002/SYS201002 | IP=::1 | Start=2026-06-10 09:50:59.633 | Elapsed=10ms | Status=Completed
+2026-06-10 09:51:01 | INF | ACTION_TRACE | Acc=admin | Path=/.well-known/appspecific/com.chrome.devtools.json | IP=::1 | Start=2026-06-10 09:51:01.063 | Elapsed=0ms | Status=Completed
+2026-06-10 09:51:01 | INF | ACTION_TRACE | Acc=admin | Path=/lib/html-to-image/html-to-image.js.map | IP=::1 | Start=2026-06-10 09:51:01.156 | Elapsed=0ms | Status=Completed
+2026-06-10 09:51:01 | INF | ACTION_TRACE | Acc=admin | Path=/sm/6cf3a2be173716d0e4726c68ef6634f00cefa4e7428560c2debae6f24389d3c1.map | IP=::1 | Start=2026-06-10 09:51:01.203 | Elapsed=0ms | Status=Completed
+2026-06-10 09:51:25 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:51:26 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:51:26 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:51:26 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:51:26 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:51:26 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:51:26 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:51:26 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:51:26 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:51:31 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:51:32 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:51:25.040 | Elapsed=7434ms | Status=Completed
+2026-06-10 09:51:32 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7434ms
+2026-06-10 09:51:32 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:51:32.746 | Elapsed=57ms | Status=Completed
+2026-06-10 09:51:32 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:51:32.816 | Elapsed=153ms | Status=Completed
+2026-06-10 09:51:48 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:51:39.638 | Elapsed=8859ms | Status=Completed
+2026-06-10 09:51:48 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 8859ms
+2026-06-10 09:51:48 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:51:48.512 | Elapsed=240ms | Status=Completed
+2026-06-10 09:51:51 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:51:51.783 | Elapsed=35ms | Status=Completed
+2026-06-10 09:51:54 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201002/SYS201002 | Message=GET /SYS201002/SYS201002
+2026-06-10 09:51:54 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201002/SYS201002 | IP=::1 | Start=2026-06-10 09:51:54.022 | Elapsed=96ms | Status=Completed
+2026-06-10 09:51:56 | INF | ACTION_TRACE | Acc=admin | Path=/.well-known/appspecific/com.chrome.devtools.json | IP=::1 | Start=2026-06-10 09:51:56.855 | Elapsed=0ms | Status=Completed
+2026-06-10 09:51:56 | INF | ACTION_TRACE | Acc=admin | Path=/lib/html-to-image/html-to-image.js.map | IP=::1 | Start=2026-06-10 09:51:56.934 | Elapsed=0ms | Status=Completed
+2026-06-10 09:51:56 | INF | ACTION_TRACE | Acc=admin | Path=/sm/6cf3a2be173716d0e4726c68ef6634f00cefa4e7428560c2debae6f24389d3c1.map | IP=::1 | Start=2026-06-10 09:51:56.973 | Elapsed=0ms | Status=Completed
+2026-06-10 09:52:47 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:52:47 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:52:47 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:52:47 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:52:47 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:52:47 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:52:47 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:52:47 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:52:47 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:52:52 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:52:53 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:52:46.620 | Elapsed=7197ms | Status=Completed
+2026-06-10 09:52:53 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7197ms
+2026-06-10 09:52:54 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:52:54.042 | Elapsed=48ms | Status=Completed
+2026-06-10 09:52:54 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:52:54.104 | Elapsed=117ms | Status=Completed
+2026-06-10 09:53:20 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:53:11.058 | Elapsed=9012ms | Status=Completed
+2026-06-10 09:53:20 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 9012ms
+2026-06-10 09:53:20 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:53:20.089 | Elapsed=270ms | Status=Completed
+2026-06-10 09:53:22 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:53:22.707 | Elapsed=16ms | Status=Completed
+2026-06-10 09:53:26 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/SYS202100 | Message=GET /SYS202100/SYS202100
+2026-06-10 09:53:26 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/SYS202100 | IP=::1 | Start=2026-06-10 09:53:26.068 | Elapsed=135ms | Status=Completed
+2026-06-10 09:53:26 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDepartmentOptions | Message=GET /SYS202100/GetDepartmentOptions
+2026-06-10 09:53:26 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDepartmentOptions | IP=::1 | Start=2026-06-10 09:53:26.228 | Elapsed=60ms | Status=Completed
+2026-06-10 09:53:26 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 09:53:26 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 09:53:26.248 | Elapsed=86ms | Status=Completed
+2026-06-10 09:53:26 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 09:53:26 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 09:53:26.369 | Elapsed=6ms | Status=Completed
+2026-06-10 09:53:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetByVariable | Message=GET /SYS202100/GetByVariable
+2026-06-10 09:53:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetByVariable | IP=::1 | Start=2026-06-10 09:53:29.812 | Elapsed=34ms | Status=Completed
+2026-06-10 09:53:33 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:53:33.023 | Elapsed=11ms | Status=Completed
+2026-06-10 09:53:33 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:53:33.889 | Elapsed=7ms | Status=Completed
+2026-06-10 09:53:36 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/SYS202001 | Message=GET /SYS202001/SYS202001
+2026-06-10 09:53:36 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/SYS202001 | IP=::1 | Start=2026-06-10 09:53:36.519 | Elapsed=53ms | Status=Completed
+2026-06-10 09:53:36 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetDepartments | Message=POST /SYS202001/GetDepartments
+2026-06-10 09:53:36 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetDepartments | IP=::1 | Start=2026-06-10 09:53:36.606 | Elapsed=116ms | Status=Completed
+2026-06-10 09:53:36 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetDepartments | Message=POST /SYS202001/GetDepartments
+2026-06-10 09:53:36 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetDepartments | IP=::1 | Start=2026-06-10 09:53:36.744 | Elapsed=9ms | Status=Completed
+2026-06-10 09:53:38 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetEditDepartmentPartial | Message=GET /SYS202001/GetEditDepartmentPartial
+2026-06-10 09:53:38 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetEditDepartmentPartial | IP=::1 | Start=2026-06-10 09:53:38.845 | Elapsed=34ms | Status=Completed
+2026-06-10 09:53:38 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetSubDepartments | Message=POST /SYS202001/GetSubDepartments
+2026-06-10 09:53:38 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetSubDepartments | IP=::1 | Start=2026-06-10 09:53:38.899 | Elapsed=43ms | Status=Completed
+2026-06-10 09:53:38 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetSubDepartments | Message=POST /SYS202001/GetSubDepartments
+2026-06-10 09:53:38 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetSubDepartments | IP=::1 | Start=2026-06-10 09:53:38.969 | Elapsed=20ms | Status=Completed
+2026-06-10 09:53:43 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetSubDepartments | Message=POST /SYS202001/GetSubDepartments
+2026-06-10 09:53:43 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetSubDepartments | IP=::1 | Start=2026-06-10 09:53:38.965 | Elapsed=4570ms | Status=Completed
+2026-06-10 09:53:43 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/SYS202001/GetSubDepartments | Reason=SlowRequest 4570ms
+2026-06-10 09:53:44 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202002/SYS202002 | Message=GET /SYS202002/SYS202002
+2026-06-10 09:53:44 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202002/SYS202002 | IP=::1 | Start=2026-06-10 09:53:44.281 | Elapsed=37ms | Status=Completed
+2026-06-10 09:53:44 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202002/GetDataForTree | Message=GET /SYS202002/GetDataForTree
+2026-06-10 09:53:44 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202002/GetDataForTree | IP=::1 | Start=2026-06-10 09:53:44.382 | Elapsed=72ms | Status=Completed
+2026-06-10 09:53:50 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 09:53:50 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 09:53:50.085 | Elapsed=104ms | Status=Completed
+2026-06-10 09:53:50 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:53:50 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:53:50.263 | Elapsed=58ms | Status=Completed
+2026-06-10 09:53:50 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:53:50 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:53:50.338 | Elapsed=11ms | Status=Completed
+2026-06-10 09:53:53 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:53:53 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:53:53 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAdminDetails | Message=GET /SYS201001/GetAdminDetails
+2026-06-10 09:53:53 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAdminDetails | IP=::1 | Start=2026-06-10 09:53:53.493 | Elapsed=87ms | Status=Completed
+2026-06-10 09:53:53 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:53:53 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:53:53.608 | Elapsed=16ms | Status=Completed
+2026-06-10 09:53:53 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllPersonnelTypes | Message=GET /SYS201001/GetAllPersonnelTypes
+2026-06-10 09:53:53 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllPersonnelTypes | IP=::1 | Start=2026-06-10 09:53:53.588 | Elapsed=46ms | Status=Completed
+2026-06-10 09:53:58 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllRoles | Message=GET /SYS201001/GetAllRoles
+2026-06-10 09:53:58 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllRoles | IP=::1 | Start=2026-06-10 09:53:58.129 | Elapsed=51ms | Status=Completed
+2026-06-10 09:54:03 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 09:54:03 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 09:54:03.916 | Elapsed=22ms | Status=Completed
+2026-06-10 09:54:03 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:54:03 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:54:03.980 | Elapsed=8ms | Status=Completed
+2026-06-10 09:54:04 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 09:54:04 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 09:54:04.010 | Elapsed=12ms | Status=Completed
+2026-06-10 09:54:08 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201002/SYS201002 | Message=GET /SYS201002/SYS201002
+2026-06-10 09:54:08 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201002/SYS201002 | IP=::1 | Start=2026-06-10 09:54:08.484 | Elapsed=47ms | Status=Completed
+2026-06-10 09:57:02 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:57:02 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:57:02 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:57:02 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:57:02 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:57:02 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:57:02 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:57:02 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:57:02 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-06-10 09:57:07 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 09:57:08 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:57:01.327 | Elapsed=7299ms | Status=Completed
+2026-06-10 09:57:08 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/ | Reason=SlowRequest 7299ms
+2026-06-10 09:57:08 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:57:08.866 | Elapsed=41ms | Status=Completed
+2026-06-10 09:57:09 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:57:08.940 | Elapsed=122ms | Status=Completed
+2026-06-10 09:57:26 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:57:17.396 | Elapsed=9103ms | Status=Completed
+2026-06-10 09:57:26 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 9103ms
+2026-06-10 09:57:26 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:57:26.518 | Elapsed=416ms | Status=Completed
+2026-06-10 09:57:28 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:57:28.275 | Elapsed=37ms | Status=Completed
+2026-06-10 09:57:46 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Logout | IP=::1 | Start=2026-06-10 09:57:46.580 | Elapsed=16ms | Status=Completed
+2026-06-10 09:57:57 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Home/Index | IP=::1 | Start=2026-06-10 09:57:57.213 | Elapsed=88ms | Status=Completed
+2026-06-10 09:58:00 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-06-10 09:58:00.558 | Elapsed=1ms | Status=Completed
+2026-06-10 09:58:00 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:58:00.682 | Elapsed=2ms | Status=Completed
+2026-06-10 09:58:00 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:58:00.691 | Elapsed=29ms | Status=Completed
+2026-06-10 09:58:04 | INF | ACTION_TRACE | Acc=admin | Path=/ | IP=::1 | Start=2026-06-10 09:58:02.847 | Elapsed=1292ms | Status=Completed
+2026-06-10 09:58:04 | INF | ACTION_TRACE | Acc=admin | Path=/Captcha/Generate | IP=::1 | Start=2026-06-10 09:58:04.337 | Elapsed=1ms | Status=Completed
+2026-06-10 09:58:04 | INF | ACTION_TRACE | Acc=admin | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-06-10 09:58:04.346 | Elapsed=13ms | Status=Completed
+2026-06-10 09:58:11 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-06-10 09:58:07.359 | Elapsed=4228ms | Status=Completed
+2026-06-10 09:58:11 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 4228ms
+2026-06-10 09:58:11 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 09:58:11.597 | Elapsed=17ms | Status=Completed
+2026-06-10 09:58:16 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 09:58:16.081 | Elapsed=9ms | Status=Completed
+2026-06-10 09:58:45 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Logout | IP=::1 | Start=2026-06-10 09:58:45.674 | Elapsed=3ms | Status=Completed
+2026-06-10 10:10:23 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 10:10:23.169 | Elapsed=267ms | Status=Completed
+2026-06-10 10:10:44 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 10:10:44.750 | Elapsed=16ms | Status=Completed
+2026-06-10 10:10:46 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 10:10:46 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 10:10:46.670 | Elapsed=191ms | Status=Completed
+2026-06-10 10:10:47 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 10:10:47 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 10:10:46.935 | Elapsed=85ms | Status=Completed
+2026-06-10 10:10:47 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 10:10:47 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 10:10:47.054 | Elapsed=12ms | Status=Completed
+2026-06-10 10:10:48 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201002/SYS201002 | Message=GET /SYS201002/SYS201002
+2026-06-10 10:10:48 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201002/SYS201002 | IP=::1 | Start=2026-06-10 10:10:48.095 | Elapsed=45ms | Status=Completed
+2026-06-10 10:10:48 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/SYS202100 | Message=GET /SYS202100/SYS202100
+2026-06-10 10:10:48 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/SYS202100 | IP=::1 | Start=2026-06-10 10:10:48.948 | Elapsed=42ms | Status=Completed
+2026-06-10 10:10:49 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDepartmentOptions | Message=GET /SYS202100/GetDepartmentOptions
+2026-06-10 10:10:49 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDepartmentOptions | IP=::1 | Start=2026-06-10 10:10:49.024 | Elapsed=32ms | Status=Completed
+2026-06-10 10:10:49 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 10:10:49 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 10:10:49.031 | Elapsed=55ms | Status=Completed
+2026-06-10 10:10:49 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 10:10:49 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 10:10:49.106 | Elapsed=6ms | Status=Completed
+2026-06-10 10:10:51 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/SYS202001 | Message=GET /SYS202001/SYS202001
+2026-06-10 10:10:51 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/SYS202001 | IP=::1 | Start=2026-06-10 10:10:51.499 | Elapsed=33ms | Status=Completed
+2026-06-10 10:10:51 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetDepartments | Message=POST /SYS202001/GetDepartments
+2026-06-10 10:10:51 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetDepartments | IP=::1 | Start=2026-06-10 10:10:51.558 | Elapsed=150ms | Status=Completed
+2026-06-10 10:10:51 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetDepartments | Message=POST /SYS202001/GetDepartments
+2026-06-10 10:10:51 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetDepartments | IP=::1 | Start=2026-06-10 10:10:51.733 | Elapsed=17ms | Status=Completed
+2026-06-10 10:10:52 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202002/SYS202002 | Message=GET /SYS202002/SYS202002
+2026-06-10 10:10:52 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202002/SYS202002 | IP=::1 | Start=2026-06-10 10:10:52.260 | Elapsed=34ms | Status=Completed
+2026-06-10 10:10:52 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202002/GetDataForTree | Message=GET /SYS202002/GetDataForTree
+2026-06-10 10:10:52 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202002/GetDataForTree | IP=::1 | Start=2026-06-10 10:10:52.312 | Elapsed=36ms | Status=Completed
+2026-06-10 10:10:52 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202003/SYS202003 | Message=GET /SYS202003/SYS202003
+2026-06-10 10:10:52 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202003/SYS202003 | IP=::1 | Start=2026-06-10 10:10:52.771 | Elapsed=44ms | Status=Completed
+2026-06-10 10:10:52 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202003/GetPTypeData | Message=POST /SYS202003/GetPTypeData
+2026-06-10 10:10:52 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202003/GetPTypeData | IP=::1 | Start=2026-06-10 10:10:52.865 | Elapsed=79ms | Status=Completed
+2026-06-10 10:10:52 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202003/GetPTypeData | Message=POST /SYS202003/GetPTypeData
+2026-06-10 10:10:52 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202003/GetPTypeData | IP=::1 | Start=2026-06-10 10:10:52.963 | Elapsed=6ms | Status=Completed
+2026-06-10 10:10:53 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202004/SYS202004 | Message=GET /SYS202004/SYS202004
+2026-06-10 10:10:53 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202004/SYS202004 | IP=::1 | Start=2026-06-10 10:10:53.327 | Elapsed=29ms | Status=Completed
+2026-06-10 10:10:53 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202004/GetProfessData | Message=POST /SYS202004/GetProfessData
+2026-06-10 10:10:53 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202004/GetProfessData | IP=::1 | Start=2026-06-10 10:10:53.398 | Elapsed=93ms | Status=Completed
+2026-06-10 10:10:53 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202004/GetProfessData | Message=POST /SYS202004/GetProfessData
+2026-06-10 10:10:53 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202004/GetProfessData | IP=::1 | Start=2026-06-10 10:10:53.513 | Elapsed=7ms | Status=Completed
+2026-06-10 10:10:53 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202005/SYS202005 | Message=GET /SYS202005/SYS202005
+2026-06-10 10:10:53 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202005/SYS202005 | IP=::1 | Start=2026-06-10 10:10:53.867 | Elapsed=28ms | Status=Completed
+2026-06-10 10:10:54 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202005/GetList | Message=POST /SYS202005/GetList
+2026-06-10 10:10:54 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202005/GetList | IP=::1 | Start=2026-06-10 10:10:53.984 | Elapsed=52ms | Status=Completed
+2026-06-10 10:10:54 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202005/GetList | Message=POST /SYS202005/GetList
+2026-06-10 10:10:54 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202005/GetList | IP=::1 | Start=2026-06-10 10:10:54.054 | Elapsed=6ms | Status=Completed
+2026-06-10 15:05:55 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-06-10 15:05:54.743 | Elapsed=321ms | Status=Completed
+2026-06-10 15:05:56 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 15:05:56.618 | Elapsed=98ms | Status=Completed
+2026-06-10 15:05:57 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 15:05:57.582 | Elapsed=52ms | Status=Completed
+2026-06-10 15:06:00 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ATT111001/ATT111001 | Message=GET /ATT111001/ATT111001
+2026-06-10 15:06:00 | INF | ACTION_TRACE | Acc=admin | Path=/ATT111001/ATT111001 | IP=::1 | Start=2026-06-10 15:05:59.970 | Elapsed=101ms | Status=Completed
+2026-06-10 15:06:00 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ATT111001/GetList | Message=POST /ATT111001/GetList
+2026-06-10 15:06:00 | INF | ACTION_TRACE | Acc=admin | Path=/ATT111001/GetList | IP=::1 | Start=2026-06-10 15:06:00.162 | Elapsed=248ms | Status=Completed
+2026-06-10 15:06:00 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ATT111001/GetList | Message=POST /ATT111001/GetList
+2026-06-10 15:06:00 | INF | ACTION_TRACE | Acc=admin | Path=/ATT111001/GetList | IP=::1 | Start=2026-06-10 15:06:00.476 | Elapsed=15ms | Status=Completed
+2026-06-10 15:06:02 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 15:06:02 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ATT111001/GetByNo | Message=GET /ATT111001/GetByNo
+2026-06-10 15:06:02 | INF | ACTION_TRACE | Acc=admin | Path=/ATT111001/GetByNo | IP=::1 | Start=2026-06-10 15:06:02.408 | Elapsed=52ms | Status=Completed
+2026-06-10 15:06:07 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-06-10 15:06:07.481 | Elapsed=11ms | Status=Completed
+2026-06-10 15:06:09 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/SYS201001 | Message=GET /SYS201001/SYS201001
+2026-06-10 15:06:09 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/SYS201001 | IP=::1 | Start=2026-06-10 15:06:09.379 | Elapsed=156ms | Status=Completed
+2026-06-10 15:06:09 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 15:06:09 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 15:06:09.610 | Elapsed=96ms | Status=Completed
+2026-06-10 15:06:09 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 15:06:09 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 15:06:09.726 | Elapsed=6ms | Status=Completed
+2026-06-10 15:06:10 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 15:06:10 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-06-10 15:06:10 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAdminDetails | Message=GET /SYS201001/GetAdminDetails
+2026-06-10 15:06:10 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAdminDetails | IP=::1 | Start=2026-06-10 15:06:10.645 | Elapsed=97ms | Status=Completed
+2026-06-10 15:06:10 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllRoles | Message=GET /SYS201001/GetAllRoles
+2026-06-10 15:06:10 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllRoles | IP=::1 | Start=2026-06-10 15:06:10.754 | Elapsed=38ms | Status=Completed
+2026-06-10 15:06:15 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllPersonnelTypes | Message=GET /SYS201001/GetAllPersonnelTypes
+2026-06-10 15:06:15 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllPersonnelTypes | IP=::1 | Start=2026-06-10 15:06:15.288 | Elapsed=34ms | Status=Completed
+2026-06-10 15:06:15 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201001/GetAllAdmins | Message=POST /SYS201001/GetAllAdmins
+2026-06-10 15:06:15 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201001/GetAllAdmins | IP=::1 | Start=2026-06-10 15:06:10.773 | Elapsed=4592ms | Status=Completed
+2026-06-10 15:06:15 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/SYS201001/GetAllAdmins | Reason=SlowRequest 4592ms
+2026-06-10 15:06:19 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202002/SYS202002 | Message=GET /SYS202002/SYS202002
+2026-06-10 15:06:19 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202002/SYS202002 | IP=::1 | Start=2026-06-10 15:06:19.314 | Elapsed=57ms | Status=Completed
+2026-06-10 15:06:19 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202002/GetDataForTree | Message=GET /SYS202002/GetDataForTree
+2026-06-10 15:06:19 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202002/GetDataForTree | IP=::1 | Start=2026-06-10 15:06:19.476 | Elapsed=64ms | Status=Completed
+2026-06-10 15:06:20 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/SYS202001 | Message=GET /SYS202001/SYS202001
+2026-06-10 15:06:20 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/SYS202001 | IP=::1 | Start=2026-06-10 15:06:20.521 | Elapsed=36ms | Status=Completed
+2026-06-10 15:06:20 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetDepartments | Message=POST /SYS202001/GetDepartments
+2026-06-10 15:06:20 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetDepartments | IP=::1 | Start=2026-06-10 15:06:20.596 | Elapsed=184ms | Status=Completed
+2026-06-10 15:06:20 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202001/GetDepartments | Message=POST /SYS202001/GetDepartments
+2026-06-10 15:06:20 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202001/GetDepartments | IP=::1 | Start=2026-06-10 15:06:20.805 | Elapsed=14ms | Status=Completed
+2026-06-10 15:06:21 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202003/SYS202003 | Message=GET /SYS202003/SYS202003
+2026-06-10 15:06:21 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202003/SYS202003 | IP=::1 | Start=2026-06-10 15:06:21.416 | Elapsed=35ms | Status=Completed
+2026-06-10 15:06:21 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202003/GetPTypeData | Message=POST /SYS202003/GetPTypeData
+2026-06-10 15:06:21 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202003/GetPTypeData | IP=::1 | Start=2026-06-10 15:06:21.496 | Elapsed=64ms | Status=Completed
+2026-06-10 15:06:21 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202003/GetPTypeData | Message=POST /SYS202003/GetPTypeData
+2026-06-10 15:06:21 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202003/GetPTypeData | IP=::1 | Start=2026-06-10 15:06:21.624 | Elapsed=25ms | Status=Completed
+2026-06-10 15:06:24 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS201002/SYS201002 | Message=GET /SYS201002/SYS201002
+2026-06-10 15:06:24 | INF | ACTION_TRACE | Acc=admin | Path=/SYS201002/SYS201002 | IP=::1 | Start=2026-06-10 15:06:24.299 | Elapsed=59ms | Status=Completed
+2026-06-10 15:06:25 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/SYS202100 | Message=GET /SYS202100/SYS202100
+2026-06-10 15:06:25 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/SYS202100 | IP=::1 | Start=2026-06-10 15:06:25.504 | Elapsed=62ms | Status=Completed
+2026-06-10 15:06:25 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDepartmentOptions | Message=GET /SYS202100/GetDepartmentOptions
+2026-06-10 15:06:25 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDepartmentOptions | IP=::1 | Start=2026-06-10 15:06:25.600 | Elapsed=45ms | Status=Completed
+2026-06-10 15:06:25 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 15:06:25 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 15:06:25.623 | Elapsed=59ms | Status=Completed
+2026-06-10 15:06:25 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-06-10 15:06:25 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-06-10 15:06:25.711 | Elapsed=6ms | Status=Completed

@@ -1,0 +1,79 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "bootstrap@5.3.3",
+      "destination": "wwwroot/lib/bootstrap/"
+    },
+    {
+      "library": "bootstrap-icons@1.11.3",
+      "destination": "wwwroot/lib/bootstrap-icons/"
+    },
+    {
+      "library": "datatables.net@2.2.2",
+      "destination": "wwwroot/lib/datatables.net/"
+    },
+    {
+      "library": "datatables-buttons@3.2.0",
+      "destination": "wwwroot/lib/datatable/datatables-buttons/"
+    },
+    {
+      "library": "datatables.net-buttons-bs5@3.2.1",
+      "destination": "wwwroot/lib/datatables.net/buttons-bs5/"
+    },
+    {
+      "library": "sweetalert2@11.22.4",
+      "destination": "wwwroot/lib/sweetalert2/"
+    },
+    {
+      "library": "jquery@3.6.4",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "bootstrap-datepicker@1.10.0",
+      "destination": "wwwroot/lib/bootstrap-datepicker/"
+    },
+    {
+      "library": "datatables.net-fixedheader-bs5@4.0.3",
+      "destination": "wwwroot/lib/datatables.net-fixedheader-bs5/"
+    },
+    {
+      "library": "admin-lte@4.0.0-rc4",
+      "destination": "wwwroot/lib/admin-lte/"
+    },
+    {
+      "library": "bootstrap-table@1.24.2",
+      "destination": "wwwroot/lib/bootstrap-table/",
+      "files": [
+        "extensions/treegrid/*.*",
+        "locale/bootstrap-table-zh-TW.js",
+        "bootstrap-table.min.js",
+        "bootstrap-table.min.css"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "jquery-treegrid@0.3.0",
+      "destination": "wwwroot/lib/jquery-treegrid/",
+      "files": [
+        "css/jquery.treegrid.min.css",
+        "js/jquery.treegrid.min.js"
+      ]
+    },
+    {
+      "library": "Sortable@1.15.6",
+      "destination": "wwwroot/lib/Sortable/",
+      "files": [
+        "Sortable.min.js"
+      ]
+    },
+    {
+      "library": "Chart.js@4.5.0",
+      "destination": "wwwroot/lib/Chart.js/",
+      "files": [
+        "chart.min.js"
+      ]
+    }
+  ]
+}

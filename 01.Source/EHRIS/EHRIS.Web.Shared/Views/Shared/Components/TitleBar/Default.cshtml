@@ -1,0 +1,25 @@
+﻿@{
+    var title = ViewData["TitleBarText"] as string ?? "功能標題"; 
+    var queryTime = ViewData["QueryTime"] as string;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center">
+            <!-- 左邊 Tabs -->
+            <ul class="nav nav-tabs function-tabs mb-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#tab1" data-bs-toggle="tab">
+                        @title 
+                    </a>
+                </li>
+            </ul>
+            <!-- 右邊 查詢時間 -->
+            <div>
+                <span class="fs-8 text-primary">
+                    查詢時間:@queryTime
+                </span>
+            </div>
+        </div>
+    </div>
+</section>

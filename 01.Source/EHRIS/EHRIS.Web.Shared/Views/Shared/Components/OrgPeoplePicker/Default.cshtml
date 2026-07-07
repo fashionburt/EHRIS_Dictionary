@@ -1,0 +1,132 @@
+@using System.Text.Json
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
+@model EHRIS.Web.Shared.Models.OrgPeoplePickerModel
+
+@functions {
+    // 破快取：用 wwwroot 檔案的修改時間當版本號（元件檢視在 Web.Shared，無法用 asp-append-version）
+    string AssetV(string rel)
+    {
+        try
+        {
+            var p = System.IO.Path.Combine(Env.WebRootPath, rel.Replace('/', System.IO.Path.DirectorySeparatorChar));
+            return System.IO.File.Exists(p) ? System.IO.File.GetLastWriteTimeUtc(p).Ticks.ToString() : "1";
+        }
+        catch { return "1"; }
+    }
+}
+
+@{
+    var cid = Model.ComponentId;
+    var fieldName = Model.FieldName;
+    var selectedTokens = Model.SelectedTokens ?? "";
+    var preloadedJson = JsonSerializer.Serialize(new
+    {
+        depts = (Model.Preloaded?.Depts ?? new()).Select(d => new { id = d.DepNo, name = d.Name, count = d.PeopleCount }),
+        people = (Model.Preloaded?.People ?? new()).Select(p => new { id = p.PeoUid, name = p.Name, proName = p.ProName, depNo = p.DepNo, depName = p.DepName }),
+        excluded = (Model.Preloaded?.Excluded ?? new()).Select(p => new { id = p.PeoUid, depNo = p.DepNo, name = p.Name, depName = p.DepName })
+    });
+}
+
+<div id="@(cid)_wrapper" class="op-wrapper" data-comp-id="@cid">
+    <span class="op-empty" id="@(cid)_empty">尚未選擇人員</span>
+    <button type="button" class="op-trigger" id="@(cid)_trigger">
+        <i class="fas fa-users"></i> @Model.ButtonText
+    </button>
+    <input type="hidden" id="@(cid)_ids" name="@fieldName" value="@selectedTokens" />
+</div>
+
+<!-- Modal -->
+<div class="modal modal-op fade" id="@(cid)_modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-md-down">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-users me-2"></i><span>@Model.ModalTitle</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body op-body" id="@(cid)_body">
+
+                <!-- 上區：部門樹 -->
+                <div class="op-pane op-pane-tree">
+                    <div class="op-pane-head">
+                        <i class="fas fa-sitemap"></i> 部門
+                        <input type="text" class="op-tree-search" id="@(cid)_treeSearch" placeholder="搜尋部門..." />
+                    </div>
+                    <div class="op-tree-wrap">
+                        <ul class="op-tree" id="@(cid)_treeRoot"></ul>
+                        <div class="op-loading" id="@(cid)_treeLoading"><i class="fas fa-spinner fa-spin"></i> 載入中...</div>
+                    </div>
+                </div>
+
+                <!-- 下區：人員 datagrid -->
+                <div class="op-pane op-pane-people">
+                    <div class="op-pane-head">
+                        <button type="button" class="op-back-btn" id="@(cid)_back" title="返回部門"><i class="fas fa-chevron-left"></i> 部門</button>
+                        <i class="fas fa-user"></i> 人員 —
+                        <span id="@(cid)_curDept" class="op-cur-dept">請先點選左方部門</span>
+                        <div class="op-people-tools">
+                            <label class="op-dept-all" title="全選 / 取消此部門所有人員"><input type="checkbox" id="@(cid)_deptAll" /> 全選</label>
+                            <input type="text" class="op-people-search" id="@(cid)_peopleSearch" placeholder="搜尋人名..." />
+                            <label class="op-global"><input type="checkbox" id="@(cid)_global" /> 搜全機關</label>
+                        </div>
+                    </div>
+                    <div class="op-grid-wrap">
+                        <table class="table table-striped table-sm table-hover op-grid" id="@(cid)_grid" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="width:36px" class="op-check-col"></th>
+                                    <th class="op-col-dep" style="width:34%">部門</th>
+                                    @if (Model.ShowTitle)
+                                    {
+                                        <th class="op-col-pro" style="width:24%">職稱</th>
+                                    }
+                                    <th class="op-col-name">姓名</th>
+                                    <th class="op-col-mobile">人員</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div class="op-grid-hint" id="@(cid)_gridHint">← 點選左方部門以檢視人員</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 已選面板（跨部門總覽） -->
+            <div class="op-selected">
+                <div class="op-selected-head">
+                    <i class="fas fa-check-circle"></i> 已選 <b id="@(cid)_count">0</b> 人
+                    <button type="button" class="op-clear" id="@(cid)_clear">清空</button>
+                </div>
+                <div class="op-selected-chips" id="@(cid)_chips"><span class="op-selected-empty">尚未選擇</span></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary btn-sm" id="@(cid)_confirm">確定</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="@Url.Content("~/css/DataTableStyles.css")" />
+<link rel="stylesheet" href="@Url.Content("~/css/OrgPeoplePicker.css")?v=@AssetV("css/OrgPeoplePicker.css")" />
+<script src="@Url.Content("~/js/Common/OrgPeoplePicker.js")?v=@AssetV("js/Common/OrgPeoplePicker.js")"></script>
+<script>
+    window.OrgPeoplePicker.init({
+        cid: '@cid',
+        fieldName: '@fieldName',
+        ptyNo: @(Model.PtyNo?.ToString() ?? "null"),
+        showTitle: @(Model.ShowTitle ? "true" : "false"),
+        multiple: @(Model.Multiple ? "true" : "false"),
+        peopleStatus: @((int)Model.PeopleStatus),
+        showSelf: @(Model.ShowSelf == EHRIS.Core.Models.Common.PeopleShowSelf.True ? "true" : "false"),
+        nodeType: @((int)Model.NodeType),
+        authType: @((int)Model.AuthType),
+        baseUrl: '@Url.Content("~/")'.replace(/\/+$/, ''),
+        selectedTokens: @Html.Raw(JsonSerializer.Serialize(selectedTokens)),
+        preloaded: @Html.Raw(preloadedJson)
+    });
+</script>

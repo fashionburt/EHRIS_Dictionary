@@ -1,0 +1,109 @@
+﻿/*SYS表格大小固定*/
+
+.dataTable {
+    /* 保持固定佈局 */
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+/* 保持 DataTables 搜尋欄與新增按鈕的排列 */
+.dataTables_filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+    .dataTables_filter label {
+        margin-bottom: 0;
+    }
+
+table.dataTable td, table.dataTable th {
+    vertical-align: middle !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.dt-col-min {
+    width: 5% ;
+    max-width: 50px !important;
+    min-width: 50px !important;
+    text-align: center !important;
+}
+
+.dt-col-mid {
+    width: 10%; 
+    max-width: 150px !important;
+    min-width: 100px !important; 
+    text-align: left;
+}
+
+.dt-col-max {
+    width: 25% ;
+    max-width: 200px !important;
+    min-width: 200px !important;
+    text-align: left !important;
+}
+
+.dt-col-order {
+    width: 5%;
+    max-width: 60px !important;
+    min-width: 60px !important;
+    text-align: center;
+}
+
+.dt-col-mod {
+    width: 7% ;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    text-align: left !important;
+}
+
+.dt-col-time {
+    width: 11% ;
+    max-width: 130px !important;
+    min-width: 120px !important;
+    text-align: left !important;
+}
+
+.dt-col-ATTtime {
+    width: 11%;
+    max-width: 300px !important;
+    min-width: 300px !important;
+    text-align: center !important;
+}
+
+.dt-col-action {
+    width: 5%;
+    max-width: 40px !important;
+    min-width: 40px !important;
+    text-align: center !important;
+}
+
+/*搜尋框固定大小*/
+.dataTables_filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+    .dataTables_filter .input-group {
+        width: 400px !important;
+        flex-grow: 0; 
+        flex-shrink: 0; 
+    }
+
+        .dataTables_filter .input-group input[type="search"] {
+            flex-grow: 1; 
+            flex-basis: 0; 
+            min-width: 150px; 
+        }
+
+        .dataTables_filter .input-group select {
+            flex-grow: 0; 
+            flex-shrink: 0;
+        }
+
+    .dataTables_filter .add-button-container {
+        flex-shrink: 0; 
+        margin-left: 0.5rem; 
+    }

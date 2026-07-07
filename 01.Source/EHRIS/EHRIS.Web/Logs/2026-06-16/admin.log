@@ -1,0 +1,5 @@
+2026-06-16 10:24:11 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Home/Index | IP=::1 | Start=2026-06-16 10:24:11.519 | Elapsed=202ms | Status=Completed
+2026-06-16 10:24:20 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ADS999002/ADS999002 | Message=GET /ADS999002/ADS999002
+2026-06-16 10:24:20 | INF | ACTION_TRACE | Acc=admin | Path=/ADS999002/ADS999002 | IP=::1 | Start=2026-06-16 10:24:20.389 | Elapsed=92ms | Status=Completed
+2026-06-16 10:24:20 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=ADS999002/GetAllRoleList | Message=POST /ADS999002/GetAllRoleList
+2026-06-16 10:24:20 | INF | ACTION_TRACE | Acc=admin | Path=/ADS999002/GetAllRoleList | IP=::1 | Start=2026-06-16 10:24:20.543 | Elapsed=75ms | Status=Completed

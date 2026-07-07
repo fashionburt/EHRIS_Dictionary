@@ -1,0 +1,130 @@
+/* OrgPeoplePicker — 上下分區人員選擇器 */
+
+.op-wrapper { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+.op-empty { color: #888; font-size: .9rem; }
+
+/* 主頁已選區 chip */
+.op-main-chip { display: inline-flex; align-items: center; background: #e7f1ff; border: 1px solid #b6d4fe; border-radius: 14px; padding: .1rem .3rem .1rem .6rem; font-size: .83rem; }
+.op-main-chip.op-chip-dept { background: #fff3cd; border-color: #ffe69c; }
+.op-trigger { border: 1px solid #ced4da; background: #fff; border-radius: 6px; padding: .35rem .8rem; cursor: pointer; }
+.op-trigger:hover { background: #f1f3f5; }
+
+/* Modal body 為上下兩區 */
+.modal-op .modal-body.op-body { display: flex; flex-direction: column; gap: .5rem; padding: .75rem; }
+
+.op-pane { border: 1px solid #e3e6ea; border-radius: 8px; display: flex; flex-direction: column; min-height: 0; }
+.op-pane-tree { height: 30vh; }
+.op-pane-people { flex: 1; min-height: 34vh; }
+
+.op-pane-head {
+    padding: .4rem .6rem; background: #f6f8fa; border-bottom: 1px solid #e3e6ea;
+    font-weight: 600; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+}
+.op-cur-dept { color: #0d6efd; }
+.op-tree-search { margin-left: auto; }
+.op-tree-search, .op-people-search {
+    border: 1px solid #ced4da; border-radius: 6px; padding: .2rem .5rem; font-weight: 400; font-size: .85rem;
+}
+.op-people-tools { margin-left: auto; display: flex; align-items: center; gap: .5rem; }
+.op-global, .op-dept-all { font-weight: 400; font-size: .85rem; display: flex; align-items: center; gap: .25rem; margin: 0; cursor: pointer; }
+.op-dept-all { font-weight: 600; }
+
+.op-tree-wrap, .op-grid-wrap { overflow: auto; flex: 1; min-height: 0; padding: .4rem .6rem; position: relative; }
+
+/* 部門樹 */
+.op-tree, .op-tree ul { list-style: none; margin: 0; padding: 0; }
+.op-tree ul { padding-left: 1.1rem; }
+.op-node-row { display: flex; align-items: center; gap: .4rem; padding: .2rem .3rem; border-radius: 6px; cursor: pointer; }
+.op-node-row:hover { background: #eef2f6; }
+.op-node-row.active { background: #d6e4f7; }
+.op-node-toggle { font-size: .7rem; width: 1rem; text-align: center; color: #999; transition: transform .15s; }
+.op-tree li:not(.has-children) > .op-node-row > .op-node-toggle { visibility: hidden; }
+.op-tree li.collapsed > .op-node-row > .op-node-toggle { transform: rotate(-90deg); }
+.op-tree li.collapsed > ul { display: none; }
+.op-node-icon { color: #e0a800; }
+.op-node-name { flex: 0 1 auto; }
+.op-node-count { margin-left: auto; font-size: .75rem; color: #555; background: #eef2f6; border-radius: 10px; padding: 0 .45rem; }
+/* 有選取的部門節點標示（樹已無勾選框） */
+.op-node-has-sel .op-node-name { color: #0d6efd; font-weight: 700; }
+
+/* 人員 grid */
+.op-grid-hint { color: #888; padding: 1rem; text-align: center; }
+.op-grid .op-check-col { text-align: center; }
+.op-grid td { vertical-align: middle; }
+/* 整列可點選；checkbox 純顯示（點擊落到列，不吃事件） */
+.op-grid tbody tr { cursor: pointer; }
+.op-row-check { pointer-events: none; }
+.op-grid tbody tr.op-row-selected td { background-color: #dcebff !important; }
+/* 合併欄桌面版隱藏，只在手機版出現 */
+.op-grid .op-col-mobile { display: none; }
+
+/* loading */
+.op-loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #888; }
+
+/* 已選面板 */
+.op-selected { border-top: 1px solid #e3e6ea; padding: .5rem .75rem; background: #fafbfc; }
+.op-selected-head { display: flex; align-items: center; gap: .5rem; font-weight: 600; margin-bottom: .35rem; }
+.op-clear { margin-left: auto; border: none; background: none; color: #0d6efd; cursor: pointer; font-size: .85rem; }
+.op-selected-chips { display: flex; flex-wrap: wrap; gap: .35rem; max-height: 14vh; overflow: auto; }
+.op-selected-empty { color: #999; font-size: .85rem; }
+.op-chip { display: inline-flex; align-items: center; background: #e7f1ff; border: 1px solid #b6d4fe; border-radius: 14px; padding: .1rem .3rem .1rem .6rem; font-size: .83rem; }
+.op-chip-dept { background: #fff3cd; border-color: #ffe69c; }
+.op-chip-excluded, .op-main-chip.op-chip-excluded { background: #fde8e8; border-color: #f5c2c2; color: #c0392b; }
+.op-chip-x { border: none; background: none; cursor: pointer; font-size: 1rem; line-height: 1; color: #666; margin-left: .15rem; }
+.op-chip-x:hover { color: #dc3545; }
+
+
+/* 返回鈕：桌面版隱藏（兩區並存），手機版才出現 */
+.op-back-btn {
+    display: none; border: 1px solid #ced4da; background: #fff; border-radius: 6px;
+    padding: .15rem .5rem; font-size: .85rem; cursor: pointer;
+}
+
+/* ── 手機版（≤768px，對齊 modal-fullscreen-md-down）：單頁導覽 master→detail ── */
+@media (max-width: 768px) {
+    .modal-op .modal-body.op-body { padding: .5rem; }
+
+    /* 預設只顯示部門樹、佔滿；點部門後切換到人員 */
+    .op-pane-tree { height: auto; flex: 1; }
+    .op-pane-people { display: none; }
+    .op-body.op-show-people .op-pane-tree { display: none; }
+    .op-body.op-show-people .op-pane-people { display: flex; flex: 1; min-height: 0; }
+
+    .op-back-btn { display: inline-flex; align-items: center; gap: .2rem; }
+
+    /* 窄螢幕：人員 grid 只留「合併欄」（部門/職稱/姓名 三行堆疊），隱藏勾選與各獨立欄 */
+    .op-grid th.op-check-col, .op-grid td.op-check-col,
+    .op-grid th.op-col-dep,   .op-grid td.op-col-dep,
+    .op-grid th.op-col-pro,   .op-grid td.op-col-pro,
+    .op-grid th.op-col-name,  .op-grid td.op-col-name { display: none; }
+    .op-grid th.op-col-mobile, .op-grid td.op-col-mobile { display: table-cell; }
+    .op-m-line1 { font-size: .78rem; color: #6b7280; text-align: left; line-height: 1.3; }
+    .op-m-line1 .op-m-pro { margin-left: .5rem; }
+    .op-m-name { text-align: right; font-weight: 600; line-height: 1.35; }
+    .op-grid td.op-col-mobile { padding-top: .3rem; padding-bottom: .3rem; }
+
+    /* 工具列換行更省空間 */
+    .op-pane-head { gap: .35rem; }
+    .op-people-tools { width: 100%; margin-left: 0; }
+    .op-people-search { flex: 1; }
+
+    /* 已選面板壓低，避免吃掉人員清單高度 */
+    .op-selected-chips { max-height: 9vh; }
+
+    /* 底部：line1 每頁筆數+資訊（貼左）；line2 跳頁靠左、分頁靠右（space-between，不會超寬出捲軸） */
+    .modal-op .op-grid-wrap .dataTables_wrapper .row.mt-2 { --bs-gutter-x: 0; margin: 0; row-gap: .25rem; font-size: .8rem; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .col-md-5 > div { justify-content: flex-start; flex-wrap: nowrap; white-space: nowrap; gap: .35rem !important; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .col-md-7 { justify-content: space-between !important; flex-wrap: nowrap; gap: .3rem; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .dataTables_length { margin: 0; font-size: .74rem; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .dataTables_length select { padding: .05rem 1rem .05rem .35rem; font-size: .76rem; min-width: 46px; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .dataTables_info { font-size: .76rem; padding: 0; margin: 0; white-space: nowrap; }
+    /* 跳頁輸入群組縮小 */
+    .modal-op .op-grid-wrap .dataTables_wrapper .input-group { flex-wrap: nowrap; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .input-group > * { font-size: .78rem !important; height: 28px !important; padding: .1rem .4rem !important; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .input-group input { width: 42px !important; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .input-group .btn { margin-right: 0 !important; }
+    /* 分頁按鈕縮小、不換行；手機版只留上一頁/下一頁（頁碼改用跳頁輸入框），避免超寬出捲軸 */
+    .modal-op .op-grid-wrap .dataTables_wrapper .pagination { flex-wrap: nowrap; justify-content: center; margin: 0; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .pagination .page-link { padding: .2rem .45rem; font-size: .8rem; }
+    .modal-op .op-grid-wrap .dataTables_wrapper .pagination .page-item:not(:first-child):not(:last-child):not(.active) { display: none; }
+}

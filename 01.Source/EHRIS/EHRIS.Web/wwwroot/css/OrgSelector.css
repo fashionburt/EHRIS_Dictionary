@@ -1,0 +1,549 @@
+/* OrgSelector 共用元件樣式 ── 跟著系統主題 (--theme-c1/c2/c3) 切換 */
+:root {
+    --org-primary:   var(--theme-c2, #2a5298);
+    --org-primary-d: var(--theme-c1, #1a3a5f);
+    --org-primary-l: color-mix(in srgb, var(--theme-c2, #2a5298) 12%, #fff);
+    --org-hover:     color-mix(in srgb, var(--theme-c2, #2a5298) 7%, #fff);
+    --org-soft-bdr:  color-mix(in srgb, var(--theme-c2, #2a5298) 25%, #fff);
+    --org-border:    #e3e1dc;
+    --org-text:      #41423d;
+    --org-muted:     #8b8b85;
+    --org-accent:    color-mix(in srgb, var(--theme-c2, #2a5298) 70%, #b89c7a);
+    --org-warn:      #c97b63;
+}
+
+/* ===== 主頁元件 ===== */
+.org-selector {
+    background: #fff;
+    border: 1px solid var(--org-border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-height: 52px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    transition: border-color .2s, box-shadow .2s;
+}
+.org-selector:hover,
+.org-selector:focus-within {
+    border-color: var(--org-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--org-primary) 15%, transparent);
+}
+.org-selector-empty {
+    color: var(--org-muted);
+    font-size: .92rem;
+    padding-left: 4px;
+    user-select: none;
+}
+.org-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--org-primary-l);
+    color: var(--org-primary-d);
+    border: 1px solid var(--org-soft-bdr);
+    border-radius: 999px;
+    padding: 4px 4px 4px 12px;
+    font-size: .88rem;
+    font-weight: 500;
+    line-height: 1;
+    animation: orgChipIn .18s ease-out;
+}
+@keyframes orgChipIn {
+    from { transform: scale(.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+}
+.org-chip-remove {
+    border: 0;
+    background: transparent;
+    color: var(--org-primary);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    font-size: .95rem;
+    padding: 0;
+}
+.org-chip-remove:hover {
+    background: var(--org-warn);
+    color: #fff;
+}
+.org-trigger {
+    margin-left: auto;
+    background: var(--org-primary);
+    color: #fff;
+    border: 0;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+}
+.org-trigger:hover  { background: var(--org-primary-d); }
+.org-trigger:active { transform: scale(.97); }
+
+/* ===== Modal ===== */
+.modal-org .modal-content {
+    border: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(58, 60, 55, .25);
+}
+.modal-org .modal-header {
+    background: linear-gradient(135deg, var(--org-primary) 0%, var(--org-primary-d) 100%);
+    color: #fff;
+    border: 0;
+    padding: 16px 22px;
+}
+.modal-org .modal-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+}
+.modal-org .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: .85;
+}
+
+/* toolbar */
+.modal-org .org-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--org-border);
+    background: #fbfaf7;
+}
+.modal-org .org-search {
+    flex: 1 1 220px;
+    position: relative;
+}
+.modal-org .org-search input {
+    width: 100%;
+    border: 1px solid var(--org-border);
+    border-radius: 8px;
+    padding: 7px 12px 7px 34px;
+    font-size: .9rem;
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+}
+.modal-org .org-search input:focus {
+    outline: 0;
+    border-color: var(--org-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--org-primary) 18%, transparent);
+}
+.modal-org .org-search i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--org-muted);
+    font-size: .85rem;
+}
+
+.modal-org .org-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .88rem;
+    color: var(--org-text);
+    user-select: none;
+}
+.modal-org .form-switch.org-switch-control .form-check-input {
+    background-color: #d8d4cc;
+    border-color: #d8d4cc;
+    width: 2.4em;
+    height: 1.25em;
+    cursor: pointer;
+}
+.modal-org .form-switch.org-switch-control .form-check-input:checked {
+    background-color: var(--org-primary);
+    border-color: var(--org-primary);
+}
+.modal-org .form-switch.org-switch-control .form-check-input:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--org-primary) 20%, transparent);
+}
+
+.modal-org .org-toolbar-btn {
+    border: 1px solid var(--org-border);
+    background: #fff;
+    color: var(--org-text);
+    border-radius: 6px;
+    padding: 5px 11px;
+    font-size: .82rem;
+    cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s;
+}
+.modal-org .org-toolbar-btn:hover {
+    background: var(--org-primary);
+    color: #fff;
+    border-color: var(--org-primary);
+}
+
+/* tree */
+.modal-org .org-tree-wrapper {
+    max-height: 52vh;
+    overflow-y: auto;
+    padding: 8px 14px 14px;
+    background: #fff;
+    position: relative;
+}
+.modal-org .org-tree-loading,
+.modal-org .org-tree-empty {
+    text-align: center;
+    color: var(--org-muted);
+    padding: 32px 0;
+    font-size: .9rem;
+}
+.modal-org .org-tree,
+.modal-org .org-tree ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.modal-org .org-tree ul {
+    padding-left: 26px;
+    border-left: 1px dashed color-mix(in srgb, var(--org-primary) 30%, #ddd6c9);
+    margin-left: 12px;
+    overflow: hidden;
+}
+.modal-org .org-tree li.collapsed > ul { display: none; }
+.modal-org .org-node-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: background .12s;
+    margin: 2px 0;
+}
+.modal-org .org-node-row:hover { background: var(--org-hover); }
+.modal-org .org-node-row.is-matched { background: #fff4d6; }
+.modal-org .org-node-toggle {
+    width: 18px;
+    text-align: center;
+    color: var(--org-muted);
+    font-size: .75rem;
+    transition: transform .2s;
+    flex: 0 0 18px;
+}
+.modal-org .org-tree li:not(.has-children) > .org-node-row .org-node-toggle { visibility: hidden; }
+.modal-org .org-tree li.collapsed > .org-node-row .org-node-toggle { transform: rotate(-90deg); }
+.modal-org .org-node-check {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--org-primary);
+    cursor: pointer;
+    flex: 0 0 17px;
+}
+.modal-org .org-node-icon {
+    color: var(--org-accent);
+    font-size: .9rem;
+    flex: 0 0 14px;
+}
+.modal-org .org-tree li.has-children > .org-node-row > .org-node-icon::before { content: "\f1ad"; }
+.modal-org .org-tree li:not(.has-children) > .org-node-row > .org-node-icon {
+    color: var(--org-muted);
+}
+.modal-org .org-tree li:not(.has-children) > .org-node-row > .org-node-icon::before { content: "\f0c0"; }
+
+/* 機關（虛擬分組節點）視覺：粗體 + 主題色 + 大樓圖示 */
+.modal-org .org-tree li.is-group > .org-node-row > .org-node-name {
+    font-weight: 600;
+    color: var(--org-primary-d);
+    letter-spacing: .02em;
+}
+.modal-org .org-tree li.is-group > .org-node-row > .org-node-icon {
+    color: var(--org-primary);
+}
+.modal-org .org-tree li.is-group > .org-node-row > .org-node-icon::before { content: "\f1ad"; }
+.modal-org .org-tree li.is-group > .org-node-row {
+    background: color-mix(in srgb, var(--org-primary) 4%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--org-primary) 10%, transparent);
+}
+.modal-org .org-node-name {
+    font-size: .92rem;
+    flex: 1 1 auto;
+    word-break: break-all;
+}
+.modal-org .org-node-name mark {
+    background: #ffe28a;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+.modal-org .org-node-count {
+    display: none;
+    font-size: .72rem;
+    background: var(--org-primary);
+    color: #fff;
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+.modal-org .org-node-count.has-selected { display: inline-block; }
+
+/* 已選項目面板（樹與 footer 之間） */
+.modal-org .org-selected-panel {
+    border-top: 1px solid var(--org-border);
+    background: #fbfaf7;
+    padding: 10px 22px;
+}
+.modal-org .org-selected-panel-title {
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--org-muted);
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+.modal-org .org-selected-panel-title > i:first-child {
+    color: var(--org-primary);
+    font-size: .82rem;
+}
+.modal-org .org-selected-panel-count {
+    background: var(--org-primary);
+    color: #fff;
+    border-radius: 10px;
+    padding: 0 7px;
+    font-size: .7rem;
+    line-height: 1.5;
+    min-width: 18px;
+    text-align: center;
+}
+.modal-org .org-selected-panel-count:empty { display: none; }
+.modal-org .org-selected-caret {
+    margin-left: auto;
+    color: var(--org-muted);
+    font-size: .75rem;
+    transition: transform .2s;
+}
+.modal-org .org-selected-panel.collapsed .org-selected-caret { transform: rotate(180deg); }
+.modal-org .org-selected-panel.collapsed .org-selected-chips { display: none; }
+.modal-org .org-selected-panel.collapsed .org-selected-panel-title { margin-bottom: 0; }
+.modal-org .org-selected-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 96px;
+    overflow-y: auto;
+}
+.modal-org .org-selected-empty {
+    color: var(--org-muted);
+    font-size: .85rem;
+    user-select: none;
+}
+.modal-org .org-selected-chips::-webkit-scrollbar { width: 8px; }
+.modal-org .org-selected-chips::-webkit-scrollbar-thumb {
+    background: #d8d4cc;
+    border-radius: 4px;
+}
+
+/* footer */
+.modal-org .modal-footer {
+    background: #fbfaf7;
+    border-top: 1px solid var(--org-border);
+    padding: 12px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-org .org-selected-count {
+    font-size: .88rem;
+    color: var(--org-muted);
+}
+.modal-org .org-selected-count b {
+    color: var(--org-primary-d);
+    font-size: 1rem;
+    margin: 0 3px;
+}
+.modal-org .btn-org-primary {
+    background: var(--org-primary);
+    color: #fff;
+    border: 0;
+    padding: 6px 22px;
+    border-radius: 999px;
+    font-size: .9rem;
+    transition: background .15s;
+}
+.modal-org .btn-org-primary:hover { background: var(--org-primary-d); }
+.modal-org .btn-org-link {
+    background: transparent;
+    color: var(--org-muted);
+    border: 0;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: .9rem;
+    cursor: pointer;
+}
+.modal-org .btn-org-link:hover { color: var(--org-warn); }
+
+/* scrollbar */
+.modal-org .org-tree-wrapper::-webkit-scrollbar { width: 8px; }
+.modal-org .org-tree-wrapper::-webkit-scrollbar-thumb {
+    background: #d8d4cc;
+    border-radius: 4px;
+}
+.modal-org .org-tree-wrapper::-webkit-scrollbar-thumb:hover { background: var(--org-primary); }
+
+/* ============ RWD：平板 (≤768px) ============ */
+@media (max-width: 768px) {
+    .modal-org .modal-header { padding: 14px 16px; }
+    .modal-org .modal-title { font-size: 1rem; }
+    .modal-org .org-toolbar { padding: 12px 16px; gap: 10px; }
+    .modal-org .modal-footer { padding: 12px 16px; }
+}
+
+/* ============ RWD：手機 (≤576px) ============ */
+@media (max-width: 576px) {
+    /* 主頁元件：觸發按鈕拉到下一行佔滿寬度，方便點 */
+    .org-selector {
+        padding: 10px;
+        gap: 5px;
+    }
+    .org-selector-empty {
+        flex: 1 1 100%;
+    }
+    .org-chip {
+        font-size: .85rem;
+        padding: 5px 4px 5px 12px;
+    }
+    .org-chip-remove {
+        width: 26px;
+        height: 26px;
+        font-size: 1.05rem;
+    }
+    .org-trigger {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+        padding: 10px 14px;
+        font-size: .92rem;
+    }
+
+    /* Modal：全螢幕（modal-fullscreen-sm-down 已套，這裡微調內部） */
+    .modal-org .modal-content {
+        border-radius: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .modal-org .modal-header { padding: 12px 14px; flex: 0 0 auto; }
+    .modal-org .org-toolbar { flex: 0 0 auto; }
+    .modal-org .org-selected-panel { flex: 0 0 auto; }
+    .modal-org .modal-footer { flex: 0 0 auto; }
+    .modal-org .modal-title { font-size: 1rem; }
+
+    /* Toolbar：搜尋框獨佔一行，開關 + 展開折疊另一行 */
+    .modal-org .org-toolbar {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    .modal-org .org-search {
+        flex: 1 1 100%;
+        order: 1;
+    }
+    .modal-org .org-switch {
+        order: 2;
+        flex: 1 1 auto;
+    }
+    .modal-org .org-toolbar-btn {
+        order: 3;
+        padding: 8px 12px;
+        min-width: 42px;
+        min-height: 42px;
+    }
+
+    /* 樹節點：撐滿剩餘空間（取代固定 52vh），放大觸控點選面積 */
+    .modal-org .org-tree-wrapper {
+        padding: 6px 10px 10px;
+        max-height: none;
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+    .modal-org .org-tree ul {
+        padding-left: 20px;
+        margin-left: 8px;
+    }
+    .modal-org .org-node-row {
+        padding: 11px 8px;
+        margin: 1px 0;
+        gap: 10px;
+    }
+    .modal-org .org-node-toggle {
+        width: 22px;
+        flex: 0 0 22px;
+        font-size: .85rem;
+    }
+    .modal-org .org-node-check {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 20px;
+    }
+    .modal-org .org-node-name {
+        font-size: .95rem;
+    }
+    .modal-org .org-node-count {
+        font-size: .75rem;
+        padding: 2px 9px;
+    }
+
+    /* 已選項目面板：縮減高度避免佔掉樹的空間 */
+    .modal-org .org-selected-panel {
+        padding: 8px 12px;
+    }
+    .modal-org .org-selected-chips {
+        max-height: 72px;
+    }
+
+    /* Footer：緊湊橫向，按鈕不放大 */
+    .modal-org .modal-footer {
+        padding: 8px 12px;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .modal-org .modal-footer > div.d-flex {
+        gap: 6px !important;
+    }
+    .modal-org .btn-org-primary,
+    .modal-org .btn-org-link {
+        padding: 6px 12px;
+        font-size: .85rem;
+        flex: 0 0 auto;
+    }
+    .modal-org .org-selected-count {
+        font-size: .82rem;
+    }
+}
+
+/* ============ 觸控裝置：移除 hover 動畫避免 sticky hover ============ */
+@media (hover: none) {
+    .org-selector:hover {
+        border-color: var(--org-border);
+        box-shadow: none;
+    }
+    .modal-org .org-node-row:hover {
+        background: transparent;
+    }
+    .org-trigger:hover { background: var(--org-primary); }
+}

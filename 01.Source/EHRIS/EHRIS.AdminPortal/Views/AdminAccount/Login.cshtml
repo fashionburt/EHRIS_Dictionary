@@ -1,0 +1,375 @@
+@using EHRIS.Core.Models
+@using EHRIS.Core.Models.Common
+@model LoginViewModel
+@addTagHelper *, DNTCaptcha.Core
+@{
+    ViewData["Title"] = "後台登入";
+    Layout = null;
+    // ── 品牌文字（由 Controller 端動態傳入，目前暫時寫死）──
+    string brandLine1 = @AppConfig.syi_title;
+    string brandLine2 = @AppConfig.syi_subtitle;
+}
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>後台客服系統 - 登入 | @AppConfig.syi_title</title>
+
+    <link rel="stylesheet" href="~/lib/admin-lte/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="~/js/EHRISsite.js"></script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a1628 0%, #12243d 40%, #1a3355 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ── 背景網格動畫 ── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(40,100,180,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(40,100,180,0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+        @@keyframes gridMove {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        /* ── 浮動光暈 ── */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: 0;
+            animation: orbFloat 12s ease-in-out infinite alternate;
+        }
+        .glow-orb-1 { width: 400px; height: 400px; background: #1e5aaa; top: -100px; left: -100px; }
+        .glow-orb-2 { width: 350px; height: 350px; background: #2980b9; bottom: -80px; right: -80px; animation-delay: -6s; }
+        @@keyframes orbFloat {
+            0%   { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -20px) scale(1.08); }
+        }
+
+        /* ── 登入卡片 ── */
+        .admin-login-card {
+            position: relative;
+            z-index: 1;
+            width: 420px;
+            max-width: 95vw;
+            background: rgba(15, 25, 50, 0.85);
+            border: 1px solid rgba(60, 120, 200, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem 2rem 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(30,90,170,0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        /* ── 頂部圖示區 ── */
+        .admin-logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .admin-logo-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(41,128,185,0.3);
+            margin-bottom: 0.75rem;
+        }
+        .admin-logo h4 {
+            color: #e0e8f4;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin: 0;
+        }
+        .admin-logo p {
+            color: rgba(160,185,220,0.6);
+            font-size: 0.78rem;
+            margin-top: 0.25rem;
+        }
+
+        /* ── 表單欄位 ── */
+        .admin-field {
+            position: relative;
+            margin-bottom: 1.25rem;
+        }
+        .admin-field i.field-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(120,160,210,0.5);
+            font-size: 14px;
+            z-index: 2;
+        }
+        .admin-field input {
+            width: 100%;
+            padding: 0.65rem 0.75rem 0.65rem 40px;
+            border: 1px solid rgba(60,120,200,0.25);
+            border-radius: 8px;
+            background: rgba(10,20,45,0.6);
+            color: #d0ddf0;
+            font-size: 0.92rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .admin-field input::placeholder { color: rgba(140,170,210,0.4); }
+        .admin-field input:focus {
+            outline: none;
+            border-color: rgba(41,128,185,0.6);
+            box-shadow: 0 0 0 3px rgba(41,128,185,0.12);
+        }
+
+        /* ── 密碼顯示切換 ── */
+        .toggle-pwd {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(120,160,210,0.5);
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 2;
+        }
+        .toggle-pwd:hover { color: rgba(180,210,255,0.8); }
+
+        /* ── 驗證碼區塊 ── */
+        .admin-captcha {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.25rem;
+        }
+        .captcha-img-wrap {
+            height: 42px;
+            border: 1px solid rgba(60,120,200,0.25);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.9);
+        }
+        .captcha-img-wrap img {
+            height: 100%;
+            display: block;
+        }
+        .captcha-refresh {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            border: 1px solid rgba(60,120,200,0.25);
+            border-radius: 8px;
+            background: rgba(10,20,45,0.6);
+            color: rgba(120,160,210,0.5);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .captcha-refresh:hover {
+            color: rgba(180,210,255,0.8);
+            background: rgba(30,60,100,0.6);
+        }
+
+        /* ── 登入按鈕 ── */
+        .btn-admin-login {
+            width: 100%;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 4px 16px rgba(41,128,185,0.35);
+            margin-top: 0.5rem;
+        }
+        .btn-admin-login:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(41,128,185,0.45);
+        }
+        .btn-admin-login:active { transform: translateY(0); }
+
+        /* ── 錯誤訊息 ── */
+        .admin-error {
+            background: rgba(220,53,69,0.12);
+            border: 1px solid rgba(220,53,69,0.25);
+            border-radius: 8px;
+            padding: 0.6rem 0.75rem;
+            margin-bottom: 1rem;
+            color: #f0a0a8;
+            font-size: 0.85rem;
+        }
+        .admin-error i { margin-right: 6px; }
+
+        /* ── 底部版權 ── */
+        .admin-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: rgba(140,170,210,0.3);
+            font-size: 0.72rem;
+        }
+
+        /* ── 返回前台 ── */
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: rgba(160,190,230,0.4);
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+        .back-link:hover { color: rgba(200,220,255,0.8); }
+        .back-link i { margin-right: 4px; }
+    </style>
+</head>
+<body>
+    <!-- 浮動光暈 -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <!-- 返回前台連結 -->
+    <a href="@Url.Content("~/")" class="back-link"><i class="fas fa-arrow-left"></i>返回前台</a>
+
+    <!-- 登入卡片 -->
+    <div class="admin-login-card">
+        <div class="admin-logo">
+            <div class="admin-logo-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h4>後台客服系統</h4>
+            <p>Admin Service Portal</p>
+        </div>
+
+        @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+        {
+            <div class="admin-error">
+                <i class="fas fa-exclamation-circle"></i>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <span>@error.ErrorMessage</span>
+                }
+            </div>
+        }
+
+        <form method="post" id="adminLoginForm" action="@Url.Content("~/AdminPortal/Account/Login")">
+            @Html.AntiForgeryToken()
+
+            <div class="admin-field">
+                <i class="fas fa-user field-icon"></i>
+                <input type="text" id="account" name="UxID" value="@Model.UxID"
+                       placeholder="請輸入帳號" autocomplete="off" />
+            </div>
+
+            <div class="admin-field">
+                <i class="fas fa-lock field-icon"></i>
+                <input type="password" name="MbrKey" id="MbrKey"
+                       placeholder="請輸入密碼" autocomplete="off" />
+                <button type="button" class="toggle-pwd" onclick="togglePassword()">
+                    <i class="fas fa-eye" id="pwdIcon"></i>
+                </button>
+            </div>
+
+            <div class="admin-captcha">
+                <div class="admin-field" style="flex:1; margin-bottom:0;">
+                    <i class="fas fa-shield-alt field-icon"></i>
+                    <input type="text" id="captchaInput" name="DNTCaptchaInputText"
+                           placeholder="驗證碼" autocomplete="off" />
+                </div>
+                <div class="captcha-img-wrap" onclick="loadAdminCaptcha()" title="點擊重新整理">
+                    <img id="adminCaptchaImg" src="" alt="驗證碼" />
+                </div>
+                <button type="button" class="captcha-refresh" onclick="loadAdminCaptcha()">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+            <input type="hidden" id="adminCaptchaToken" name="DNTCaptchaToken" />
+            <input type="hidden" id="adminCaptchaText" name="DNTCaptchaText" />
+
+            <button type="submit" class="btn-admin-login">
+                <i class="fas fa-sign-in-alt me-1"></i>登入系統
+            </button>
+        </form>
+
+        <div class="admin-footer">
+            &copy; @DateTime.Now.Year EHRIS Admin Service Portal
+        </div>
+    </div>
+
+<script>
+function togglePassword() {
+    var pwd = document.getElementById('MbrKey');
+    var icon = document.getElementById('pwdIcon');
+    if (pwd.type === 'password') {
+        pwd.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        pwd.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+}
+
+function loadAdminCaptcha() {
+    var url = '@Url.Content("~/Captcha/Generate")' + "?_="  + new Date().getTime();
+    fetch(url)
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            document.getElementById('adminCaptchaImg').src = data.imageUrl;
+            document.getElementById('adminCaptchaToken').value = data.captchaToken;
+            document.getElementById('adminCaptchaText').value = data.captchaText;
+        })
+        .catch(function (err) { console.error('載入驗證碼錯誤：', err); });
+}
+
+window.addEventListener('load', loadAdminCaptcha);
+
+document.getElementById('adminLoginForm').addEventListener('submit', function () {
+    Swal.fire({
+        title: '驗證中...',
+        text: '請稍候',
+        allowOutsideClick: false,
+        didOpen: function () { Swal.showLoading(); }
+    });
+});
+</script>
+</body>
+</html>

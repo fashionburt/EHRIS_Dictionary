@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\ExeEventOperator.cs" />
+    <Compile Remove="Common\PasswordHasher.cs" />
+    <Compile Remove="Common\WebEventOperator.cs" />
+    <Compile Remove="Services\EventObject.cs" />
+    <Compile Remove="Services\EventOperator.cs" />
+    <Compile Remove="Services\IEventObject.cs" />
+    <Compile Remove="Services\IEventOperator.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.3.9" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
+    <PackageReference Include="SkiaSharp" Version="3.119.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EHRIS.Core\EHRIS.Core.csproj" />
+    <ProjectReference Include="..\EHRIS.Security\EHRIS.Security.csproj" />
+    <ProjectReference Include="..\EHRIS.Tools\EHRIS.Tools.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Dictionary\" />
+  </ItemGroup>
+
+</Project>

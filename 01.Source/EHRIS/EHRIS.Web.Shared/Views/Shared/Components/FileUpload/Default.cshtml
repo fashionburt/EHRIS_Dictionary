@@ -1,0 +1,60 @@
+@model EHRIS.Web.Shared.Models.FileUploadModel
+
+@{
+    var cid = Model.ComponentId;
+    var maxSize = Model.MaxSizeBytes;
+    var maxSizeMB = Model.MaxSizeMB;
+    var acceptStr = Model.GetAcceptString();
+    var multipleAttr = Model.Multiple ? "multiple" : "";
+    var fieldName = Model.FieldName;
+    var filIds = Model.FilIds ?? "";
+}
+
+<div id="@cid" class="file-upload-component">
+    <!-- hidden input，表單送出時直接讀取 -->
+    <input type="hidden" id="@(cid)_filIds" name="@fieldName" value="@filIds" />
+
+    <!-- 選檔 + 上傳按鈕 -->
+    <div class="d-flex align-items-center gap-2 mb-2">
+        <input type="file" id="@(cid)_input" accept="@acceptStr" @multipleAttr
+               class="form-control form-control-sm" style="max-width:400px;" />
+        <button type="button" id="@(cid)_uploadBtn" class="btn btn-sm btn-primary">
+            <i class="fas fa-upload"></i> 上傳
+        </button>
+    </div>
+
+    <!-- 訊息 -->
+    <div id="@(cid)_msg" class="text-danger small"></div>
+
+    <!-- 已上傳檔案清單 (表格) -->
+    <table id="@(cid)_table" class="table table-sm table-bordered mt-2" style="display:none;">
+        <thead class="table-light">
+            <tr>
+                <th style="width:45%;">檔案名稱</th>
+                <th style="width:15%;">大小</th>
+                <th style="width:25%;">上傳時間</th>
+                <th style="width:15%;">操作</th>
+            </tr>
+        </thead>
+        <tbody id="@(cid)_list"></tbody>
+    </table>
+
+    <!-- 提示 -->
+    <div class="mt-1">
+        <small class="text-danger fw-bold">
+            註：基於資安原則，系統只允許開放合法可上傳的檔案類型，單個檔案大小不可超過 @(maxSizeMB)MB。
+        </small>
+    </div>
+</div>
+
+<script src="@Url.Content("~/js/Common/FileUpload.js")"></script>
+<script>
+    window.FileUpload.init({
+        cid: '@cid',
+        maxSize: @maxSize,
+        maxSizeMB: @maxSizeMB,
+        baseUrl: '@Url.Content("~/")'.replace(/\/+$/, ''),
+        allowedExt: '@Html.Raw(acceptStr)',
+        filIds: '@Html.Raw(filIds)'
+    });
+</script>

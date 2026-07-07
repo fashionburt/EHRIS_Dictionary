@@ -1,0 +1,89 @@
+2026-05-20 10:19:11 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-05-20 10:19:11.002 | Elapsed=455ms | Status=Completed
+2026-05-20 10:19:14 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-05-20 10:19:14.174 | Elapsed=34ms | Status=Completed
+2026-05-20 10:19:19 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/SYS202100 | Message=GET /SYS202100/SYS202100
+2026-05-20 10:19:19 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/SYS202100 | IP=::1 | Start=2026-05-20 10:19:19.698 | Elapsed=235ms | Status=Completed
+2026-05-20 10:19:20 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDepartmentOptions | Message=GET /SYS202100/GetDepartmentOptions
+2026-05-20 10:19:20 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDepartmentOptions | IP=::1 | Start=2026-05-20 10:19:19.971 | Elapsed=68ms | Status=Completed
+2026-05-20 10:19:20 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:20 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:19.994 | Elapsed=80ms | Status=Completed
+2026-05-20 10:19:20 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:20 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:20.113 | Elapsed=8ms | Status=Completed
+2026-05-20 10:19:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:29.148 | Elapsed=10ms | Status=Completed
+2026-05-20 10:19:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:29.169 | Elapsed=7ms | Status=Completed
+2026-05-20 10:19:30 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:30 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:30.606 | Elapsed=12ms | Status=Completed
+2026-05-20 10:19:30 | INF | ACTION_TRACE | Acc=admin | Path=/.well-known/appspecific/com.chrome.devtools.json | IP=::1 | Start=2026-05-20 10:19:30.817 | Elapsed=0ms | Status=Completed
+2026-05-20 10:19:30 | INF | ACTION_TRACE | Acc=admin | Path=/lib/html-to-image/html-to-image.js.map | IP=::1 | Start=2026-05-20 10:19:30.856 | Elapsed=0ms | Status=Completed
+2026-05-20 10:19:31 | INF | ACTION_TRACE | Acc=admin | Path=/Home/Index | IP=::1 | Start=2026-05-20 10:19:31.038 | Elapsed=69ms | Status=Completed
+2026-05-20 10:19:31 | INF | ACTION_TRACE | Acc=admin | Path=/.well-known/appspecific/com.chrome.devtools.json | IP=::1 | Start=2026-05-20 10:19:31.175 | Elapsed=0ms | Status=Completed
+2026-05-20 10:19:31 | INF | ACTION_TRACE | Acc=admin | Path=/lib/html-to-image/html-to-image.js.map | IP=::1 | Start=2026-05-20 10:19:31.335 | Elapsed=0ms | Status=Completed
+2026-05-20 10:19:35 | INF | ACTION_TRACE | Acc=admin | Path=/Home/GetMenu | IP=::1 | Start=2026-05-20 10:19:35.598 | Elapsed=52ms | Status=Completed
+2026-05-20 10:19:38 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/SYS202100 | Message=GET /SYS202100/SYS202100
+2026-05-20 10:19:38 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/SYS202100 | IP=::1 | Start=2026-05-20 10:19:38.671 | Elapsed=36ms | Status=Completed
+2026-05-20 10:19:38 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDepartmentOptions | Message=GET /SYS202100/GetDepartmentOptions
+2026-05-20 10:19:38 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDepartmentOptions | IP=::1 | Start=2026-05-20 10:19:38.790 | Elapsed=42ms | Status=Completed
+2026-05-20 10:19:40 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:40 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:40.429 | Elapsed=7ms | Status=Completed
+2026-05-20 10:19:40 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:40 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:40.474 | Elapsed=8ms | Status=Completed
+2026-05-20 10:19:42 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDeptList | Message=GET /SYS202100/GetDeptList
+2026-05-20 10:19:42 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDeptList | IP=::1 | Start=2026-05-20 10:19:42.956 | Elapsed=28ms | Status=Completed
+2026-05-20 10:19:43 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:43 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:38.825 | Elapsed=4574ms | Status=Completed
+2026-05-20 10:19:43 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/SYS202100/GetList | Reason=SlowRequest 4574ms
+2026-05-20 10:19:44 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetByVariable | Message=GET /SYS202100/GetByVariable
+2026-05-20 10:19:44 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetByVariable | IP=::1 | Start=2026-05-20 10:19:44.470 | Elapsed=29ms | Status=Completed
+2026-05-20 10:19:47 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/Update | Message=POST /SYS202100/Update
+2026-05-20 10:19:47 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/Update | IP=::1 | Start=2026-05-20 10:19:46.540 | Elapsed=545ms | Status=Completed
+2026-05-20 10:19:48 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:48 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:48.149 | Elapsed=6ms | Status=Completed
+2026-05-20 10:19:49 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetByVariable | Message=GET /SYS202100/GetByVariable
+2026-05-20 10:19:49 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetByVariable | IP=::1 | Start=2026-05-20 10:19:49.160 | Elapsed=6ms | Status=Completed
+2026-05-20 10:19:51 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/Update | Message=POST /SYS202100/Update
+2026-05-20 10:19:51 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/Update | IP=::1 | Start=2026-05-20 10:19:51.558 | Elapsed=15ms | Status=Completed
+2026-05-20 10:19:52 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:52 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:52.535 | Elapsed=6ms | Status=Completed
+2026-05-20 10:19:53 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDeptList | Message=GET /SYS202100/GetDeptList
+2026-05-20 10:19:53 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDeptList | IP=::1 | Start=2026-05-20 10:19:53.659 | Elapsed=4ms | Status=Completed
+2026-05-20 10:19:57 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/UpdateAllDept | Message=POST /SYS202100/UpdateAllDept
+2026-05-20 10:19:57 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/UpdateAllDept | IP=::1 | Start=2026-05-20 10:19:57.691 | Elapsed=98ms | Status=Completed
+2026-05-20 10:19:58 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:19:58 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:19:58.631 | Elapsed=7ms | Status=Completed
+2026-05-20 10:20:00 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDeptList | Message=GET /SYS202100/GetDeptList
+2026-05-20 10:20:00 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDeptList | IP=::1 | Start=2026-05-20 10:20:00.060 | Elapsed=4ms | Status=Completed
+2026-05-20 10:20:01 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetSchedList | Message=GET /SYS202100/GetSchedList
+2026-05-20 10:20:01 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetSchedList | IP=::1 | Start=2026-05-20 10:20:01.617 | Elapsed=30ms | Status=Completed
+2026-05-20 10:20:04 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetSchedList | Message=GET /SYS202100/GetSchedList
+2026-05-20 10:20:04 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetSchedList | IP=::1 | Start=2026-05-20 10:20:04.140 | Elapsed=3ms | Status=Completed
+2026-05-20 10:20:06 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDeptList | Message=GET /SYS202100/GetDeptList
+2026-05-20 10:20:06 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDeptList | IP=::1 | Start=2026-05-20 10:20:06.098 | Elapsed=3ms | Status=Completed
+2026-05-20 10:20:09 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/DeleteDept | Message=POST /SYS202100/DeleteDept
+2026-05-20 10:20:09 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/DeleteDept | IP=::1 | Start=2026-05-20 10:20:09.090 | Elapsed=92ms | Status=Completed
+2026-05-20 10:20:09 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDeptList | Message=GET /SYS202100/GetDeptList
+2026-05-20 10:20:09 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDeptList | IP=::1 | Start=2026-05-20 10:20:09.187 | Elapsed=2ms | Status=Completed
+2026-05-20 10:20:09 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:20:09 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:20:09.187 | Elapsed=4ms | Status=Completed
+2026-05-20 10:20:10 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/UpdateAllDept | Message=POST /SYS202100/UpdateAllDept
+2026-05-20 10:20:10 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/UpdateAllDept | IP=::1 | Start=2026-05-20 10:20:10.490 | Elapsed=155ms | Status=Completed
+2026-05-20 10:20:11 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:20:11 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:20:11.522 | Elapsed=5ms | Status=Completed
+2026-05-20 10:20:12 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDeptList | Message=GET /SYS202100/GetDeptList
+2026-05-20 10:20:12 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDeptList | IP=::1 | Start=2026-05-20 10:20:12.734 | Elapsed=144ms | Status=Completed
+2026-05-20 10:20:22 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/UpdateAllDept | Message=POST /SYS202100/UpdateAllDept
+2026-05-20 10:20:22 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/UpdateAllDept | IP=::1 | Start=2026-05-20 10:20:22.649 | Elapsed=131ms | Status=Completed
+2026-05-20 10:20:23 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetList | Message=POST /SYS202100/GetList
+2026-05-20 10:20:23 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetList | IP=::1 | Start=2026-05-20 10:20:23.537 | Elapsed=3ms | Status=Completed
+2026-05-20 10:20:24 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDeptList | Message=GET /SYS202100/GetDeptList
+2026-05-20 10:20:24 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDeptList | IP=::1 | Start=2026-05-20 10:20:24.644 | Elapsed=3ms | Status=Completed
+2026-05-20 10:20:26 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetSchedList | Message=GET /SYS202100/GetSchedList
+2026-05-20 10:20:26 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetSchedList | IP=::1 | Start=2026-05-20 10:20:26.094 | Elapsed=2ms | Status=Completed
+2026-05-20 10:20:28 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDeptList | Message=GET /SYS202100/GetDeptList
+2026-05-20 10:20:28 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDeptList | IP=::1 | Start=2026-05-20 10:20:28.250 | Elapsed=2ms | Status=Completed
+2026-05-20 10:20:29 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetSchedList | Message=GET /SYS202100/GetSchedList
+2026-05-20 10:20:29 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetSchedList | IP=::1 | Start=2026-05-20 10:20:29.369 | Elapsed=2ms | Status=Completed
+2026-05-20 10:20:31 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetDeptList | Message=GET /SYS202100/GetDeptList
+2026-05-20 10:20:31 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetDeptList | IP=::1 | Start=2026-05-20 10:20:31.070 | Elapsed=2ms | Status=Completed
+2026-05-20 10:20:32 | INF | CONTROLLER_EXEC | Acc= admin | IP=::1 | Path=SYS202100/GetSchedList | Message=GET /SYS202100/GetSchedList
+2026-05-20 10:20:32 | INF | ACTION_TRACE | Acc=admin | Path=/SYS202100/GetSchedList | IP=::1 | Start=2026-05-20 10:20:32.477 | Elapsed=4ms | Status=Completed

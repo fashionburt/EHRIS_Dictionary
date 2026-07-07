@@ -1,0 +1,42 @@
+﻿<div class="modal  modal-morandi" id="setPermissionModal" tabindex="-1" aria-labelledby="setPermissionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- 對話框 -->
+        <div class="modal-content">
+            <!-- 內容區塊 -->
+            <div class="modal-header">
+                <!-- 標題列 -->
+                <h5 class="modal-title">角色權限設定</h5>
+                <h5 class="modal-title" id="setPermissionModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               
+            </div>
+            <div class="modal-body" id="settingsModalBody">
+                @Html.AntiForgeryToken()
+                <div class="text-end">
+                <span class="fs-8 text-primary">查詢時間:@($"{DateTime.Now.Year - 1911}/{DateTime.Now:MM/dd HH:mm:ss}")</span>
+                </div>
+                <table id="permissionTable" class="table table-bordered table-hover"
+                data-get-all="@Url.Action("GetAllRoleList", "SYS201002")"
+                       data-get-upd="@Url.Action("UpdatePermission", "SYS201002")">
+                    <thead>
+                        <tr>
+                            <th>勾選</th>
+                            <th>功能名稱</th>
+                            <th class="text-center">新增</th>
+                            <th class="text-center">修改</th>
+                            <th class="text-center">刪除</th>
+                        </tr>
+                    </thead>
+                    <tbody id="permissionTableBody">
+                        <!-- 這裡用 Ajax 塞資料 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <!-- 底部按鈕 -->
+                <button type="button" id="btnSavePermission" class="btn btn-primary btn-sm" data-bs-dismiss="modal">儲存</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

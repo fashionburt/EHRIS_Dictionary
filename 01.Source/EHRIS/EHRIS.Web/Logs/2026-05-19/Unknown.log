@@ -1,0 +1,111 @@
+2026-05-19 08:26:30 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 08:26:30 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 08:26:30 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 08:26:30 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 08:26:30 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 08:26:30 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 08:26:30 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 08:26:30 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 08:26:30 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 08:26:36 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-05-19 08:26:37 | INF | ACTION_TRACE | Acc=Anonymous | Path=/ | IP=::1 | Start=2026-05-19 08:26:29.578 | Elapsed=7997ms | Status=Completed
+2026-05-19 08:26:37 | INF | NETWORK_UNSTABLE | Acc=Anonymous | Path=/ | Reason=SlowRequest 7997ms
+2026-05-19 08:26:37 | INF | NETWORK_UNSTABLE | Acc=Anonymous | IP=::1 | Path=/ | Reason=SlowRequest 8243ms
+2026-05-19 08:26:38 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-05-19 08:26:38.025 | Elapsed=65ms | Status=Completed
+2026-05-19 08:26:38 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-05-19 08:26:38.107 | Elapsed=401ms | Status=Completed
+2026-05-19 08:26:48 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-05-19 08:26:41.515 | Elapsed=7431ms | Status=Completed
+2026-05-19 08:26:48 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 7431ms
+2026-05-19 08:26:48 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 7432ms
+2026-05-19 08:47:05 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7334ms
+2026-05-19 08:47:18 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 10103ms
+2026-05-19 08:49:28 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7362ms
+2026-05-19 08:49:38 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6579ms
+2026-05-19 08:55:55 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7158ms
+2026-05-19 09:09:25 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7729ms
+2026-05-19 09:09:38 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8727ms
+2026-05-19 09:11:30 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7819ms
+2026-05-19 09:11:41 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6910ms
+2026-05-19 09:13:11 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/GetList | Reason=SlowRequest 4553ms
+2026-05-19 09:17:39 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7512ms
+2026-05-19 09:17:57 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8722ms
+2026-05-19 09:18:39 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS201001/GetAllAdmins | Reason=SlowRequest 4546ms
+2026-05-19 09:18:39 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS201001/GetAllRoles | Reason=SlowRequest 4572ms
+2026-05-19 09:18:44 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/GetList | Reason=SlowRequest 6913ms
+2026-05-19 09:22:07 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7749ms
+2026-05-19 09:22:22 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 9650ms
+2026-05-19 09:23:04 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS201001/GetAllAdmins | Reason=SlowRequest 4539ms
+2026-05-19 09:27:09 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7662ms
+2026-05-19 09:27:26 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8797ms
+2026-05-19 09:27:43 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS201001/GetAllAdmins | Reason=SlowRequest 4584ms
+2026-05-19 09:30:31 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7721ms
+2026-05-19 09:30:46 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8918ms
+2026-05-19 09:32:45 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7699ms
+2026-05-19 09:32:59 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8818ms
+2026-05-19 09:33:41 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/UpdateDept | Reason=SlowRequest 4628ms
+2026-05-19 09:33:45 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/UpdateDept | Reason=SlowRequest 9201ms
+2026-05-19 09:35:52 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7651ms
+2026-05-19 09:36:11 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 9176ms
+2026-05-19 09:36:44 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/UpdateDept | Reason=SlowRequest 4636ms
+2026-05-19 09:36:49 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/UpdateDept | Reason=SlowRequest 9186ms
+2026-05-19 09:46:54 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7924ms
+2026-05-19 09:47:10 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6326ms
+2026-05-19 09:47:31 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/GetList | Reason=SlowRequest 4590ms
+2026-05-19 09:47:51 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/UpdateDept | Reason=SlowRequest 4575ms
+2026-05-19 09:47:55 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/UpdateDept | Reason=SlowRequest 5672ms
+2026-05-19 10:01:55 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7611ms
+2026-05-19 10:02:13 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6987ms
+2026-05-19 10:05:15 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/GetList | Reason=SlowRequest 4603ms
+2026-05-19 10:23:10 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7619ms
+2026-05-19 10:23:25 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8620ms
+2026-05-19 10:35:32 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/GetDeptList | Reason=SlowRequest 4617ms
+2026-05-19 10:35:37 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Home/Index | Reason=SlowRequest 4619ms
+2026-05-19 10:39:28 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7753ms
+2026-05-19 10:39:40 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6426ms
+2026-05-19 10:40:58 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/GetList | Reason=SlowRequest 4555ms
+2026-05-19 10:49:55 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7610ms
+2026-05-19 10:50:47 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6917ms
+2026-05-19 11:25:34 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7876ms
+2026-05-19 11:25:48 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8861ms
+2026-05-19 11:40:37 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7560ms
+2026-05-19 11:40:50 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8552ms
+2026-05-19 11:56:47 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202100/SYS202100 | Reason=SlowRequest 4632ms
+2026-05-19 12:02:10 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7683ms
+2026-05-19 12:02:28 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 11716ms
+2026-05-19 14:58:50 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 14:58:50 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 14:58:50 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 14:58:50 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 14:58:50 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 14:58:50 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 14:58:50 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 14:58:50 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 14:58:50 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-05-19 14:58:56 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-05-19 14:58:57 | INF | ACTION_TRACE | Acc=Anonymous | Path=/ | IP=::1 | Start=2026-05-19 14:58:49.858 | Elapsed=7461ms | Status=Completed
+2026-05-19 14:58:57 | INF | NETWORK_UNSTABLE | Acc=Anonymous | Path=/ | Reason=SlowRequest 7461ms
+2026-05-19 14:58:57 | INF | NETWORK_UNSTABLE | Acc=Anonymous | IP=::1 | Path=/ | Reason=SlowRequest 7662ms
+2026-05-19 14:58:57 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-05-19 14:58:57.642 | Elapsed=54ms | Status=Completed
+2026-05-19 14:58:57 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-05-19 14:58:57.730 | Elapsed=210ms | Status=Completed
+2026-05-19 14:59:34 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-05-19 14:59:25.831 | Elapsed=8537ms | Status=Completed
+2026-05-19 14:59:34 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 8537ms
+2026-05-19 14:59:34 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8538ms
+2026-05-19 15:03:20 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 8530ms
+2026-05-19 15:03:59 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 7620ms
+2026-05-19 15:10:45 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7740ms
+2026-05-19 15:10:57 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 7009ms
+2026-05-19 15:13:18 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7850ms
+2026-05-19 15:13:30 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8991ms
+2026-05-19 15:14:28 | INF | ACTION_TRACE | Acc=Anonymous | Path=/ | IP=::1 | Start=2026-05-19 15:14:28.358 | Elapsed=384ms | Status=Completed
+2026-05-19 15:14:28 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-05-19 15:14:28.991 | Elapsed=2ms | Status=Completed
+2026-05-19 15:14:29 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-05-19 15:14:29.003 | Elapsed=13ms | Status=Completed
+2026-05-19 15:14:40 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-05-19 15:14:33.625 | Elapsed=6921ms | Status=Completed
+2026-05-19 15:14:40 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 6921ms
+2026-05-19 15:14:40 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6921ms
+2026-05-19 15:20:30 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7513ms
+2026-05-19 15:21:07 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 7116ms
+2026-05-19 15:27:57 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202002/DeleteFunction | Reason=SlowRequest 9150ms
+2026-05-19 15:39:14 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7460ms
+2026-05-19 15:39:26 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6875ms
+2026-05-19 15:40:10 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/SYS202001/GetSubDepartments | Reason=SlowRequest 4570ms
+2026-05-19 15:46:03 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7655ms
+2026-05-19 15:46:17 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 8793ms

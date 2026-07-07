@@ -1,0 +1,110 @@
+2026-04-15 09:38:33 | WRN | No store type was specified for the decimal property 'OveMoney' on entity type 'HROvertime'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-15 09:38:33 | WRN | No store type was specified for the decimal property 'Wag1D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-15 09:38:33 | WRN | No store type was specified for the decimal property 'Wag2D1Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-15 09:38:33 | WRN | No store type was specified for the decimal property 'Wag4D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-15 09:38:33 | WRN | No store type was specified for the decimal property 'Wag5D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-15 09:38:33 | WRN | No store type was specified for the decimal property 'Wag8D3Hour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-15 09:38:33 | WRN | No store type was specified for the decimal property 'WagApplyHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-15 09:38:33 | WRN | No store type was specified for the decimal property 'WagIssueHour' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-15 09:38:33 | WRN | No store type was specified for the decimal property 'WagSubtotal' on entity type 'HRWage'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-15 09:38:38 | WRN | The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2026-04-15 09:38:40 | INF | ACTION_TRACE | Acc=Anonymous | Path=/ | IP=::1 | Start=2026-04-15 09:38:32.755 | Elapsed=7293ms | Status=Completed
+2026-04-15 09:38:40 | INF | NETWORK_UNSTABLE | Acc=Anonymous | Path=/ | Reason=SlowRequest 7293ms
+2026-04-15 09:38:40 | INF | NETWORK_UNSTABLE | Acc=Anonymous | IP=::1 | Path=/ | Reason=SlowRequest 7457ms
+2026-04-15 09:38:40 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-04-15 09:38:40.308 | Elapsed=46ms | Status=Completed
+2026-04-15 09:38:40 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-04-15 09:38:40.377 | Elapsed=328ms | Status=Completed
+2026-04-15 09:38:53 | INF | ACTION_TRACE | Acc=admin | Path=/Account/Login | IP=::1 | Start=2026-04-15 09:38:46.784 | Elapsed=6522ms | Status=Completed
+2026-04-15 09:38:53 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/Account/Login | Reason=SlowRequest 6522ms
+2026-04-15 09:38:53 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6522ms
+2026-04-15 09:39:28 | INF | ACTION_TRACE | Acc=Anonymous | Path=/ | IP=::1 | Start=2026-04-15 09:39:27.825 | Elapsed=241ms | Status=Completed
+2026-04-15 09:39:28 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-04-15 09:39:28.139 | Elapsed=1ms | Status=Completed
+2026-04-15 09:39:28 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-04-15 09:39:28.148 | Elapsed=16ms | Status=Completed
+2026-04-15 09:39:29 | INF | ACTION_TRACE | Acc=Anonymous | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-04-15 09:39:29.605 | Elapsed=17ms | Status=Completed
+2026-04-15 09:39:29 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-04-15 09:39:29.687 | Elapsed=1ms | Status=Completed
+2026-04-15 09:39:29 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-04-15 09:39:29.693 | Elapsed=15ms | Status=Completed
+2026-04-15 09:39:38 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-04-15 09:39:34.376 | Elapsed=4155ms | Status=Completed
+2026-04-15 09:39:38 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/AdminPortal/Account/Login | Reason=SlowRequest 4155ms
+2026-04-15 09:39:38 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 4156ms
+2026-04-15 09:50:11 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7170ms
+2026-04-15 09:50:58 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 10384ms
+2026-04-15 09:52:46 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7004ms
+2026-04-15 09:52:58 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6638ms
+2026-04-15 10:00:24 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7050ms
+2026-04-15 10:00:41 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6623ms
+2026-04-15 10:13:19 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7187ms
+2026-04-15 10:13:35 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 9246ms
+2026-04-15 10:42:07 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7254ms
+2026-04-15 10:42:20 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6848ms
+2026-04-15 10:48:57 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7222ms
+2026-04-15 10:49:41 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 9139ms
+2026-04-15 10:51:07 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7725ms
+2026-04-15 10:51:20 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6299ms
+2026-04-15 10:52:44 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7151ms
+2026-04-15 10:52:59 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 8357ms
+2026-04-15 11:07:57 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7507ms
+2026-04-15 11:08:09 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6851ms
+2026-04-15 11:08:17 | INF | ACTION_TRACE | Acc=Anonymous | Path=/ | IP=::1 | Start=2026-04-15 11:08:16.848 | Elapsed=215ms | Status=Completed
+2026-04-15 11:08:17 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-04-15 11:08:17.126 | Elapsed=1ms | Status=Completed
+2026-04-15 11:08:17 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-04-15 11:08:17.133 | Elapsed=16ms | Status=Completed
+2026-04-15 11:08:18 | INF | ACTION_TRACE | Acc=Anonymous | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-04-15 11:08:18.657 | Elapsed=19ms | Status=Completed
+2026-04-15 11:08:18 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-04-15 11:08:18.746 | Elapsed=1ms | Status=Completed
+2026-04-15 11:08:18 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-04-15 11:08:18.753 | Elapsed=14ms | Status=Completed
+2026-04-15 11:08:23 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-04-15 11:08:21.777 | Elapsed=1364ms | Status=Completed
+2026-04-15 11:17:39 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7190ms
+2026-04-15 11:18:00 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 8878ms
+2026-04-15 11:21:07 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7136ms
+2026-04-15 11:21:19 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6506ms
+2026-04-15 11:22:40 | WRN | Unable to configure Browser Link script injection on the response. 
+2026-04-15 11:22:40 | WRN | Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2026-04-15 11:24:05 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7597ms
+2026-04-15 11:24:17 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6666ms
+2026-04-15 11:26:49 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7177ms
+2026-04-15 11:27:05 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 9107ms
+2026-04-15 11:27:21 | WRN | Unable to configure Browser Link script injection on the response. 
+2026-04-15 11:27:21 | WRN | Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2026-04-15 11:29:25 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7161ms
+2026-04-15 11:29:47 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 9030ms
+2026-04-15 11:29:59 | WRN | Unable to configure Browser Link script injection on the response. 
+2026-04-15 11:29:59 | WRN | Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2026-04-15 11:30:18 | WRN | Unable to configure Browser Link script injection on the response. 
+2026-04-15 11:30:18 | WRN | Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2026-04-15 11:31:31 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7080ms
+2026-04-15 11:31:48 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 8408ms
+2026-04-15 11:31:58 | WRN | Unable to configure Browser Link script injection on the response. 
+2026-04-15 11:31:58 | WRN | Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2026-04-15 11:33:46 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7036ms
+2026-04-15 11:34:03 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6739ms
+2026-04-15 11:34:58 | WRN | Unable to configure Browser Link script injection on the response. 
+2026-04-15 11:34:58 | WRN | Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2026-04-15 11:38:34 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 6985ms
+2026-04-15 11:39:14 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 9108ms
+2026-04-15 11:44:43 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7099ms
+2026-04-15 11:45:01 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6249ms
+2026-04-15 11:48:43 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7042ms
+2026-04-15 11:48:58 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 9143ms
+2026-04-15 11:51:24 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7075ms
+2026-04-15 11:51:37 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6901ms
+2026-04-15 11:54:51 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7082ms
+2026-04-15 11:55:02 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6241ms
+2026-04-15 11:56:39 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7487ms
+2026-04-15 11:56:58 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 9616ms
+2026-04-15 11:58:16 | WRN | Unable to configure Browser Link script injection on the response. 
+2026-04-15 11:58:16 | WRN | Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2026-04-15 11:58:20 | WRN | Unable to configure Browser Link script injection on the response. 
+2026-04-15 11:58:20 | WRN | Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2026-04-15 11:58:30 | WRN | Unable to configure Browser Link script injection on the response. 
+2026-04-15 11:58:30 | WRN | Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2026-04-15 11:58:59 | INF | ACTION_TRACE | Acc=Anonymous | Path=/ | IP=::1 | Start=2026-04-15 11:58:59.087 | Elapsed=214ms | Status=Completed
+2026-04-15 11:58:59 | INF | ACTION_TRACE | Acc=Anonymous | Path=/.well-known/appspecific/com.chrome.devtools.json | IP=::1 | Start=2026-04-15 11:58:59.355 | Elapsed=0ms | Status=Completed
+2026-04-15 11:58:59 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-04-15 11:58:59.491 | Elapsed=12ms | Status=Completed
+2026-04-15 11:58:59 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-04-15 11:58:59.571 | Elapsed=11ms | Status=Completed
+2026-04-15 11:59:00 | INF | ACTION_TRACE | Acc=Anonymous | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-04-15 11:59:00.719 | Elapsed=0ms | Status=Completed
+2026-04-15 11:59:00 | INF | ACTION_TRACE | Acc=Anonymous | Path=/.well-known/appspecific/com.chrome.devtools.json | IP=::1 | Start=2026-04-15 11:59:00.770 | Elapsed=0ms | Status=Completed
+2026-04-15 11:59:00 | INF | ACTION_TRACE | Acc=Anonymous | Path=/Captcha/Generate | IP=::1 | Start=2026-04-15 11:59:00.935 | Elapsed=6ms | Status=Completed
+2026-04-15 11:59:00 | INF | ACTION_TRACE | Acc=Anonymous | Path=/DNTCaptchaImage/Show | IP=::1 | Start=2026-04-15 11:59:00.955 | Elapsed=9ms | Status=Completed
+2026-04-15 11:59:08 | INF | ACTION_TRACE | Acc=admin | Path=/AdminPortal/Account/Login | IP=::1 | Start=2026-04-15 11:59:03.751 | Elapsed=4940ms | Status=Completed
+2026-04-15 11:59:08 | INF | NETWORK_UNSTABLE | Acc=admin | Path=/AdminPortal/Account/Login | Reason=SlowRequest 4940ms
+2026-04-15 11:59:08 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 4940ms
+2026-04-15 12:00:16 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/ | Reason=SlowRequest 7066ms
+2026-04-15 12:00:26 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/Account/Login | Reason=SlowRequest 6120ms
+2026-04-15 12:00:46 | INF | NETWORK_UNSTABLE | Acc=admin | IP=::1 | Path=/AdminPortal/Account/Login | Reason=SlowRequest 6222ms

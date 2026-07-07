@@ -1,0 +1,729 @@
+﻿@using EHRIS.Core.Models.Common
+@using EHRIS.Security.User
+@inject IConfiguration Configuration
+@inject IUserContextService UserContext
+@{
+    var isAjax = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+}
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@AppConfig.syi_title</title>
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="~/lib/admin-lte/css/adminlte.css">
+        <!-- Select2 CSS -->
+        <link rel="stylesheet" href="~/lib/select2/css/select2.min.css">
+            <link rel="stylesheet" href="~/lib/select2/css/select2-bootstrap/select2-bootstrap-theme.min.css">
+
+                <!-- Font Awesome -->
+                <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
+                <!-- Bootstrap icon -->
+                <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
+                    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" />
+
+                    <!--jQuery-->
+                    <script src="~/lib/jquery/jquery.min.js"></script>
+
+                    <!-- Bootstrap 5 -->
+                    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+                    <script src="~/js/daterangepickertw.js" charset="utf-8"></script>
+                    <script src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.zh-TW.min.js"></script>
+                    <script src="~/js/roc-datepicker.js"></script>
+                    <script src="~/js/timepicker.js"></script>
+
+
+                    <!-- AdminLTE JS -->
+                    <script src="~/lib/admin-lte/js/adminlte.min.js"></script>
+
+                    <!-- Select2 -->
+                    <script src="~/lib/select2/js/select2.min.js"></script>
+
+                    <!-- DataTables 樣式 -->
+                    <link rel="stylesheet" href="~/lib/datatable/css/dataTables.min.css">
+                        <!-- DateRangePicker 樣式 -->
+                        @*  <link href="~/lib/daterangepicker/daterangepicker.css" rel="stylesheet" /> *@
+                        <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+                        <!-- DataTables Bootstrap 5 -->
+                        <link href="~/lib/datatable/css/datatables.bootstrap5.min.css" rel="stylesheet" />
+                        <!-- 樹狀選單樣式 -->
+                        <link rel="stylesheet" href="~/lib/Tree-Multiselect/dist/jquery.tree-multiselect.min.css" />
+    
+                        <link href="~/css/MutliSelect.css" rel="stylesheet" />
+                        <!--moment.min.js要在datarangepicker.js前載入   -->
+                        @* <script src="~/lib/daterangepicker/moment.min.js"></script> *@
+                        @* <script src="~/lib/daterangepicker/daterangepicker.min.js"></script> *@
+
+
+                        <!-- DataTables JavaScript -->
+                        <script src="~/lib/datatable/js/jquery.datatables.min.js"></script>
+
+                        <script src="~/lib/datatable/js/datatables.bootstrap5.min.js"></script>
+                        <!-- FixedHeader extension -->
+                        <link rel="stylesheet" href="~/lib/datatables.net-fixedheader-bs5/fixedheader.bootstrap5.min.css">
+                            <script src="~/lib/datatables.net-fixedheader-bs5/fixedheader.bootstrap5.min.js"></script>
+
+                            <!-- Tree Multiselect JavaScript -->
+                            <script src="~/lib/Tree-Multiselect/dist/jquery.tree-multiselect.min.js"></script>
+                            <!-- 額外功能 (Buttons, FixedHeader, Responsive,DataTable)-->
+                            <script src="~/lib/datatable/datatables-buttons/js/datatables.buttons.min.js"></script>
+                            <script src="~/lib/datatables.net/buttons-bs5/buttons.bootstrap5.min.js"></script>
+                            <script src="~/lib/datatable/datatables-buttons/js/buttons.html5.min.js"></script>
+                            <script src="~/lib/datatable/datatables-buttons/js/buttons.print.min.js"></script>
+                            <!-- SweetAlert2 CSS -->
+                            <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
+
+                            <!-- SweetAlert2 JS -->
+                            <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+                            <!--系統客製 放最後才不會被蓋掉 -->
+                            <link href="~/css/ehrissite.css" asp-append-version="true" rel="stylesheet" />
+                            <!--系統客製 放最後才不會被蓋掉 -->
+                            <script src="~/js/EHRISsite.js" asp-append-version="true"></script>
+                            <script src="~/lib/html-to-image/html-to-image.js"></script>
+
+                            <style>
+                                    /* [Claude] CSS 色彩主題變數（預設深藍，可由 JS 覆蓋） */
+                                    :root {
+                                        --theme-c1: #1a3a5f;
+                                        --theme-c2: #2a5298;
+                                        --theme-c3: #1e3c72;
+                                    }
+
+                                    /* [Claude] 主題下拉選單 */
+                                    .theme-picker-toggle {
+                                        color: rgba(255,255,255,0.85) !important;
+                                        gap: 4px;
+                                    }
+                                    .theme-picker-toggle:hover {
+                                        color: #ffffff !important;
+                                    }
+                                    .theme-menu {
+                                        min-width: 130px;
+                                        padding: 4px 0;
+                                        border-radius: 8px;
+                                        box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+                                    }
+                                    .theme-menu-dot {
+                                        width: 14px;
+                                        height: 14px;
+                                        border-radius: 50%;
+                                        display: inline-block;
+                                        flex-shrink: 0;
+                                        border: 1px solid rgba(0,0,0,0.12);
+                                    }
+                                    .theme-option {
+                                        display: flex !important;
+                                        align-items: center;
+                                        gap: 8px;
+                                        font-size: 0.82rem;
+                                        padding: 5px 14px !important;
+                                    }
+                                    .theme-option.active {
+                                        background: rgba(0,0,0,0.06);
+                                        font-weight: 700;
+                                    }
+
+                                    /* 1. 核心高度與 Padding 修正 */
+                                    .app-header, .app-header .navbar, .sidebar-brand, .app-header .container-fluid {
+                                        height: 75px !important;
+                                        min-height: 75px !important;
+                                        max-height: 75px !important;
+                                        padding: 0 !important;
+                                        margin: 0 !important;
+                                    }
+
+                                    /* 2. 模組連結：圖示在上、文字在下 */
+                                    .module-link {
+                                        display: flex !important;
+                                        flex-direction: column !important;
+                                        align-items: center !important;
+                                        justify-content: center !important;
+                                        height: 75px !important;
+                                        padding: 0 10px !important;
+                                        gap: 3px;
+                                        white-space: nowrap;
+                                        line-height: 1 !important;
+                                        text-decoration: none;
+                                        border-radius: 6px;
+                                        transition: background 0.18s;
+                                    }
+                                    /* ── Hover：背景略亮 ── */
+                                    .module-link:hover {
+                                        background: rgba(255,255,255,0.10) !important;
+                                    }
+                                    /* ── Active（已選）：白底凸顯 ── */
+                                    .module-link.active {
+                                        background: rgba(255,255,255,0.22) !important;
+                                        border-bottom: 3px solid #ffffff !important;
+                                        color: inherit !important;
+                                    }
+
+                                    /* ── 圖示方塊 ── */
+                                    /* 狀態1：預設 — 極淡白底（圖示清晰），無可見框 */
+                                    .module-icon-wrapper {
+                                        width: 50px;
+                                        height: 50px;
+                                        border-radius: 9px;
+                                        background: transparent;
+                                        border: 1px solid transparent;
+                                        box-shadow: none;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        flex-shrink: 0;
+                                        transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+                                    }
+                                    .module-icon-wrapper img {
+                                        width: 28px;
+                                        height: 28px;
+                                        object-fit: contain;
+                                        /* 預設不套 multiply，避免藍底暗化圖示 */
+                                        transition: mix-blend-mode 0s;
+                                    }
+                                    .module-icon-wrapper i {
+                                        color: rgba(255,255,255,0.82) !important;
+                                        font-size: 1.25rem;
+                                        transition: color 0.2s;
+                                    }
+
+                                    /* 狀態2：Hover — 半透明白背景 + 選擇框出現 */
+                                    .module-link:hover .module-icon-wrapper {
+                                        background: rgba(255,255,255,0.58) !important;
+                                        border-color: rgba(255,255,255,0.70) !important;
+                                        box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+                                    }
+                                    .module-link:hover .module-icon-wrapper i {
+                                        color: #1a3a6f !important;
+                                    }
+
+                                    /* 狀態3：Active — 近實白底 + 選擇框 + multiply 去背最清晰 */
+                                    .module-link.active .module-icon-wrapper {
+                                        background: rgba(255,255,255,0.92) !important;
+                                        border-color: rgba(255,255,255,0.95) !important;
+                                        box-shadow: 0 3px 14px rgba(0,0,0,0.20);
+                                    }
+                                    .module-link.active .module-icon-wrapper img {
+                                        mix-blend-mode: multiply;
+                                    }
+                                    .module-link.active .module-icon-wrapper i {
+                                        color: #1a3a6f !important;
+                                    }
+
+                                    /* ── 文字：立體陰影效果 ── */
+                                    .module-text {
+                                        color: rgba(255,255,255,0.92);
+                                        font-size: 0.7rem;
+                                        font-weight: 600;
+                                        letter-spacing: 0.3px;
+                                        text-align: center;
+                                        text-shadow:
+                                            0 1px 2px rgba(0,0,0,0.70),
+                                            0 2px 6px rgba(0,0,0,0.45),
+                                            0 0 12px rgba(0,0,0,0.25);
+                                    }
+                                    /* Hover 文字：加強立體感 */
+                                    .module-link:hover .module-text {
+                                        color: #ffffff;
+                                        font-weight: 700;
+                                        text-shadow:
+                                            0 1px 2px rgba(0,0,0,0.80),
+                                            0 2px 8px rgba(0,0,0,0.50),
+                                            0 0 16px rgba(0,0,0,0.30);
+                                    }
+                                    /* Active 文字：最亮最立體 */
+                                    .module-link.active .module-text {
+                                        color: #ffffff;
+                                        font-weight: 700;
+                                        text-shadow:
+                                            0 1px 2px rgba(0,0,0,0.85),
+                                            0 2px 8px rgba(0,0,0,0.55),
+                                            0 0 20px rgba(0,0,0,0.35),
+                                            0 -1px 0 rgba(255,255,255,0.15);
+                                    }
+
+                                    /* 3. 電腦版捲軸包裝層 */
+                                    .header-nav-wrapper {
+                                        flex: 1;
+                                        min-width: 0;
+                                        height: 75px;
+                                        position: relative;
+                                        overflow: hidden;
+                                        display: flex;
+                                        align-items: center;
+                                    }
+
+                                    #header-module-nav {
+                                        display: flex !important;
+                                        flex-direction: row !important;
+                                        flex-wrap: nowrap !important;
+                                        overflow-x: auto !important;
+                                        overflow-y: hidden !important;
+                                        width: 100% !important;
+                                        scrollbar-width: none;
+                                        padding: 0 35px !important;
+                                    }
+
+                                        #header-module-nav::-webkit-scrollbar {
+                                            display: none;
+                                        }
+
+                                    /* 4. 側邊欄高度修正 */
+                                    .sidebar-wrapper {
+                                        height: calc(100vh - 75px) !important;
+                                        overflow-y: auto !important;
+                                        overflow-x: hidden !important;
+                                        background-color: var(--bs-dark-bg-subtle);
+                                    }
+
+                                    /* 5. 右側垂直資訊列 */
+                                    .vertical-nav-item {
+                                        height: 22px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: flex-end;
+                                    }
+                                    /* [Claude] 第一列：全螢幕 + 主題選擇器同一水平線 */
+                                    .vertical-nav-row1 {
+                                        display: flex;
+                                        flex-direction: row;
+                                        align-items: center;
+                                        justify-content: flex-end;
+                                        gap: 8px;
+                                        height: 22px;
+                                        margin-bottom: 4px;
+                                    }
+
+                                    /* [Claude] 使用者名稱改為白色，配合深藍 Header */
+                                    .user-name-small {
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                        color: rgba(255, 255, 255, 0.9);
+                                    }
+
+                                    /* [Claude] 計時器：調淡，避免在深藍 Header 上過於突出 */
+                                    .timer-wrapper {
+                                        background: rgba(255, 255, 255, 0.15);
+                                        padding: 1px 8px;
+                                        border-radius: 10px;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 4px;
+                                        color: rgba(255, 255, 255, 0.88);
+                                        font-size: 11px;
+                                        border: 1px solid rgba(255,255,255,0.2);
+                                    }
+
+                                    /* 6. 手機版方塊選單 Overlay */
+                                    #mobile-grid-content {
+                                        display: grid !important;
+                                        /* 將原本的 repeat(auto-fill, minmax(85px, 1fr)) 改成下面這行 */
+                                        grid-template-columns: repeat(3, 1fr) !important;
+                                        gap: 12px !important;
+                                        padding: 15px !important;
+                                    }
+
+                                    .launcher-item {
+                                        padding: 10px 8px !important;
+                                        min-height: 90px !important;
+                                        display: flex !important;
+                                        flex-direction: column !important;
+                                        align-items: center !important;
+                                        justify-content: center !important;
+                                        gap: 6px;
+                                        background: transparent;
+                                        border: 1px solid transparent;
+                                        border-radius: 10px;
+                                        text-align: center;
+                                        transition: background 0.2s, transform 0.18s;
+                                        cursor: pointer;
+                                    }
+                                        .launcher-item:hover {
+                                            background: rgba(255,255,255,0.10) !important;
+                                            border-color: transparent !important;
+                                            transform: translateY(-1px);
+                                        }
+                                        .launcher-item:active {
+                                            transform: scale(0.95);
+                                        }
+
+                                        /* 圖示方塊：預設透明、無框 */
+                                        .launcher-item .icon-box {
+                                            width: 46px !important;
+                                            height: 46px !important;
+                                            border-radius: 10px;
+                                            background: transparent;
+                                            border: 1px solid transparent;
+                                            box-shadow: none;
+                                            display: flex !important;
+                                            align-items: center !important;
+                                            justify-content: center !important;
+                                            flex-shrink: 0;
+                                            transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
+                                        }
+                                            .launcher-item .icon-box img {
+                                                width: 26px !important;
+                                                height: 26px !important;
+                                                object-fit: contain;
+                                                transition: mix-blend-mode 0s;
+                                            }
+                                            .launcher-item .icon-box i {
+                                                color: rgba(255,255,255,0.82) !important;
+                                                font-size: 1.2rem;
+                                                transition: color 0.18s;
+                                            }
+
+                                        /* Hover：半透明白背景 + 框出現（與桌面版一致） */
+                                        .launcher-item:hover .icon-box {
+                                            background: rgba(255,255,255,0.58) !important;
+                                            border-color: rgba(255,255,255,0.70) !important;
+                                            box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+                                        }
+                                        .launcher-item:hover .icon-box i {
+                                            color: #1a3a6f !important;
+                                        }
+
+                                        /* Active / 點擊：近實白底 + multiply 去背 */
+                                        .launcher-item:active .icon-box,
+                                        .launcher-item.active .icon-box {
+                                            background: rgba(255,255,255,0.92) !important;
+                                            border-color: rgba(255,255,255,0.95) !important;
+                                            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+                                        }
+                                        .launcher-item:active .icon-box img,
+                                        .launcher-item.active .icon-box img {
+                                            mix-blend-mode: multiply;
+                                        }
+                                        .launcher-item:active .icon-box i,
+                                        .launcher-item.active .icon-box i {
+                                            color: #1a3a6f !important;
+                                        }
+
+                                        /* 前兩字彩色方塊（L2 子功能）：hover 加亮、不改白底 */
+                                        .launcher-item:hover .char-icon-box,
+                                        .launcher-item:active .char-icon-box,
+                                        .launcher-item.active .char-icon-box {
+                                            filter: brightness(1.18) !important;
+                                            box-shadow: 0 4px 14px rgba(0,0,0,0.3) !important;
+                                        }
+
+                                        /* 文字 */
+                                        .launcher-item span {
+                                            font-size: 0.73rem !important;
+                                            line-height: 1.2 !important;
+                                            display: -webkit-box !important;
+                                            -webkit-line-clamp: 2;
+                                            -webkit-box-orient: vertical;
+                                            overflow: hidden;
+                                            color: rgba(255,255,255,0.85);
+                                            font-weight: 500;
+                                        }
+                                        .launcher-item:hover span,
+                                        .launcher-item.active span {
+                                            color: #ffffff;
+                                            font-weight: 700;
+                                        }
+
+                                    .launcher-header {
+                                        height: 65px !important;
+                                        padding: 0 10px !important;
+                                        display: flex !important;
+                                        flex-direction: row !important;
+                                        align-items: center !important;
+                                        justify-content: space-between !important;
+                                        border-bottom: 1px solid rgba(255,255,255,0.1);
+                                    }
+
+                                        /* 標題樣式：置中、自動縮略 */
+                                        .launcher-header h5 {
+                                            margin: 0 !important;
+                                            padding: 0 5px !important;
+                                            flex: 1; /* 佔滿中間剩餘空間 */
+                                            text-align: center;
+                                            font-size: 1.15rem;
+                                            color: #fff;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                        }
+
+
+
+
+                                    /*       */
+
+                                    .launcher-overlay {
+                                        position: fixed;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        background: var(--theme-c1);
+                                        z-index: 10000;
+                                        display: none;
+                                        flex-direction: column;
+                                    }
+
+       
+
+                                    .launcher-grid {
+                                        display: grid;
+                                        grid-template-columns: repeat(2, 1fr) !important; /* 一排兩個 */
+                                        gap: 15px;
+                                        padding: 20px;
+                                        overflow-y: auto;
+                                    }
+
+        
+                                    /* [Claude] 導覽列箭頭：使用主題色 c1（最深色調），形成漸層感 */
+                                    .nav-scroll-btn {
+                                        position: absolute;
+                                        top: 0;
+                                        bottom: 0;
+                                        width: 15px;
+                                        z-index: 1000;
+                                        background: var(--theme-c1); /* [Claude] 跟隨主題 */
+                                        border: none;
+                                        cursor: pointer;
+                                        display: none;
+                                        align-items: center;
+                                        justify-content: center;
+                                        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+                                        color: rgba(255,255,255,0.7);
+                                    }
+
+                                    #nav-scroll-left {
+                                        left: 0;
+                                    }
+
+                                    #nav-scroll-right {
+                                        right: 0;
+                                    }
+
+                                    .text-orange {
+                                        color: orange;
+                                    }
+
+                            </style>
+                        </head>
+
+                        <body class="layout-fixed sidebar-expand-lg sidebar-mini sidebar-collapse bg-body-tertiary app-loaded">
+   
+                            <div class="app-wrapper">
+                                <!-- 確保手機版也能抓到 -->
+                                <ul id="sidebar-header-source" style="display:none;">
+                                    @await Component.InvokeAsync("Menu", new { sys_no = 0 })
+                                </ul>
+        
+
+       
+                                <!-- Header -->
+                                <nav class="app-header navbar navbar-expand bg-body" id="navigation">
+                                    <div class="container-fluid d-flex align-items-center p-0">
+                                        <!-- 手機版：九宮格按鈕 -->
+                                        <div class="d-md-none flex-shrink-0 text-center" style="width: 75px;">
+                                            <a href="javascript:void(0);" id="btn-mobile-launcher" class="nav-link">
+                                                <i class="bi bi-grid-3x3-gap-fill fs-1"></i>
+                                            </a>
+                                        </div>
+                                        <!--手機版：中央系統名稱 (僅在手機版顯示) -->
+                                        <div class="d-md-none flex-grow-1 text-center overflow-hidden">
+                                            <span class="fw-bold text-truncate" style="font-size: 1.15rem; color: #ffffff; letter-spacing: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.3);">
+                                                @AppConfig.syi_title
+                                            </span>
+                                        </div>
+                                        <!-- 電腦版：釘選按鈕 -->
+                                        <ul class="navbar-nav d-none d-md-block flex-shrink-0">
+                                            <li class="nav-item">
+                                                <a id="btnSidebar" class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+                                                    <i id="iconSidebar" class="bi bi-pin-angle"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <!-- 電腦版：橫向選單 -->
+                                        <div class="header-nav-wrapper d-none d-md-flex flex-grow-1">
+                                            <button id="nav-scroll-left" class="nav-scroll-btn">
+                                                <i class="bi bi-chevron-left"></i>
+                                            </button>
+                                            <ul class="navbar-nav" id="header-module-nav"></ul>
+                                            <button id="nav-scroll-right" class="nav-scroll-btn">
+                                                <i class="bi bi-chevron-right"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- 右側垂直資訊列 -->
+                                        <ul class="navbar-nav ms-auto flex-shrink-0 flex-column align-items-end justify-content-center px-2" style="height: 75px;">
+                                            <!-- [Claude] 第一列：主題選擇器 -->
+                                            <li class="nav-item vertical-nav-row1">
+                                                <div class="dropdown">
+                                                    <a href="#" class="nav-link p-0 d-flex align-items-center theme-picker-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="佈景主題">
+                                                        <span id="theme-current-dot" style="width:11px;height:11px;border-radius:50%;background:#2a5298;border:2px solid rgba(255,255,255,0.65);display:inline-block;flex-shrink:0;margin-right:3px;"></span>
+                                                        <i class="bi bi-palette2 small"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end theme-menu">
+                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="blue"   data-color="#2a5298"><span class="theme-menu-dot" style="background:#2a5298"></span>深海藍</a></li>
+                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="green"  data-color="#1e6e4a"><span class="theme-menu-dot" style="background:#1e6e4a"></span>墨綠</a></li>
+                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="purple" data-color="#5a3a8a"><span class="theme-menu-dot" style="background:#5a3a8a"></span>深紫</a></li>
+                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="teal"   data-color="#1a6872"><span class="theme-menu-dot" style="background:#1a6872"></span>深青</a></li>
+                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="wine"   data-color="#8a2040"><span class="theme-menu-dot" style="background:#8a2040"></span>酒紅</a></li>
+                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="slate"  data-color="#374c60"><span class="theme-menu-dot" style="background:#374c60"></span>鐵灰</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="nav-item dropdown user-menu vertical-nav-item">
+                                                <a href="#" class="nav-link dropdown-toggle p-0 user-menu-toggle" data-bs-toggle="dropdown">
+                                                    <span class="user-name-small">@UserContext.UserName</span>
+                                                    <i class="bi bi-three-dots-vertical user-menu-dots"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <a id="btnFullscreen" class="dropdown-item py-2" href="#" data-lte-toggle="fullscreen">
+                                                            <i id="iconMax" class="bi bi-arrows-fullscreen me-2"></i>全螢幕
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="btnScreenshot" class="dropdown-item py-2" href="#" onclick="captureScreenshot(); return false;">
+                                                            <i class="fas fa-camera me-2"></i>截圖
+                                                        </a>
+                                                    </li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li class="user-footer">
+                                                        <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#changePeople">
+                                                            <i class="fas fa-user me-2 text-orange"></i>切換人員
+                                                        </a>
+                                                        <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                                            <i class="fas fa-key me-2 text-primary"></i>變更密碼
+                                                        </a>
+                                                    </li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><a href="@Url.Action("Logout", "Account")" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt me-2"></i>登出</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item vertical-nav-item">
+                                                <div class="timer-wrapper">
+                                                    <i class="bi bi-clock tiny-icon"></i>
+                                                    <span id="idle-timer-count">--:--</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+
+                                <!-- 手機版方塊選單容器 -->
+                                <div id="mobile-launcher-overlay" class="launcher-overlay d-none">
+                                    <div class="launcher-header">
+                                        <h5 class="text-white m-0">功能切換</h5>
+                                        <button type="button" class="btn-close btn-close-white" id="btn-close-launcher"></button>
+                                    </div>
+                                    <div class="launcher-grid" id="mobile-grid-content"></div>
+                                </div>
+       
+                                <!-- Left Sidebar -->
+                                @await Component.InvokeAsync("Menu")
+        
+                                <!-- Main Content -->
+                                <div class="app-main">
+                                    <!-- Razor 原生內容 -->
+                                    @* <div class="content-wrapper" id="mainContent">
+                <section class="content p-3" id="pageContent">
+                    @RenderBody()
+                </section>
+            </div> *@
+
+                                    @*  <div id="mvcContent">
+                    @RenderBody()
+                </div>
+           *@
+            
+                                    <!-- 麵包屑+頁面內容 -->
+                                    <div id="breadcrumbContainer">
+                                    </div>
+
+                                    <!-- 頁面內容 -->
+                                    <div id="mvcContent">
+                                        @RenderBody()
+                                    </div>
+           
+
+                                    <!-- iframe 嵌入舊 ASPX 系統 -->
+                                    <div id="iframeContent" style="display:none;">
+                                        <iframe id="mainFrame" style="width: 100%; height: 85vh; border: none;"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 忘記密碼-->
+                            @{
+                                string modalPath = @"~/Views/Account/_ChangePasswordModal.cshtml";
+                            }
+                            @await Html.PartialAsync(modalPath)
+                            <!--toast-container-->
+                            <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3"></div>
+                            <script>
+                                    var appRoot = '@Url.Content("~")';
+        
+                                    window.IdleConfig = {
+                                        idleSeconds: @Configuration["IdleSettings:IdleTimeoutSeconds"],
+                                        warningSeconds: @Configuration["IdleSettings:WarningSeconds"],
+                                        keepAlive: '@Url.Action("KeepAlive", "Account")',
+                                        logoutUrl: '@Url.Action("Logout", "Account")'
+                                    };
+                            </script>
+                            <script src="~/js/config/projectMap.js" asp-append-version="true" charset="utf-8"></script>
+                            <script src="~/js/EHRISlayout.js" asp-append-version="true" charset="utf-8"></script>
+                            <!-- [Claude] 色彩主題選擇器 -->
+                            <script>
+                                (function () {
+                                    var themes = {
+                                        blue:   { c1: '#1a3a5f', c2: '#2a5298', c3: '#1e3c72' },
+                                        green:  { c1: '#1a3d2b', c2: '#1e6e4a', c3: '#155a38' },
+                                        purple: { c1: '#2d1b4e', c2: '#5a3a8a', c3: '#3d2266' },
+                                        teal:   { c1: '#0f3040', c2: '#1a6872', c3: '#0a4050' },
+                                        wine:   { c1: '#4a1a2a', c2: '#8a2040', c3: '#3c1020' },
+                                        slate:  { c1: '#1f2c3a', c2: '#374c60', c3: '#1a2432' }
+                                    };
+
+                                    function applyTheme(name) {
+                                        var t = themes[name];
+                                        if (!t) return;
+                                        var root = document.documentElement;
+                                        root.style.setProperty('--theme-c1', t.c1);
+                                        root.style.setProperty('--theme-c2', t.c2);
+                                        root.style.setProperty('--theme-c3', t.c3);
+                                        // home-hero 使用 CSS var() + background-attachment:fixed，
+                                        // 不需 JS inline 覆寫（inline 會抹掉 fixed，造成接縫）
+                                        // 同步 launcher-overlay 背景（手機版）
+                                        var overlay = document.querySelector('.launcher-overlay');
+                                        if (overlay) overlay.style.background = t.c1;
+                                        // 更新 Header 左側圓點（顯示目前主題色）
+                                        var dot = document.getElementById('theme-current-dot');
+                                        if (dot) dot.style.background = t.c2;
+                                        // 更新下拉選單 active 狀態
+                                        document.querySelectorAll('.theme-option').forEach(function (el) {
+                                            el.classList.toggle('active', el.dataset.theme === name);
+                                        });
+                                        localStorage.setItem('ehris-theme', name);
+                                    }
+
+                                    // 初始化
+                                    $(function () {
+                                        var saved = localStorage.getItem('ehris-theme') || 'blue';
+                                        applyTheme(saved);
+                                        document.querySelectorAll('.theme-option').forEach(function (el) {
+                                            el.addEventListener('click', function (e) {
+                                                e.preventDefault();
+                                                applyTheme(this.dataset.theme);
+                                            });
+                                        });
+                                    });
+                                })();
+                            </script>
+                            <!-- 倒數 js -->
+                            <script src="~/js/IdleTimer.js"></script>
+                            @await Html.PartialAsync("_SwalMessages")
+                            @RenderSection("Scripts", required: false)
+
+                        </body>
+                    </html>

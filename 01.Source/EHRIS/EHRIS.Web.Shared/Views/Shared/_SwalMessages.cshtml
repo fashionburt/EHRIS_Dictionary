@@ -1,0 +1,37 @@
+@*
+    共用 SweetAlert2 訊息彈出
+    搭配 AlertExtensions（this.AlertError / AlertSuccess / AlertWarning / AlertInfo）
+    在 _Layout.cshtml 和 Login.cshtml 的 </body> 前引用：
+    @await Html.PartialAsync("_SwalMessages")
+
+    底層呼叫 EHRISsite.js 的 ehrisAlert.show(type, message, redirectUrl)
+*@
+
+@{
+    var alerts = new[]
+    {
+        new { Key = "SwalError",   Type = "error" },
+        new { Key = "SwalSuccess", Type = "success" },
+        new { Key = "SwalWarning", Type = "warning" },
+        new { Key = "SwalInfo",    Type = "info" },
+        new { Key = "Error",       Type = "error" },
+    };
+
+    var redirectUrl = TempData["SwalRedirectUrl"]?.ToString() ?? "";
+}
+
+@foreach (var alert in alerts)
+{
+    var message = TempData[alert.Key]?.ToString();
+    if (!string.IsNullOrEmpty(message))
+    {
+        var messageJson = System.Text.Json.JsonSerializer.Serialize(message);
+        var urlJson = System.Text.Json.JsonSerializer.Serialize(redirectUrl);
+
+        <script>
+            setTimeout(function () {
+                ehrisAlert.show('@alert.Type', @Html.Raw(messageJson), @Html.Raw(urlJson) || undefined);
+            }, 150);
+        </script>
+    }
+}
