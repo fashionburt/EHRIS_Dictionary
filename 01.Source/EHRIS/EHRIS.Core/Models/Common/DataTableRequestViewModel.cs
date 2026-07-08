@@ -6,6 +6,8 @@ public class DataTableRequest
     public int start { get; set; }
     public int length { get; set; }
     public string search { get; set; }
+    public string ServerIp { get; set; } = string.Empty;
+
     public List<DataTableRequestColumn> columns { get; set; }
     public List<DataTableRequestOrder> orderby { get; set; }
     public ExtraSearch extraSearch { get; set; }

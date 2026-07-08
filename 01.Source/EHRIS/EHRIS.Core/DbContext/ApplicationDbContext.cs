@@ -16,6 +16,16 @@ public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
     public readonly AuditDbContext _auditDbContext;
     #endregion
 
+    #region 字典管理系統
+    public DbSet<MarqueeAnnouncement> MarqueeAnnouncements { get; set; }
+    public DbSet<Menu> Menus { get; set; }
+    public DbSet<Row> Rows { get; set; }
+    public DbSet<Sheet> Sheets { get; set; }
+    public DbSet<Menu_Access> Menu_Access { get; set; }
+    public DbSet<Log> Logs { get; set; }
+
+    #endregion
+
     #region 後台管理
     public DbSet<AdminUsers> AdminUsers { get; set; }
     public DbSet<AdminUserRoles> AdminUserRoles { get; set; }
