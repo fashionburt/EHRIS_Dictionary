@@ -20,77 +20,9 @@
             <span class="brand-text fw-light"><b>@AppConfig.syi_title</b></span>
         </a>
     </div>
-    @* [Claude] sidebar-wrapper：移除 inline style，改由 EHRISsite.css 統一管理白底 *@
     <div class="sidebar-wrapper" data-overlayscrollbars="host">
         <nav class="mt-2">
             <ul class="nav  sidebar-menu flex-column " role="menu" data-lte-toggle="treeview" data-accordion="true">
-
-                  
-                            <!---->
-                    @if (activeModule.ChildrenMenu != null && activeModule.ChildrenMenu.Any())
-                            {
-                                <!-- 子選單 -->
-                               
-                            @foreach (var child in activeModule.ChildrenMenu)
-                                    {
-                                        <li class="nav-item  has-treeview">
-                                            
-
-                                                @if (child.SubFunctions != null && child.SubFunctions.Any())
-                                                {
-                                                    <a href="#" class="nav-link">
-                                                        @* [Claude] 動態前兩字圖示：取功能名稱前兩字放入彩色方塊，縮側欄時仍可辨識 *@
-                                        <span class="nav-icon nav-char-icon" title="@child.SfuShorten">@(child.SfuShorten?.Length >= 2 ? child.SfuShorten.Substring(0, 2) : child.SfuShorten?.Length > 0 ? child.SfuShorten[0].ToString() : "?")</span>
-                                                        <p>@child.SfuName</p>
-                                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                                    </a>
-                                                }
-                                                else
-                                                {
-                                                    <a href="#" class="nav-link" onclick="loadMvc('@(!string.IsNullOrEmpty(child.SfuPath) ? child.SfuPath : "Report/Query")')">
-                                                        @* [Claude] 動態前兩字圖示（葉節點，無子選單） *@
-                                                        <span class="nav-icon nav-char-icon" title="@child.SfuName">@(child.SfuName?.Length >= 2 ? child.SfuName.Substring(0, 2) : child.SfuName?.Length > 0 ? child.SfuName[0].ToString() : "?")</span>
-                                                        <p>@child.SfuName</p>
-                                                    </a>
-                                                }
-
-                                               
-                                                
-                                            
-                                            @if (child.SubFunctions != null && child.SubFunctions.Any())
-                                            {
-                                                <ul class="nav nav-treeview d-none">
-                                                    <!-- 第3層選單 -->
-                                                    @foreach (var grandchild in child.SubFunctions)
-                                                    {
-                                                        <li class="nav-item ">
-                                                            <a href="#" class="nav-link" onclick="loadMvc('@(!string.IsNullOrEmpty(grandchild.SfuPath) ? grandchild.SfuPath : "~/Report/Query")')">
-                                                                <i class="nav-icon bi bi-journal-text fs-5"></i>
-                                                                <p>@grandchild.SfuName</p>
-                                                            </a>
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            }
-
-                                        </li>
-                                    }
-                                
-                            }
-                        
-                
-
-                <!-- ====== [TEST] 測試專區 — 日後正式上線請移除此區塊 ====== -->
-                <li class="nav-header" style="color:#e67e22; font-weight:bold;">
-                    <i class="fas fa-flask me-1"></i>測試專區（開發用）
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="loadMvc('/DevTest/DevTest')">
-                        <span class="nav-icon nav-char-icon" title="元件測試" style="background:#e67e22;">測試</span>
-                        <p>元件測試頁</p>
-                    </a>
-                </li>
-                <!-- ====== [TEST] END ====== -->
             </ul>
         </nav>
     </div>
@@ -98,14 +30,12 @@
 <ul id="sidebar-header-source" style="display:none;">
     @foreach (var sys in Model)
     {
-        bool isActive = (sys.sys_no == currentSysNo);
-        @* 1. 移除 d-none d-md-block 讓手機版也能顯示 *@
         <li class="nav-item dynamic-module">
             <a href="javascript:void(0);"
                data-sys-no="@sys.sys_no"
-               class="nav-link module-link @(isActive ? "active fw-bold text-primary border-bottom border-primary" : "")">
+               data-sys-path="@sys.sys_path"
+               class="nav-link module-link">
 
-                @* 2. 圖示區域 *@
                 <div class="module-icon-wrapper">
                     @if (!string.IsNullOrEmpty(sys.sys_defaltpic))
                     {
@@ -117,7 +47,6 @@
                     }
                 </div>
 
-                @* 3. 文字區域 *@
                 <span class="module-text">@sys.sys_name</span>
             </a>
         </li>

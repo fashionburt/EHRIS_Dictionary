@@ -506,6 +506,14 @@
                                         color: orange;
                                     }
 
+
+                                    .app-sidebar {
+                                        display: none !important;
+                                    }
+
+                                    .app-main {
+                                        margin-left: 0 !important;
+                                    }
                             </style>
                         </head>
 
@@ -514,8 +522,9 @@
                             <div class="app-wrapper">
                                 <!-- 確保手機版也能抓到 -->
                                 <ul id="sidebar-header-source" style="display:none;">
-                                    @await Component.InvokeAsync("Menu", new { sys_no = 0 })
-                                </ul>
+                                    @await Component.InvokeAsync("Menu")
+                            </ul>
+
         
 
        
@@ -534,14 +543,6 @@
                                                 @AppConfig.syi_title
                                             </span>
                                         </div>
-                                        <!-- 電腦版：釘選按鈕 -->
-                                        <ul class="navbar-nav d-none d-md-block flex-shrink-0">
-                                            <li class="nav-item">
-                                                <a id="btnSidebar" class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
-                                                    <i id="iconSidebar" class="bi bi-pin-angle"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
 
                                         <!-- 電腦版：橫向選單 -->
                                         <div class="header-nav-wrapper d-none d-md-flex flex-grow-1">

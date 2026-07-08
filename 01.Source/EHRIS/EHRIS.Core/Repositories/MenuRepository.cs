@@ -62,7 +62,6 @@ public class MenuRepository : BaseRepository, IMenuRepository
 
     public async Task<List<MenuSysViewModel>> GetMenusByAccount(int accNo)
     {
-        //依角色抓有權限的功能 (rauthority)
         List<SysFuction> allFunctions;
         allFunctions = await (
                        from b in _context.SysFuction
@@ -77,10 +76,8 @@ public class MenuRepository : BaseRepository, IMenuRepository
                    )
                    .Distinct().AsNoTracking()
                    .OrderBy(m => m.SfuOrder)
-                   .ToListAsync();//讀取所有子選單
+                   .ToListAsync();
 
-
-        //依人員抓有權限的功能 (pauthority)
         List<SysFuction> accountFunctios = await (
                         from b in _context.SysFuction
                         join c in _context.AAuthoritys on b.SfuNo equals c.SfuNo
@@ -90,68 +87,33 @@ public class MenuRepository : BaseRepository, IMenuRepository
                     )
                     .Distinct().AsNoTracking()
                     .OrderBy(m => m.SfuOrder)
-                    .ToListAsync();//讀取所有子選單
+                    .ToListAsync();
 
         allFunctions.Union(accountFunctios).ToList();
-        //往回抓最上層系統(sys)
-        var sysNos = allFunctions.Select(f => f.SysNo).Distinct().ToList();
-        List<MenuSysViewModel> allParents = new List<MenuSysViewModel>();
-        allParents = await _context.sys
-                        .Where(m => m.SysStatus == 1 && m.SysBuiltIn == 2 && sysNos.Contains(m.SysNo))
-                        .Select(x => new MenuSysViewModel
-                        {
-                            sys_no = x.SysNo,
-                            sys_name = x.SysName,
 
-                            sys_catalog = x.SysCatalog,
-                            sys_order = x.SysOrder,
-                            sys_default = x.SysDefault,
-                            sys_defaltpic = x.SysDefaltPic,
-                            sys_overpicture = x.SysOverPicture,
-                            sys_status = x.SysStatus,
-                            sys_createname = x.SysCreateName,
-                            sys_createtime = x.SysCreateTime
-                        }
-                        )
-                        .Distinct()
-                        .AsNoTracking()
-                        .OrderBy(a => a.sys_order)
-                        .ToListAsync();
-
-
-        var menuHierarchy = allParents
-                    .Select(m => new MenuSysViewModel
+        var menuList = allFunctions
+                    .Where(f => f.SfuParent == 0)
+                    .Select(f => new MenuSysViewModel
                     {
-                        sys_no = m.sys_no,
-                        sys_name = m.sys_name,
+                        sys_no = f.SfuNo,
+                        sys_name = f.SfuDisName,
+                        sys_shorten = f.SfuShorten,
+                        sys_catalog = f.SfuCatalog,
+                        sys_order = f.SfuOrder,
+                        sys_path = f.SfuPath,
+                        sys_defaltpic = f.SfuDefaltPic,
+                        sys_overpicture = f.SfuOverPicture,
+                        sys_status = f.SfuStatus,
+                        sys_createname = f.SfuCreateName,
+                        sys_createtime = f.SfuCreateTime
+                    })
+                    .Distinct()
+                    .OrderBy(m => m.sys_order)
+                    .ToList();
 
-                        sys_order = m.sys_order,
-                        sys_defaltpic = m.sys_defaltpic,
-                        sys_overpicture = m.sys_overpicture,
-                        ChildrenMenu = allFunctions
-                           .Where(f => f.SysNo == m.sys_no && f.SfuParent == 0) //  取得第 2 層 (子選單)
-                            .Select(f => new SysFuction
-                            {
-                                SfuNo = f.SfuNo,
-                                SfuName = f.SfuDisName,
-                                SfuShorten = f.SfuShorten,
-                                SysNo = f.SysNo,
-                                SfuPath = f.SfuPath,
-                                SubFunctions = allFunctions
-                                    .Where(sub => sub.SfuParent == f.SfuNo) //  取得第 3 層  選單
-                                    .Select(sub => new SysFuction
-                                    {
-                                        SfuNo = sub.SfuNo,
-                                        SfuName = sub.SfuName,
-                                        SysNo = sub.SysNo,
-                                        SfuPath = sub.SfuPath
-                                    }).OrderBy(o => o.SfuOrder).ToList()
-                            }).OrderBy(o => o.SfuOrder).ToList()
-                    }).OrderBy(o => o.sys_order).ToList();
-        return menuHierarchy;
-
-
+        return menuList;
     }
+
 
 
     public async Task<List<MenuSysViewModel>> GetAdminMenusByAccount(int aduNo)

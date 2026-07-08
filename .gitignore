@@ -6,6 +6,7 @@ packages/
 WebResource/
 WebResourceRWD/
 WebControls/
+Logs/
 
 Web.Debug.config
 Web.Release.config
