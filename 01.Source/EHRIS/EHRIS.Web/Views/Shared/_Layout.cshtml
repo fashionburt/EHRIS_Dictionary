@@ -85,6 +85,24 @@
                             <script src="~/lib/html-to-image/html-to-image.js"></script>
 
                             <style>
+                                .header-home-btn {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    height: 75px;
+                                    width: 60px;
+                                    padding: 0 10px;
+                                    text-decoration: none;
+                                    transition: background 0.18s;
+                                }
+                                    .header-home-btn:hover {
+                                        background: rgba(255,255,255,0.10);
+                                    }
+                                    .header-home-btn img {
+                                        height: 40px;
+                                        width: auto;
+                                        object-fit: contain;
+                                    }
                                     /* [Claude] CSS 色彩主題變數（預設深藍，可由 JS 覆蓋） */
                                     :root {
                                         --theme-c1: #1a3a5f;
@@ -542,6 +560,9 @@
 
                                         <!-- 電腦版：橫向選單 -->
                                         <div class="header-nav-wrapper d-none d-md-flex flex-grow-1">
+                                            <a href="/Home/Index" class="header-home-btn flex-shrink-0" title="回首頁">
+                                                <img src="~/image/Login/Logo.png" alt="回首頁">
+                                            </a>
                                             <button id="nav-scroll-left" class="nav-scroll-btn">
                                                 <i class="bi bi-chevron-left"></i>
                                             </button>
@@ -550,7 +571,6 @@
                                                 <i class="bi bi-chevron-right"></i>
                                             </button>
                                         </div>
-
                                         <!-- 右側垂直資訊列 -->
                                         <ul class="navbar-nav ms-auto flex-shrink-0 flex-column align-items-end justify-content-center px-2" style="height: 75px;">
                                             <!-- [Claude] 第一列：主題選擇器 -->
@@ -569,35 +589,6 @@
                                                         <li><a class="dropdown-item theme-option" href="#" data-theme="slate"  data-color="#374c60"><span class="theme-menu-dot" style="background:#374c60"></span>鐵灰</a></li>
                                                     </ul>
                                                 </div>
-                                            </li>
-                                            <li class="nav-item dropdown user-menu vertical-nav-item">
-                                                <a href="#" class="nav-link dropdown-toggle p-0 user-menu-toggle" data-bs-toggle="dropdown">
-                                                    <span class="user-name-small">@UserContext.UserName</span>
-                                                    <i class="bi bi-three-dots-vertical user-menu-dots"></i>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li>
-                                                        <a id="btnFullscreen" class="dropdown-item py-2" href="#" data-lte-toggle="fullscreen">
-                                                            <i id="iconMax" class="bi bi-arrows-fullscreen me-2"></i>全螢幕
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a id="btnScreenshot" class="dropdown-item py-2" href="#" onclick="captureScreenshot(); return false;">
-                                                            <i class="fas fa-camera me-2"></i>截圖
-                                                        </a>
-                                                    </li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li class="user-footer">
-                                                        <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#changePeople">
-                                                            <i class="fas fa-user me-2 text-orange"></i>切換人員
-                                                        </a>
-                                                        <a class="dropdown-item py-2" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                                            <i class="fas fa-key me-2 text-primary"></i>變更密碼
-                                                        </a>
-                                                    </li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a href="@Url.Action("Logout", "Account")" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt me-2"></i>登出</a></li>
-                                                </ul>
                                             </li>
                                             <li class="nav-item vertical-nav-item">
                                                 <div class="timer-wrapper">
@@ -660,13 +651,6 @@
                             <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3"></div>
                             <script>
                                     var appRoot = '@Url.Content("~")';
-        
-                                    window.IdleConfig = {
-                                        idleSeconds: @Configuration["IdleSettings:IdleTimeoutSeconds"],
-                                        warningSeconds: @Configuration["IdleSettings:WarningSeconds"],
-                                        keepAlive: '@Url.Action("KeepAlive", "Account")',
-                                        logoutUrl: '@Url.Action("Logout", "Account")'
-                                    };
                             </script>
                             <script src="~/js/config/projectMap.js" asp-append-version="true" charset="utf-8"></script>
                             <script src="~/js/EHRISlayout.js" asp-append-version="true" charset="utf-8"></script>

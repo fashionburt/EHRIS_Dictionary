@@ -7,7 +7,9 @@ EHRIS.Infrastructure 報表共用模組
 EHRIS.Security       權限模模組
 
 EHRIS.Services       服務API
-
+EHRIS.AdminPortal    後台管理API
+EHRIS.Attendance     差勤管理API
+EHRIS.Dictionary     資料庫字典API
 
 EHRIS.Web.Shared     網站控制模組
 EHRIS.Web            主網站專案

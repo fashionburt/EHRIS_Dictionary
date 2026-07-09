@@ -108,7 +108,7 @@ public class MenuRepository : BaseRepository, IMenuRepository
                         sys_createtime = f.SfuCreateTime
                     })
                     .Distinct()
-                    .OrderBy(m => m.sys_order)
+                    .OrderByDescending(m => m.sys_order)
                     .ToList();
 
         return menuList;

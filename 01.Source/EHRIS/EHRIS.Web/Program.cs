@@ -95,8 +95,6 @@ var mvcBuilder = builder.Services.AddControllersWithViews(options =>
     options.Filters.Add<AuthorizeFunctionFilter>();
 
     // 套用閒置逾時 Filter
-    options.Filters.Add<IdleTimeoutFilter>();
-
     options.AllowEmptyInputInBodyModelBinding = true;
 
 });
@@ -126,7 +124,6 @@ builder.Services.Configure<Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions
 // 註冊 DI by Singleton
 builder.Services.AddSingleton<IDbHealthCheck, DbHealthCheck>();
 builder.Services.AddSingleton<FieldsMappingService>();
-builder.Services.AddSingleton<IdleTimeoutFilter>();
 // 註冊 DI by Scoped
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 
