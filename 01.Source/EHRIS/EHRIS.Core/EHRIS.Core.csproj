@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Dictionary\" />
     <Folder Include="Repositories\Dictionary\" />
   </ItemGroup>
 

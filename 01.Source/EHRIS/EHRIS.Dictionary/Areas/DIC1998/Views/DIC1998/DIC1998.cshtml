@@ -1,1 +1,125 @@
-﻿
+﻿@{
+    Layout = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest" ? null : "_Layout";
+}
+
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold small">用戶端 IP</label>
+                        <select id="queryClientIp" class="form-select form-select-sm search-input">
+                            <option value="">全部</option>
+                            @foreach (var ip in ViewBag.ClientIps)
+                            {
+                                <option value="@ip">@ip</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold small">伺服器 IP</label>
+                        <select id="queryServerIp" class="form-select form-select-sm search-input">
+                            <option value="">全部</option>
+                            @foreach (var ip in ViewBag.ServerIps)
+                            {
+                                <option value="@ip">@ip</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold small">已授權字典</label>
+                        <select id="queryMenuId" class="form-select form-select-sm search-input">
+                            <option value="">全部</option>
+                            @foreach (var menu in ViewBag.Menus)
+                            {
+                                <option value="@menu.MenuId">@menu.MenuName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3 text-end pt-4">
+                        @if (ViewBag.InsertStatus == true)
+                        {
+                            <button id="btnCreate" class="btn btn-success btn-sm">
+                                新增 IP 權限
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="accessTable" class="table table-bordered table-hover w-100 table-sm dic-table">
+                        <thead class="table-light text-center">
+                            <tr>
+                                <th class="dt-col-mid">用戶端 IP</th>
+                                <th class="dt-col-mid">伺服器 IP</th>
+                                <th class="dt-col-max">已授權字典</th>
+                                <th class="dt-col-mid">異動時間</th>
+                                <th class="dt-col-min">操作</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade modal-morandi" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="accessModalLabel">IP 授權設定</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="accessForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="modalAccessId" name="accessId" value="0" />
+
+                    <div class="col-12">
+                        <label for="serverIpSelect" class="form-label fw-bold">選擇伺服器<span class="text-danger">*</span></label>
+                        <select id="serverIpSelect" class="form-select border-primary">
+                            <option value="">請選擇...</option>
+                            <option value="192.168.11.111">192.168.11.111</option>
+                            <option value="192.168.11.112">192.168.11.112</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="menuIdSelect" class="form-label fw-bold">選擇授權資料庫<span class="text-danger">*</span></label>
+                        <select id="menuIdSelect" class="form-select border-primary">
+                            <option value="">請先選擇伺服器</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="clientIpInput" class="form-label fw-bold">客戶端 IP<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control border-primary" id="clientIpInput" placeholder="例如：192.168....." autocomplete="off" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnSaveAccess">儲存</button>
+                <button type="button" class="btn btn-morandi-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.accessAction = {
+        getData: '@Url.Action("GetData", "DIC1998")',
+        save: '@Url.Action("Save", "DIC1998")',
+        delete: '@Url.Action("Delete", "DIC1998")',
+        getMenus: '@Url.Action("GetAvailableMenus", "DIC1998")',
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")'
+    };
+</script>

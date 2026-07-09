@@ -22,7 +22,7 @@
                         @if (ViewBag.InsertStatus == true)
                         {
                             <button id="btnCreate" class="btn btn-success btn-sm">
-                                <i class="fas fa-plus me-1"></i>新增此伺服器資料庫描述
+                                新增此伺服器資料庫描述
                             </button>
                         }
                     </div>
@@ -63,7 +63,7 @@
                     @Html.AntiForgeryToken()
                     <input type="hidden" id="modalServerIp" name="serverIp" />
                     <div class="col-12">
-                        <label for="dbSelect" class="form-label fw-bold">選擇資料庫系統實體<span class="text-danger">*</span></label>
+                        <label for="dbSelect" class="form-label fw-bold">選擇資料庫系統<span class="text-danger">*</span></label>
                         <select id="dbSelect" class="form-select">
                             <option value="">請選擇...</option>
                             @if (ViewBag.AllDatabases != null)
@@ -106,7 +106,7 @@
         exportExcel: '@Url.Action("ExportExcel", "DIC1999")',
         exportJson: '@Url.Action("ExportJson", "DIC1999")',
         logUrl: '/DIC1997/DIC1997',
-        tableList: '/DIC1999/DIC1999R01',
+        tableList: '/DIC1999R01/DIC1999R01',
         dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
         hasInsertPermission: @(ViewBag.InsertStatus?.ToString().ToLower() ?? "false")
     };

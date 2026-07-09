@@ -4,6 +4,8 @@ using EHRIS.Core.Repositories;
 using EHRIS.Core.Repositories.Event;
 using EHRIS.Core.Repositories.SysBasic;
 using EHRIS.Core.Repositories.AdminPortal;
+using EHRIS.Services.Dictionary;
+using EHRIS.Core.Repositories.Dictionary;
 using EHRIS.Services.Services.SysBasic;
 using EHRIS.Services.Services.AdminPortal;
 using EHRIS.Security.Middleware;
@@ -20,6 +22,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
+
 
 // ---------------------- Serilog 設定----------------------
 #region Serilog 設定
@@ -205,6 +208,22 @@ builder.Services.AddScoped<IADS999002Service, ADS999002Service>();
 builder.Services.AddScoped<IADS999003Service, ADS999003Service>();
 builder.Services.AddScoped<IADS999004Service, ADS999004Service>();
 builder.Services.AddScoped<IADS999999Service, ADS999999Service>();
+#endregion
+
+#region Dictionary字典管理
+builder.Services.AddScoped<IDIC1999Repository, DIC1999Repository>();
+builder.Services.AddScoped<IDIC1999R01Repository, DIC1999R01Repository>();
+builder.Services.AddScoped<IDIC1999R02Repository, DIC1999R02Repository>();
+builder.Services.AddScoped<IDIC1998Repository, DIC1998Repository>();
+builder.Services.AddScoped<IDIC1997Repository, DIC1997Repository>();
+builder.Services.AddScoped<IDIC1996Repository, DIC1996Rpository>();
+
+builder.Services.AddScoped<IDIC1999Service, DIC1999Service>();
+builder.Services.AddScoped<IDIC1999R01Service, DIC1999R01Service>();
+builder.Services.AddScoped<IDIC1999R02Service, DIC1999R02Service>();
+builder.Services.AddScoped<IDIC1998Service, DIC1998Service>();
+builder.Services.AddScoped<IDIC1997Service, DIC1997Service>();
+builder.Services.AddScoped<IDIC1996Service, DIC1996Service>();
 #endregion
 
 // 設定 DbContext

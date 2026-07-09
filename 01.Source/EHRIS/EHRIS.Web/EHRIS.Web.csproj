@@ -99,6 +99,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EHRIS.AdminPortal\EHRIS.AdminPortal.csproj" />
     <ProjectReference Include="..\EHRIS.Core\EHRIS.Core.csproj" />
+    <ProjectReference Include="..\EHRIS.Dictionary\EHRIS.Dictionary.csproj" />
     <ProjectReference Include="..\EHRIS.Security\EHRIS.Security.csproj" />
     <ProjectReference Include="..\EHRIS.Services\EHRIS.Services.csproj" />
     <ProjectReference Include="..\EHRIS.SysBasic\EHRIS.SysBasic.csproj">
@@ -109,7 +110,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\js\dictionary\" />
+    <Folder Include="wwwroot\js\Dictionary\" />
     <Folder Include="wwwroot\lib\sweetalert2\" />
   </ItemGroup>
   

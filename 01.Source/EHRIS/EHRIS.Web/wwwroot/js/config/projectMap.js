@@ -33,6 +33,9 @@
 
     //Dictionary
     DIC1999: "Dictionary",
+    DIC1999R01: "Dictionary",
+    DIC1999R02: "Dictionary",
+    DIC1999R03: "Dictionary",
     DIC1998: "Dictionary",
     DIC1997: "Dictionary",
     DIC1996: "Dictionary",
