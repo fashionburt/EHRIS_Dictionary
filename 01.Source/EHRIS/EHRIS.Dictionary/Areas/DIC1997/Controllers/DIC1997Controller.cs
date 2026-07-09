@@ -49,6 +49,7 @@ public class DIC1997Controller : BaseController
         };
     }
 
+    [HttpGet]
     [AuthorizeFunction(SFUNO, FunctionAction.Query)]
     public async Task<IActionResult> DIC1997(string? dbKey, string? tableName, string? pkName, string? sid)
     {
@@ -61,7 +62,7 @@ public class DIC1997Controller : BaseController
         ViewBag.InitialPkName = pkName;
         ViewBag.Sid = sid;
 
-        return View("~/Areas/DIC1997/Views/DIC1997/DIC1997.cshtml");
+        return PartialView("~/Areas/DIC1997/Views/DIC1997/DIC1997.cshtml");
     }
 
     [HttpPost]

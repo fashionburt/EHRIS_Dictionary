@@ -110,7 +110,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\js\Dictionary\" />
     <Folder Include="wwwroot\lib\sweetalert2\" />
   </ItemGroup>
   

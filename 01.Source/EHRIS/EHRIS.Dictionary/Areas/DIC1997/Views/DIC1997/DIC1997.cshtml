@@ -1,5 +1,7 @@
-﻿@{
-    Layout = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest" ? null : "_Layout";
+﻿@model dynamic
+@{
+    ViewData["Title"] = "操作紀錄查詢";
+    Layout = "_LayoutSub";
 }
 
 <link href="/css/DataTableStyles.css" rel="stylesheet" />
@@ -40,6 +42,7 @@
                 </div>
                 <hr />
                 <form id="searchForm" class="row g-3">
+                    @Html.AntiForgeryToken()
                     <div class="col-md-1">
                         <label class="form-label fw-bold">伺服器</label>
                         <select id="selSid" class="form-select form-select-sm">
@@ -113,7 +116,7 @@
                                 <th class="dt-col-mid">資料庫</th>
                                 <th class="dt-col-mid">資料表</th>
                                 <th class="dt-col-mid">欄位</th>
-                                <th class="dt-col-action">操作行為</th>
+                                <th class="dt-col-min">操作行為</th>
                                 <th class="dt-col-max">紀錄內容</th>
                                 <th class="dt-col-time">紀錄時間</th>
                             </tr>
@@ -131,6 +134,8 @@
         getTables: '@Url.Action("GetTableNames", "DIC1997")',
         getPks: '@Url.Action("GetPkNames", "DIC1997")',
         sid: '@ViewBag.Sid',
-        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")'
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val()
     };
 </script>

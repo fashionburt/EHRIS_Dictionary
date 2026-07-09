@@ -1,57 +1,46 @@
 ﻿window.DIC1997 = {
     dt: null,
-    urls: window.permissionAction,
+    urls: null,
     isInitialTab: true,
     isInitialPk: true,
 
     init: function () {
         const self = this;
-        const tableId = '#logTable';
+        self.urls = window.permissionAction;
+        const action = self.urls;
 
-        if ($.fn.DataTable.isDataTable(tableId)) {
-            $(tableId).DataTable().destroy();
-        }
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            if (!options.crossDomain && action.tokenValue) {
+                jqXHR.setRequestHeader('RequestVerificationToken', action.tokenValue);
+            }
+        });
 
-        self.dt = $(tableId).DataTable({
-            serverSide: true,
-            processing: true,
-            searching: false,
-            ordering: true,
-            ajax: {
-                url: self.urls.getData,
-                type: 'POST',
-                contentType: 'application/json',
-                data: function (d) {
-                    let currentSid = $('#selSid').val();
-                    let currentDb = $('#selDbKey').val();
-                    let currentTab = $('#selTableName').val();
-                    let currentPk = $('#selPkName').val();
+        self.dt = createEhrisTable('logTable', {
+            ajaxUrl: action.getData,
+            langUrl: action.dataTableLangUrl,
+            extraData: function (d) {
+                let currentSid = $('#selSid').val();
+                let currentDb = $('#selDbKey').val();
+                let currentTab = $('#selTableName').val();
+                let currentPk = $('#selPkName').val();
 
-                    if (self.isInitialTab && $('#initTableName').val()) {
-                        currentTab = $('#initTableName').val();
-                    }
-                    if (self.isInitialPk && $('#initPkName').val()) {
-                        currentPk = $('#initPkName').val();
-                    }
-
-                    this.url = `${self.urls.getData}?sid=${currentSid}`;
-
-                    return JSON.stringify({
-                        draw: d.draw,
-                        start: d.start,
-                        length: d.length,
-                        orderby: d.order,
-                        columns: d.columns,
-                        dbKey: currentDb,
-                        tableName: currentTab,
-                        pkName: currentPk,
-                        state: $('#selState').val(),
-                        sid: currentSid,
-                        extraSearch: {
-                            searchValue: $('#txtKeyword').val()
-                        }
-                    });
+                if (self.isInitialTab && $('#initTableName').val()) {
+                    currentTab = $('#initTableName').val();
                 }
+                if (self.isInitialPk && $('#initPkName').val()) {
+                    currentPk = $('#initPkName').val();
+                }
+
+                return {
+                    dbKey: currentDb,
+                    tableName: currentTab,
+                    pkName: currentPk,
+                    state: $('#selState').val(),
+                    sid: currentSid,
+                    extraSearch: {
+                        searchValue: $('#txtKeyword').val()
+                    }
+                };
             },
             columns: [
                 { data: 'dbKey', className: 'text-center' },
@@ -60,9 +49,7 @@
                 { data: 'stateText', className: 'text-center' },
                 { data: 'detail', className: 'text-left' },
                 { data: 'dateText', className: 'text-center' }
-            ],
-            order: [[5, 'desc']],
-            language: { url: self.urls.dataTableLangUrl }
+            ]
         });
 
         self.bindEvents();

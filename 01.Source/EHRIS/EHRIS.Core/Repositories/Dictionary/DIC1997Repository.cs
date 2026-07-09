@@ -101,17 +101,6 @@ public class DIC1997Repository : BaseRepository, IDIC1997Repository
                 {
                     row.RowDesc = item.RowDesc;
                     row.RowRemark = item.RowRemark;
-
-                    _context.Logs.Add(new Log
-                    {
-                        DbKey = dbKey,
-                        ServerIP = serverIp,
-                        TableName = tableName,
-                        PkName = row.RowName,
-                        State = 20,
-                        Detail = $"【{row.RowName}】描述/備註更新：描述「{row.RowDesc ?? ""}」、備註「{row.RowRemark ?? ""}」",
-                        Date = DateTime.Now
-                    });
                 }
             }
             await SaveChangesAsync(dataLogger);
