@@ -216,7 +216,7 @@ builder.Services.AddScoped<IDIC1999R01Repository, DIC1999R01Repository>();
 builder.Services.AddScoped<IDIC1999R02Repository, DIC1999R02Repository>();
 builder.Services.AddScoped<IDIC1998Repository, DIC1998Repository>();
 builder.Services.AddScoped<IDIC1997Repository, DIC1997Repository>();
-builder.Services.AddScoped<IDIC1996Repository, DIC1996Rpository>();
+builder.Services.AddScoped<IDIC1996Repository, DIC1996Repository>();
 
 builder.Services.AddScoped<IDIC1999Service, DIC1999Service>();
 builder.Services.AddScoped<IDIC1999R01Service, DIC1999R01Service>();

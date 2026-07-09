@@ -361,8 +361,8 @@ public class DIC1999R02Repository : BaseRepository, IDIC1999R02Repository
 
         var pkList = new List<string>();
         string pkSql = @"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
-                         WHERE OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + CONSTRAINT_NAME), 'IsPrimaryKey') = 1 
-                         AND TABLE_NAME = @t";
+                     WHERE OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + CONSTRAINT_NAME), 'IsPrimaryKey') = 1 
+                     AND TABLE_NAME = @t";
         using (var cmd = new SqlCommand(pkSql, conn))
         {
             cmd.Parameters.AddWithValue("@t", tableName);
@@ -372,8 +372,8 @@ public class DIC1999R02Repository : BaseRepository, IDIC1999R02Repository
 
         var fkList = new List<string>();
         string fkSql = @"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
-                         WHERE OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + CONSTRAINT_NAME), 'IsForeignKey') = 1 
-                         AND TABLE_NAME = @t";
+                     WHERE OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + CONSTRAINT_NAME), 'IsForeignKey') = 1 
+                     AND TABLE_NAME = @t";
         using (var cmd = new SqlCommand(fkSql, conn))
         {
             cmd.Parameters.AddWithValue("@t", tableName);
@@ -382,9 +382,15 @@ public class DIC1999R02Repository : BaseRepository, IDIC1999R02Repository
         }
 
         var columnNames = dataTable.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
+
+        var targetSheetId = await (from s in _context.Sheets
+                                   join m in _context.Menus on s.MenuId equals m.MenuId
+                                   where s.SheetName == tableName && s.ServerIP == serverIp
+                                         && m.MenuName == dbKey && m.ServerIP == serverIp
+                                   select s.SheetId).FirstOrDefaultAsync();
+
         var colDescDict = await _context.Rows.AsNoTracking()
-            .Where(x => columnNames.Contains(x.RowName) && x.ServerIP == serverIp &&
-                        _context.Sheets.Any(s => s.SheetId == x.SheetId && s.SheetName == tableName && s.ServerIP == serverIp))
+            .Where(x => columnNames.Contains(x.RowName) && x.ServerIP == serverIp && x.SheetId == targetSheetId)
             .ToDictionaryAsync(x => x.RowName, x => x.RowDesc ?? x.RowName);
 
         return (dataTable, pkList, fkList, colDescDict);

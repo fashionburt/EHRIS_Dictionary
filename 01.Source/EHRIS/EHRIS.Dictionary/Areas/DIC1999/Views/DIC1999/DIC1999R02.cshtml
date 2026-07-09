@@ -1,9 +1,7 @@
-﻿@model EHRIS.Core.Models.Dictionary.DIC1999R02ViewModel
-@{
-    Layout = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest" ? null : "_Layout";
-}
-
+﻿@using EHRIS.Web.Shared.Models
+@model dynamic
 <link href="~/css/DataTableStyles.css" rel="stylesheet" />
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
 <link href="~/css/Button.css" rel="stylesheet" />
 
 <section class="content">
@@ -41,47 +39,30 @@
             </div>
         </div>
 
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-text">關鍵字</span>
-                            <input type="text" id="columnSearchKeyword" class="form-control" placeholder="搜尋欄位名稱或描述..." />
-                            <button type="button" class="btn btn-primary" id="btnColumnSearch">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "tableColumns",
+            Columns = new[]
+            {
+                new TableColDef("欄位名稱", "dt-col-mid"),
+                new TableColDef("型態",     "dt-col-min"),
+                new TableColDef("長度",     "dt-col-min"),
+                new TableColDef("空值",     "dt-col-min"),
+                new TableColDef("描述",     "dt-col-max"),
+                new TableColDef("備註",     "dt-col-max"),
+                new TableColDef("紀錄",     "dt-col-min"),
+                new TableColDef("刪除",     "dt-col-min"),
+            }
+        })
 
-                <div class="table-responsive">
-                    <table id="tableColumns" class="table table-bordered table-hover w-100 table-sm">
-                        <thead class="table-light text-center">
-                            <tr>
-                                <th class="dt-col-mid">欄位名稱</th>
-                                <th class="dt-col-min">型態</th>
-                                <th class="dt-col-min">長度</th>
-                                <th class="dt-col-min">空值</th>
-                                <th class="dt-col-max">描述</th>
-                                <th class="dt-col-max">備註</th>
-                                <th class="dt-col-min">紀錄</th>
-                                <th class="dt-col-min">刪除</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-
-                @if (ViewBag.UpdateStatus == true)
-                {
-                    <div class="mt-3">
-                        <button type="button" class="btn btn-morandi-primary btn-sm" id="btnSaveColumnBatch">
-                            <i class="fas fa-save me-1"></i>儲存描述與備註變更
-                        </button>
-                    </div>
-                }
+        @if (ViewBag.UpdateStatus == true)
+        {
+            <div class="mt-2 text-end">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnSaveColumnBatch">
+                    <i class="fas fa-save me-1"></i>儲存描述與備註變更
+                </button>
             </div>
-        </div>
+        }
     </div>
 </section>
 
@@ -93,6 +74,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                @Html.AntiForgeryToken()
                 <div class="row">
                     <div class="col-12 mb-2">
                         <label class="form-label fw-bold">欄位名稱</label>
@@ -144,7 +126,9 @@
         tableName: '@ViewBag.TableName',
         sid: '@ViewBag.Sid',
         dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
-        canUpdate: @(ViewBag.UpdateStatus?.ToString().ToLower() ?? "false"),
-        canDelete: @(ViewBag.DeleteStatus?.ToString().ToLower() ?? "false")
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        canUpdate: @Html.Raw(Json.Serialize(ViewBag.UpdateStatus ?? false)),
+        canDelete: @Html.Raw(Json.Serialize(ViewBag.DeleteStatus ?? false))
     };
 </script>

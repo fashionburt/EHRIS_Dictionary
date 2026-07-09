@@ -13,35 +13,21 @@
     },
 
     init: function () {
-        console.log("DIC1999R01 初始化開始");
         const self = this;
         self.urls = window.permissionAction;
-        const tableId = '#tableTables';
+        const action = self.urls;
 
-        if ($(tableId).length === 0) return;
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            if (!options.crossDomain && action.tokenValue) {
+                jqXHR.setRequestHeader('RequestVerificationToken', action.tokenValue);
+            }
+        });
 
-        self.dt = $(tableId).DataTable({
-            destroy: true,
-            serverSide: true,
-            processing: true,
-            searching: false,
-            ordering: false,
-            ajax: {
-                url: `${self.urls.getData}?sid=${self.urls.sid}`,
-                type: 'POST',
-                contentType: 'application/json',
-                data: function (d) {
-                    return JSON.stringify({
-                        draw: d.draw,
-                        start: d.start,
-                        length: d.length,
-                        dbKey: self.urls.dbKey,
-                        sid: self.urls.sid,
-                        extraSearch: {
-                            searchValue: $('#tableSearchKeyword').val()
-                        }
-                    });
-                }
+        self.dt = createEhrisTable('tableTables', {
+            ajaxUrl: `${self.urls.getData}?sid=${self.urls.sid}`,
+            langUrl: self.urls.dataTableLangUrl,
+            extraData: function (d) {
+                return { dbKey: self.urls.dbKey, sid: self.urls.sid };
             },
             columns: [
                 {
@@ -79,8 +65,7 @@
                     data: 'deleteAction',
                     className: 'text-center'
                 }
-            ],
-            language: { url: self.urls.dataTableLangUrl }
+            ]
         });
 
         self.bindEvents();
@@ -99,17 +84,6 @@
 
     bindEvents: function () {
         const self = this;
-
-        $('#btnTableSearch').off('click').on('click', function () {
-            self.dt.ajax.reload();
-        });
-
-        $('#tableSearchKeyword').off('keypress').on('keypress', function (e) {
-            if (e.which === 13) {
-                e.preventDefault();
-                self.dt.ajax.reload();
-            }
-        });
 
         $('#tableTables').off('click', '.renameBtn').on('click', '.renameBtn', function () {
             const id = $(this).data('id');
@@ -144,13 +118,16 @@
                 },
                 success: function (res) {
                     Swal.close();
-                    if (res.success) {
-                        showAdminToast(res.message, "success");
-                        $('#renameModal').modal('hide');
-                        self.dt.ajax.reload(null, false);
-                    } else {
-                        showError(res.message);
-                    }
+                    ehrisAlert.handle(res).then(function () {
+                        if (res.success) {
+                            $('#renameModal').modal('hide');
+                            self.dt.ajax.reload(null, false);
+                        }
+                    });
+                },
+                error: function (xhr) {
+                    Swal.close();
+                    ehrisAlert.handleError(xhr);
                 }
             });
         });
@@ -167,7 +144,7 @@
             };
 
             if (!data.tableName) {
-                showError("請填寫資料表名稱");
+                ehrisAlert.warning("請填寫資料表名稱");
                 return;
             }
 
@@ -180,13 +157,16 @@
                 data: JSON.stringify(data),
                 success: function (res) {
                     Swal.close();
-                    if (res.success) {
-                        showAdminToast(res.message, "success");
-                        $('#createTableModal').modal('hide');
-                        self.dt.ajax.reload();
-                    } else {
-                        showError(res.message);
-                    }
+                    ehrisAlert.handle(res).then(function () {
+                        if (res.success) {
+                            $('#createTableModal').modal('hide');
+                            self.dt.ajax.reload();
+                        }
+                    });
+                },
+                error: function (xhr) {
+                    Swal.close();
+                    ehrisAlert.handleError(xhr);
                 }
             });
         });
@@ -204,17 +184,22 @@
                 cancelButtonText: '取消'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    Swal.fire({ title: '處理中...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
                     $.ajax({
                         url: `${self.urls.deleteTable}?sid=${self.urls.sid}`,
                         type: 'POST',
                         data: { dbKey: self.urls.dbKey, tableName: name, sheetId: id },
                         success: function (res) {
-                            if (res.success) {
-                                showAdminToast(res.message, "success");
-                                self.dt.ajax.reload(null, false);
-                            } else {
-                                showError(res.message);
-                            }
+                            Swal.close();
+                            ehrisAlert.handle(res).then(function () {
+                                if (res.success) {
+                                    self.dt.ajax.reload(null, false);
+                                }
+                            });
+                        },
+                        error: function (xhr) {
+                            Swal.close();
+                            ehrisAlert.handleError(xhr);
                         }
                     });
                 }
@@ -234,7 +219,9 @@
                 }
             });
 
-            if (updates.length === 0) return showAdminToast("無任何變更", "info");
+            if (updates.length === 0) return ehrisAlert.info("無任何變更");
+
+            Swal.fire({ title: '處理中...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
 
             $.ajax({
                 url: `${self.urls.updateDesc}?dbKey=${encodeURIComponent(self.urls.dbKey)}&sid=${self.urls.sid}`,
@@ -242,12 +229,16 @@
                 contentType: 'application/json',
                 data: JSON.stringify(updates),
                 success: function (res) {
-                    if (res.success) {
-                        showAdminToast(res.message, "success");
-                        self.dt.ajax.reload(null, false);
-                    } else {
-                        showError(res.message);
-                    }
+                    Swal.close();
+                    ehrisAlert.handle(res).then(function () {
+                        if (res.success) {
+                            self.dt.ajax.reload(null, false);
+                        }
+                    });
+                },
+                error: function (xhr) {
+                    Swal.close();
+                    ehrisAlert.handleError(xhr);
                 }
             });
         });

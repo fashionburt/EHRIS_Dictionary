@@ -49,6 +49,7 @@ public class DIC1999R01Controller : BaseController
         };
     }
 
+    [HttpGet]
     [AuthorizeFunction(SFUNO, FunctionAction.Query)]
     public async Task<IActionResult> DIC1999R01(string dbKey, string sid)
     {
@@ -67,7 +68,7 @@ public class DIC1999R01Controller : BaseController
         ViewBag.UpdateStatus = HasPermission(FunctionAction.Update);
         ViewBag.DeleteStatus = HasPermission(FunctionAction.Delete);
 
-        return View("~/Areas/DIC1999/Views/DIC1999/DIC1999R01.cshtml");
+        return PartialView("~/Areas/DIC1999/Views/DIC1999/DIC1999R01.cshtml");
     }
 
     [HttpPost]
@@ -75,7 +76,7 @@ public class DIC1999R01Controller : BaseController
     public async Task<IActionResult> GetData([FromBody] DIC1999R01Request request, [FromQuery] string sid)
     {
         string serverIp = GetRealIp(sid);
-        var dataLogger = BuildDataLogger(En_DataEventMode.AddEvent, $"讀取資料表(同步實體表)", serverIp);
+        var dataLogger = BuildDataLogger(En_DataEventMode.AddEvent, "讀取資料表(同步實體表)", serverIp);
 
         var serviceResponse = await _service.GetDataTableAsync(request, serverIp, dataLogger);
 

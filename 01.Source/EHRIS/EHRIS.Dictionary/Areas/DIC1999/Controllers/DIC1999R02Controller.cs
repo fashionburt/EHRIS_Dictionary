@@ -49,6 +49,7 @@ public class DIC1999R02Controller : BaseController
         };
     }
 
+    [HttpGet]
     [AuthorizeFunction(SFUNO, FunctionAction.Query)]
     public async Task<IActionResult> DIC1999R02(string dbKey, string tableName, string sid)
     {
@@ -64,7 +65,7 @@ public class DIC1999R02Controller : BaseController
         ViewBag.UpdateStatus = HasPermission(FunctionAction.Update);
         ViewBag.DeleteStatus = HasPermission(FunctionAction.Delete);
 
-        return View("~/Areas/DIC1999/Views/DIC1999/DIC1999R02.cshtml");
+        return PartialView("~/Areas/DIC1999/Views/DIC1999/DIC1999R02.cshtml");
     }
 
     [HttpPost]
@@ -132,6 +133,7 @@ public class DIC1999R02Controller : BaseController
         return Json(new { success = result.success, message = WebUtility.HtmlEncode(result.message) });
     }
 
+    [HttpGet]
     [AuthorizeFunction(SFUNO, FunctionAction.Query)]
     public async Task<IActionResult> DIC1999R03(string dbKey, string tableName, string keyword, string sid)
     {
@@ -152,7 +154,7 @@ public class DIC1999R02Controller : BaseController
         ViewBag.ForeignKeys = fkList;
         ViewBag.ColumnDescriptions = colDescDict;
 
-        return View("~/Areas/DIC1999/Views/DIC1999/DIC1999R03.cshtml", dataTable);
+        return PartialView("~/Areas/DIC1999/Views/DIC1999/DIC1999R03.cshtml", dataTable);
     }
 
     private string GetNameWithBadges(DIC1999R02ViewModel a)

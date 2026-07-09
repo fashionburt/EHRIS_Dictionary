@@ -13,33 +13,20 @@
     },
 
     init: function () {
-        console.log("DIC1999 初始化開始");
         const self = this;
+        const action = self.urls;
 
-        if ($.fn.DataTable.isDataTable('#dbTable')) {
-            $('#dbTable').DataTable().destroy();
-        }
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            if (!options.crossDomain && action.tokenValue) {
+                jqXHR.setRequestHeader('RequestVerificationToken', action.tokenValue);
+            }
+        });
 
-        self.dt = $('#dbTable').DataTable({
-            serverSide: true,
-            ordering: false,
-            processing: true,
-            searching: false,
-            ajax: {
-                url: self.urls.getData,
-                type: 'POST',
-                contentType: 'application/json',
-                data: function (d) {
-                    const currentIp = $('#filterServer').val();
-                    return JSON.stringify({
-                        draw: d.draw,
-                        start: d.start,
-                        length: d.length,
-                        serverIp: currentIp,
-                        orderby: d.order,
-                        columns: d.columns
-                    });
-                }
+        self.dt = createEhrisTable('dbTable', {
+            ajaxUrl: action.getData,
+            langUrl: action.dataTableLangUrl,
+            extraData: function (d) {
+                return { serverIp: $('#filterServer').val() };
             },
             columns: [
                 {
@@ -79,8 +66,8 @@
                     }
                 }
             ],
-            language: {
-                url: self.urls.dataTableLangUrl
+            onInitComplete: function (api) {
+                // no additional buttons injected here; btnCreate already exists in cshtml
             }
         });
 
@@ -97,6 +84,10 @@
         $(document).off('click', '#btnCreate').on('click', '#btnCreate', function () {
             const currentIp = $('#filterServer').val();
             self.openCreateModal(currentIp);
+        });
+
+        $(document).off('click', '#btnSaveDesc').on('click', '#btnSaveDesc', function () {
+            self.saveDescriptions();
         });
 
         $(document).off('keypress', '.desc-input').on('keypress', '.desc-input', function (e) {
@@ -155,7 +146,7 @@
         $('#menuDesc').val('');
         $('#dbModal').modal('show');
 
-        $.post('/DIC1999/GetAvailableDatabases', { serverIp: serverIp }, function (res) {
+        $.post(self.urls.getAvailableDatabases, { serverIp: serverIp }, function (res) {
             if (res.success) {
                 const $select = $('#dbSelect');
                 $select.empty().append('<option value="">請選擇...</option>');
@@ -191,13 +182,16 @@
             data: JSON.stringify(body),
             success: function (res) {
                 Swal.close();
-                if (res?.success) {
-                    showAdminToast(res.message, 'success');
-                    $('#dbModal').modal('hide');
-                    self.dt.ajax.reload(null, false);
-                } else {
-                    showError(res?.message || '儲存失敗');
-                }
+                ehrisAlert.handle(res).then(function () {
+                    if (res.success) {
+                        $('#dbModal').modal('hide');
+                        self.dt.ajax.reload(null, false);
+                    }
+                });
+            },
+            error: function (xhr) {
+                Swal.close();
+                ehrisAlert.handleError(xhr);
             }
         });
     },
@@ -222,7 +216,7 @@
         });
 
         if (updates.length === 0) {
-            showAdminToast("沒有任何變更", "info");
+            ehrisAlert.info("沒有任何變更");
             return;
         }
 
@@ -235,12 +229,15 @@
             data: JSON.stringify(updates),
             success: function (res) {
                 Swal.close();
-                if (res?.success) {
-                    showAdminToast(res.message, 'success');
-                    self.dt.ajax.reload(null, false);
-                } else {
-                    showError(res?.message || '儲存失敗');
-                }
+                ehrisAlert.handle(res).then(function () {
+                    if (res.success) {
+                        self.dt.ajax.reload(null, false);
+                    }
+                });
+            },
+            error: function (xhr) {
+                Swal.close();
+                ehrisAlert.handleError(xhr);
             }
         });
     },
@@ -256,17 +253,22 @@
             cancelButtonText: '取消'
         }).then((result) => {
             if (result.isConfirmed) {
+                Swal.fire({ title: '處理中...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
                 $.ajax({
                     url: self.urls.delete,
                     type: 'POST',
                     data: { menuId: id, serverIp: ip },
                     success: function (res) {
-                        if (res?.success) {
-                            showAdminToast(res.message, 'success');
-                            self.dt.ajax.reload(null, false);
-                        } else {
-                            showError(res?.message || '刪除失敗');
-                        }
+                        Swal.close();
+                        ehrisAlert.handle(res).then(function () {
+                            if (res.success) {
+                                self.dt.ajax.reload(null, false);
+                            }
+                        });
+                    },
+                    error: function (xhr) {
+                        Swal.close();
+                        ehrisAlert.handleError(xhr);
                     }
                 });
             }

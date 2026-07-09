@@ -1,9 +1,7 @@
-﻿@model EHRIS.Core.Models.Dictionary.DIC1999ViewModel
-@{
-    Layout = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest" ? null : "_Layout";
-}
-
+﻿@using EHRIS.Web.Shared.Models
+@model dynamic
 <link href="~/css/DataTableStyles.css" rel="stylesheet" />
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
 <link href="~/css/Button.css" rel="stylesheet" />
 
 <section class="content">
@@ -29,25 +27,28 @@
                 </div>
             </div>
         </div>
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "dbTable",
+            Columns = new[]
+                    {
+                new TableColDef("資料庫名稱", "dt-col-mid"),
+                new TableColDef("描述",       "dt-col-max"),
+                new TableColDef("刪除[描述]", "dt-col-action"),
+                new TableColDef("Excel",      "dt-col-action"),
+                new TableColDef("Json",       "dt-col-action"),
+                new TableColDef("操作紀錄",   "dt-col-action"),
+            }
+        })
 
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="dbTable" class="table table-bordered table-hover w-100 table-sm dic-table">
-                        <thead class="table-light text-center">
-                            <tr>
-                                <th class="dt-col-mid">資料庫名稱</th>
-                                <th class="dt-col-max">描述</th>
-                                <th class="dt-col-min">刪除<br />[描述]</th>
-                                <th class="dt-col-min">Excel</th>
-                                <th class="dt-col-min">Json</th>
-                                <th class="dt-col-min">操作紀錄</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+        @if (ViewBag.UpdateStatus == true)
+        {
+            <div class="mt-2 text-end">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnSaveDesc">
+                    <i class="fas fa-save me-1"></i>儲存描述變更
+                </button>
             </div>
-        </div>
+        }
     </div>
 </section>
 
@@ -63,7 +64,7 @@
                     @Html.AntiForgeryToken()
                     <input type="hidden" id="modalServerIp" name="serverIp" />
                     <div class="col-12">
-                        <label for="dbSelect" class="form-label fw-bold">選擇資料庫系統<span class="text-danger">*</span></label>
+                        <label for="dbSelect" class="form-label fw-bold">選擇資料庫系統實體<span class="text-danger">*</span></label>
                         <select id="dbSelect" class="form-select">
                             <option value="">請選擇...</option>
                             @if (ViewBag.AllDatabases != null)
@@ -105,14 +106,12 @@
         addDesc: '@Url.Action("AddDescription", "DIC1999")',
         exportExcel: '@Url.Action("ExportExcel", "DIC1999")',
         exportJson: '@Url.Action("ExportJson", "DIC1999")',
+        getAvailableDatabases: '@Url.Action("GetAvailableDatabases", "DIC1999")',
         logUrl: '/DIC1997/DIC1997',
         tableList: '/DIC1999R01/DIC1999R01',
         dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
-        hasInsertPermission: @(ViewBag.InsertStatus?.ToString().ToLower() ?? "false")
-    };
-
-    window.authStatus = {
-        canUpdate: @(ViewBag.UpdateStatus?.ToString().ToLower() ?? "false"),
-        canDelete: @(ViewBag.DeleteStatus?.ToString().ToLower() ?? "false")
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @Html.Raw(Json.Serialize(ViewBag.InsertStatus ?? false))
     };
 </script>

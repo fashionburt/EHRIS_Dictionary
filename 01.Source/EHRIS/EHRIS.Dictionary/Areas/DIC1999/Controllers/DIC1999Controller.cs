@@ -60,14 +60,7 @@ public class DIC1999Controller : BaseController
         };
     }
 
-    [HttpPost]
-    [AuthorizeFunction(SFUNO, FunctionAction.Query)]
-    public async Task<IActionResult> GetAvailableDatabases(string serverIp)
-    {
-        var dbs = await _service.GetAllDatabaseNamesAsync(serverIp);
-        return Json(new { success = true, data = dbs });
-    }
-
+    [HttpGet]
     [AuthorizeFunction(SFUNO, FunctionAction.Query)]
     public async Task<IActionResult> DIC1999()
     {
@@ -81,7 +74,15 @@ public class DIC1999Controller : BaseController
         ViewBag.UpdateStatus = HasPermission(FunctionAction.Update);
         ViewBag.DeleteStatus = HasPermission(FunctionAction.Delete);
 
-        return View();
+        return PartialView("DIC1999");
+    }
+
+    [HttpPost]
+    [AuthorizeFunction(SFUNO, FunctionAction.Query)]
+    public async Task<IActionResult> GetAvailableDatabases(string serverIp)
+    {
+        var dbs = await _service.GetAllDatabaseNamesAsync(serverIp);
+        return Json(new { success = true, data = dbs });
     }
 
     [HttpGet]
@@ -136,6 +137,7 @@ public class DIC1999Controller : BaseController
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     [AuthorizeFunction(SFUNO, FunctionAction.Insert)]
     public async Task<IActionResult> AddDescription([FromBody] DIC1999ViewModel model)
     {
@@ -148,6 +150,7 @@ public class DIC1999Controller : BaseController
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     [AuthorizeFunction(SFUNO, FunctionAction.Delete)]
     public async Task<IActionResult> Delete(int menuId, string serverIp)
     {
@@ -158,6 +161,7 @@ public class DIC1999Controller : BaseController
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     [AuthorizeFunction(SFUNO, FunctionAction.Update)]
     public async Task<IActionResult> UpdateDescriptions([FromBody] List<DIC1999ViewModel> updates)
     {
@@ -172,6 +176,7 @@ public class DIC1999Controller : BaseController
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     [AuthorizeFunction(SFUNO, FunctionAction.Update)]
     public async Task<IActionResult> ToggleStatus(int menuId, string serverIp)
     {

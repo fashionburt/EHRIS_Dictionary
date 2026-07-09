@@ -22,7 +22,7 @@
                                 <i class="fa-solid fa-arrow-rotate-left me-1"></i>返回資料欄列表
                             </button>
                         }
-                        else if (!string.IsNullOrEmpty(ViewBag.InitialDbKey))
+                        else if (!string.IsNullOrEmpty(ViewBag.InitialTableName))
                         {
                             <button type="button" class="btn btn-secondary btn-sm"
                                     onclick="loadMvc('/DIC1999R01/DIC1999R01?dbKey=@ViewBag.InitialDbKey&sid=' + $('#selSid').val())">
