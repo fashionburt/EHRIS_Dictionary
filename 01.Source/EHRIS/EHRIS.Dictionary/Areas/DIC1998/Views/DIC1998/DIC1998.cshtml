@@ -1,9 +1,7 @@
-﻿@{
-    Layout = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest" ? null : "_Layout";
-}
+﻿@model dynamic
 
-<link href="~/css/DataTableStyles.css" rel="stylesheet" />
-<link href="~/css/Button.css" rel="stylesheet" />
+<link href="/css/DataTableStyles.css" rel="stylesheet" />
+<link href="/css/Button.css" rel="stylesheet" />
 
 <section class="content">
     <div class="container-fluid">
@@ -44,7 +42,7 @@
                         @if (ViewBag.InsertStatus == true)
                         {
                             <button id="btnCreate" class="btn btn-success btn-sm">
-                                新增 IP 權限
+                                <i class="fas fa-plus me-1"></i>新增 IP 權限
                             </button>
                         }
                     </div>
@@ -120,6 +118,8 @@
         save: '@Url.Action("Save", "DIC1998")',
         delete: '@Url.Action("Delete", "DIC1998")',
         getMenus: '@Url.Action("GetAvailableMenus", "DIC1998")',
-        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")'
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val()
     };
 </script>

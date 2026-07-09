@@ -1,5 +1,6 @@
 ﻿using EHRIS.Core.Models;
 using EHRIS.Security.User;
+using EHRIS.Services.Dictionary;
 using EHRIS.Tools.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,23 +13,23 @@ namespace EHRIS.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserContextService _userContext;
+        private readonly IDIC1996Service _announcementService;
 
-        public HomeController(ILogger<HomeController> logger, IUserContextService userContext )
+        public HomeController(ILogger<HomeController> logger, IUserContextService userContext, IDIC1996Service announcementService)
         {
             _logger = logger;
-
             _userContext = userContext;
+            _announcementService = announcementService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var peoName = _userContext.UserName;  //HttpContext.Session.GetString("UserName");
+            var peoName = _userContext.UserName;
             ViewBag.PeoName = peoName;
 
             string clientIp = IPHelper.GetIpAddress(HttpContext);
             ViewBag.ClientIP = clientIp;
 
-            // 檢查 Session
             var user = HttpContext.Session.GetString("UserAccount");
             if (string.IsNullOrEmpty(user))
             {
@@ -39,6 +40,9 @@ namespace EHRIS.Web.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+
+            ViewBag.Announcements = await _announcementService.GetActiveAnnouncementsAsync();
+
             return View();
         }
 
@@ -61,7 +65,6 @@ namespace EHRIS.Web.Controllers
 
         public IActionResult GetMenu(int sys_no)
         {
-            // 回傳 ViewComponent 的結果，這會產出完整的 _Sidebar.cshtml 內容
             return ViewComponent("Menu", new { sys_no = sys_no });
         }
     }

@@ -111,4 +111,27 @@ public class DIC1996Service : IDIC1996Service
             return (false, ex.Message);
         }
     }
+    public async Task<List<DIC1996ViewModel>> GetActiveAnnouncementsAsync(int take = 5)
+    {
+        var list = await _repository.GetActiveAnnouncementsAsync(take);
+        var now = DateTime.Now;
+
+        return list.Select(x => new DIC1996ViewModel
+        {
+            Id = x.Id,
+            Message = x.Message,
+            IsEnabled = x.IsEnabled,
+            Priority = x.Priority,
+            PriorityText = x.Priority switch
+            {
+                0 => "一般公告",
+                1 => "維護公告",
+                2 => "緊急公告",
+                _ => "未知"
+            },
+            StartDate = x.StartDate,
+            StartDate_Text = x.StartDate.ToString("yyyy-MM-dd"),
+            IsNew = x.StartDate >= now.AddDays(-5)
+        }).ToList();
+    }
 }

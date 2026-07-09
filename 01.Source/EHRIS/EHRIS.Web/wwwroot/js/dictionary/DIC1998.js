@@ -23,6 +23,13 @@
             return;
         }
 
+        const action = self.urls;
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            if (!options.crossDomain && action.tokenValue) {
+                jqXHR.setRequestHeader('RequestVerificationToken', action.tokenValue);
+            }
+        });
+
         if ($.fn.DataTable.isDataTable('#accessTable')) {
             $table.DataTable().clear().destroy();
             $table.empty();
@@ -164,7 +171,7 @@
         const clientIp = $('#clientIpInput').val().trim();
 
         if (!serverIp || !menuId || !clientIp) {
-            showError('請填寫所有必填欄位');
+            ehrisAlert.warning('請填寫所有必填欄位');
             return;
         }
 
@@ -183,13 +190,16 @@
             data: JSON.stringify(postData),
             success: function (res) {
                 Swal.close();
-                if (res && res.success) {
-                    showAdminToast(res.message, 'success');
-                    $('#accessModal').modal('hide');
-                    self.dt.ajax.reload(null, false);
-                } else {
-                    showError(res ? res.message : '儲存失敗');
-                }
+                ehrisAlert.handle(res).then(function () {
+                    if (res.success) {
+                        $('#accessModal').modal('hide');
+                        self.dt.ajax.reload(null, false);
+                    }
+                });
+            },
+            error: function (xhr) {
+                Swal.close();
+                ehrisAlert.handleError(xhr);
             }
         });
     },
@@ -205,17 +215,22 @@
             cancelButtonText: '取消'
         }).then((result) => {
             if (result.isConfirmed) {
+                Swal.fire({ title: '處理中...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
                 $.ajax({
                     url: self.urls.delete,
                     type: 'POST',
                     data: { accessId: id },
                     success: function (res) {
-                        if (res && res.success) {
-                            showAdminToast(res.message, 'success');
-                            self.dt.ajax.reload(null, false);
-                        } else {
-                            showError(res ? res.message : '移除失敗');
-                        }
+                        Swal.close();
+                        ehrisAlert.handle(res).then(function () {
+                            if (res.success) {
+                                self.dt.ajax.reload(null, false);
+                            }
+                        });
+                    },
+                    error: function (xhr) {
+                        Swal.close();
+                        ehrisAlert.handleError(xhr);
                     }
                 });
             }

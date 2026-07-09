@@ -43,6 +43,7 @@ public class DIC1998Controller : BaseController
         };
     }
 
+    [HttpGet]
     [AuthorizeFunction(SFUNO, FunctionAction.Query)]
     public async Task<IActionResult> DIC1998()
     {
@@ -60,7 +61,7 @@ public class DIC1998Controller : BaseController
         ViewBag.ServerIps = await allMenus.Select(m => m.ServerIP).Distinct().OrderBy(m => m).ToListAsync();
         ViewBag.Menus = await allMenus.Select(m => new { m.MenuId, m.MenuName }).OrderBy(m => m.MenuName).ToListAsync();
 
-        return View();
+        return PartialView("DIC1998");
     }
 
     [HttpPost]

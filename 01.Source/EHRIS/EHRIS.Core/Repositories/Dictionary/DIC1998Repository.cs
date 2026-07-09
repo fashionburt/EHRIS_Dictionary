@@ -61,6 +61,12 @@ public class DIC1998Repository : BaseRepository, IDIC1998Repository
         return grouped;
     }
 
+    public async Task<Menu_Access?> GetDeletedRecordAsync(string clientIp, int menuId)
+    {
+        return await _context.Menu_Access
+            .FirstOrDefaultAsync(a => a.ClientIp == clientIp && a.MenuId == menuId && a.IsEnabled == 2);
+    }
+
     public async Task<DataTableResponse<DIC1998ViewModel>> GetPagedListAsync(DataTableRequest request)
     {
         var query = from ma in _context.Menu_Access.AsNoTracking()

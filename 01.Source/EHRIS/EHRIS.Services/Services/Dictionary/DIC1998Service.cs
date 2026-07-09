@@ -58,10 +58,13 @@ public class DIC1998Service : IDIC1998Service
         var isDuplicate = await _repository.AnyAsync(a => a.ClientIp == model.ClientIp && a.MenuId == model.MenuId && a.IsEnabled != 2);
         if (isDuplicate) return (false, "該 IP 已擁有此選單的授權");
 
-        var deletedRecord = await _repository.AnyAsync(a => a.ClientIp == model.ClientIp && a.MenuId == model.MenuId && a.IsEnabled == 2);
-        if (deletedRecord)
+        var deletedRecord = await _repository.GetDeletedRecordAsync(model.ClientIp, model.MenuId);
+        if (deletedRecord != null)
         {
-            return (false, "此授權曾被刪除，請洽系統管理員重新啟用或移除舊紀錄");
+            deletedRecord.IsEnabled = 1;
+            var reactivateDetail = $"【{deletedRecord.ClientIp}】授權被「重新啟用」";
+            var reactivateResult = await _repository.UpdateAsync(deletedRecord, reactivateDetail, dataLogger);
+            return reactivateResult ? (true, "已重新啟用授權") : (false, "重新啟用失敗");
         }
 
         var entity = new Menu_Access

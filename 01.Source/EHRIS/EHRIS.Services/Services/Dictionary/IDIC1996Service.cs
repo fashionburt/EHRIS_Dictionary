@@ -10,4 +10,6 @@ public interface IDIC1996Service
     Task<DIC1996ViewModel?> GetByIdAsync(int id);
     Task<(bool success, string message)> SaveAsync(DIC1996ViewModel model, IDataLogger dataLogger);
     Task<(bool success, string message)> DeleteAsync(int id, IDataLogger dataLogger);
+    Task<List<DIC1996ViewModel>> GetActiveAnnouncementsAsync(int take = 5);
+
 }

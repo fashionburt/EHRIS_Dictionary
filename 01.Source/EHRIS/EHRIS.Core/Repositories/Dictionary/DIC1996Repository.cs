@@ -115,4 +115,17 @@ public class DIC1996Repository : BaseRepository, IDIC1996Repository
         await SaveChangesAsync(dataLogger);
         return true;
     }
+
+    public async Task<List<MarqueeAnnouncement>> GetActiveAnnouncementsAsync(int take)
+    {
+        var now = DateTime.Now;
+        return await _context.MarqueeAnnouncements
+            .AsNoTracking()
+            .Where(x => x.IsEnabled && x.StartDate <= now && (x.EndDate == null || x.EndDate >= now))
+            .OrderByDescending(x => x.Priority)
+            .ThenByDescending(x => x.StartDate)
+            .Take(take)
+            .ToListAsync();
+    }
+
 }

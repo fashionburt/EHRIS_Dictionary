@@ -1194,22 +1194,42 @@
 
                 <!-- 公告訊息 -->
                 @* [Claude] ViewBag.Announcements（示意資料） *@
+                <!-- 公告訊息 -->
                 <div id="panel-announce" class="msg-tab-panel active">
                     <table class="msg-table">
                         <thead>
                             <tr>
-                                <th style="width:88px;">日期</th>
+                                <th style="width:90px;">層級</th>
                                 <th>內容</th>
-                                <th style="width:55px;">發布者</th>
-                                <th style="width:88px;">截止日期</th>
+                                <th style="width:88px;">日期</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>2024-05-07</td><td class="msg-title-cell"><span class="msg-new-badge">NEW</span>人事行政注意事項公告</td><td>人事室</td><td>2024-05-31</td></tr>
-                            <tr><td>2024-05-06</td><td class="msg-title-cell">教職員工差假規則修正說明</td><td>人事室</td><td>2024-05-10</td></tr>
-                            <tr><td>2024-04-30</td><td class="msg-title-cell">113學年度第2學期差勤作業說明</td><td>總務處</td><td>2024-05-15</td></tr>
-                            <tr><td>2024-04-25</td><td class="msg-title-cell">五一勞動節假期出勤加班說明</td><td>人事室</td><td>2024-04-30</td></tr>
-                            <tr><td>2024-04-18</td><td class="msg-title-cell">健康檢查時程通知（教職員）</td><td>衛生組</td><td>2024-05-31</td></tr>
+                            @{
+                                var announcements = ViewBag.Announcements as List<EHRIS.Core.Models.Dictionary.DIC1996ViewModel>;
+                            }
+                            @if (announcements == null || !announcements.Any())
+                            {
+                                <tr><td colspan="3" class="text-center text-muted">目前沒有公告</td></tr>
+                            }
+                            else
+                            {
+                                foreach (var item in announcements)
+                                {
+                                    var badgeCls = item.Priority == 2 ? "bg-danger" : (item.Priority == 1 ? "bg-warning text-dark" : "bg-info");
+                                    <tr>
+                                        <td><span class="badge @badgeCls">@item.PriorityText</span></td>
+                                        <td class="msg-title-cell">
+                                            @if (item.IsNew)
+                                            {
+                                                <span class="msg-new-badge">NEW</span>
+                                            }
+                                            @item.Message
+                                        </td>
+                                        <td>@item.StartDate_Text</td>
+                                    </tr>
+                                }
+                            }
                         </tbody>
                     </table>
                 </div>

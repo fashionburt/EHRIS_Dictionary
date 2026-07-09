@@ -10,6 +10,7 @@ public interface IDIC1998Repository
 {
     Task<DataTableResponse<DIC1998ViewModel>> GetPagedListAsync(DataTableRequest request);
     Task<Menu_Access?> GetByIdAsync(int id);
+    Task<Menu_Access?> GetDeletedRecordAsync(string clientIp, int menuId);
     Task<bool> AnyAsync(Expression<Func<Menu_Access, bool>> predicate);
     Task<bool> AddAsync(Menu_Access entity, string detail, IDataLogger dataLogger);
     Task<bool> UpdateAsync(Menu_Access entity, string detail, IDataLogger dataLogger);

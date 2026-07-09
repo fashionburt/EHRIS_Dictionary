@@ -1,7 +1,4 @@
-﻿@{
-    Layout = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest" ? null : "_Layout";
-}
-
+﻿@model dynamic
 <link href="/css/DataTableStyles.css" rel="stylesheet" />
 <link href="/css/Button.css" rel="stylesheet" />
 <link href="/css/MutliSelect.css" rel="stylesheet" />
@@ -21,6 +18,7 @@
                 </div>
                 <hr />
                 <form id="searchForm" class="row g-3">
+                    @Html.AntiForgeryToken()
                     <div class="col-md-4">
                         <label class="form-label fw-bold">關鍵字</label>
                         <div class="input-group input-group-sm">
@@ -111,6 +109,8 @@
         create: '@Url.Action("Create", "DIC1996")',
         update: '@Url.Action("Update", "DIC1996")',
         delete: '@Url.Action("Delete", "DIC1996")',
-        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")'
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val()
     };
 </script>

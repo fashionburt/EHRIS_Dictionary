@@ -12,4 +12,6 @@ public interface IDIC1996Repository
     Task<bool> AddAsync(MarqueeAnnouncement entity, string detail, IDataLogger dataLogger);
     Task<bool> UpdateAsync(MarqueeAnnouncement entity, string detail, IDataLogger dataLogger);
     Task<bool> SoftDeleteAsync(int id, string detail, IDataLogger dataLogger);
+    Task<List<MarqueeAnnouncement>> GetActiveAnnouncementsAsync(int take);
+
 }

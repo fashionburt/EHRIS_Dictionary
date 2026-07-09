@@ -15,6 +15,8 @@ public class DIC1996ViewModel
     public string EndDate_Text { get; set; } = string.Empty;
     public string? EditAction { get; set; }
     public string? DelAction { get; set; }
+    public bool IsNew { get; set; }
+
 }
 
 public class DIC1996Request : DataTableRequest

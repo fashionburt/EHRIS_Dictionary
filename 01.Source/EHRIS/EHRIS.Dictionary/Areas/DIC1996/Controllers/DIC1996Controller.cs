@@ -38,12 +38,13 @@ public class DIC1996Controller : BaseController
         };
     }
 
+    [HttpGet]
     [AuthorizeFunction(SFUNO, FunctionAction.Query)]
     public async Task<IActionResult> DIC1996()
     {
         await SetBreadcrumbAsync(SFUNO, "DIC1996", "公告管理");
         ViewBag.AddStatus = HasPermission(FunctionAction.Insert);
-        return View();
+        return PartialView("DIC1996");
     }
 
     [HttpPost]

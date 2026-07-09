@@ -4,6 +4,14 @@
 
     init: function () {
         const self = this;
+        const action = self.urls;
+
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            if (!options.crossDomain && action.tokenValue) {
+                jqXHR.setRequestHeader('RequestVerificationToken', action.tokenValue);
+            }
+        });
+
         self.dt = $('#announcementTable').DataTable({
             serverSide: true,
             processing: true,
@@ -124,13 +132,13 @@
         };
 
         if (!data.message) {
-            showError("請輸入公告內容");
+            ehrisAlert.warning("請輸入公告內容");
             return;
         }
 
         const url = id === 0 ? self.urls.create : self.urls.update;
 
-        Swal.showLoading();
+        Swal.fire({ title: '處理中...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
 
         $.ajax({
             url: url,
@@ -138,32 +146,42 @@
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (res) {
-                if (res.success) {
-                    $('#editModal').modal('hide');
-                    self.dt.ajax.reload();
-                    Swal.close();
-                    showAdminToast(res.message);
-                } else {
-                    showError(res.message || "儲存失敗");
-                }
+                Swal.close();
+                ehrisAlert.handle(res).then(function () {
+                    if (res.success) {
+                        $('#editModal').modal('hide');
+                        self.dt.ajax.reload();
+                    }
+                });
             },
             error: function (xhr) {
-                showError("系統發生錯誤，請稍後再試。");
+                Swal.close();
+                ehrisAlert.handleError(xhr);
             }
         });
     },
 
     del: function (id) {
         const self = this;
-        confirmDelete(() => {
-            $.post(self.urls.delete, { id: id }, function (res) {
-                if (res.success) {
-                    self.dt.ajax.reload();
-                    showAdminToast(res.message);
-                } else {
-                    showError(res.message);
-                }
-            });
+        Swal.fire({
+            title: '確定刪除？',
+            text: '刪除後將無法復原！',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '確定',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({ title: '處理中...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+                $.post(self.urls.delete, { id: id }, function (res) {
+                    Swal.close();
+                    ehrisAlert.handle(res).then(function () {
+                        if (res.success) {
+                            self.dt.ajax.reload();
+                        }
+                    });
+                });
+            }
         });
     }
 };
