@@ -1,0 +1,117 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Middleware\**" />
+    <Compile Remove="Views\FileUploadTest\**" />
+    <Compile Remove="Views\OrgSelectorTest\**" />
+    <Compile Remove="Views\PeoplePhotoTest\**" />
+    <Compile Remove="wwwroot\lib\admin-lte\pages\**" />
+    <Compile Remove="wwwroot\lib\Chart.js\**" />
+    <Compile Remove="wwwroot\lib\daterangepicker\**" />
+    <Compile Remove="wwwroot\lib\eonasdan\**" />
+    <Compile Remove="wwwroot\lib\jquery-treegrid\examples\**" />
+    <Compile Remove="wwwroot\lib\jquery-treegrid\tests\**" />
+    <Compile Remove="wwwroot\lib\jstree\**" />
+    <Compile Remove="wwwroot\lib\luxon\**" />
+    <Compile Remove="wwwroot\lib\popper.js\**" />
+    <Compile Remove="wwwroot\lib\popperjs\**" />
+    <Compile Remove="wwwroot\lib\Sortable\**" />
+    <Compile Remove="wwwroot\lib\tempusdominus-bootstrap-4\**" />
+    <Content Remove="Middleware\**" />
+    <Content Remove="Views\FileUploadTest\**" />
+    <Content Remove="Views\OrgSelectorTest\**" />
+    <Content Remove="Views\PeoplePhotoTest\**" />
+    <Content Remove="wwwroot\lib\admin-lte\pages\**" />
+    <Content Remove="wwwroot\lib\Chart.js\**" />
+    <Content Remove="wwwroot\lib\daterangepicker\**" />
+    <Content Remove="wwwroot\lib\eonasdan\**" />
+    <Content Remove="wwwroot\lib\jquery-treegrid\examples\**" />
+    <Content Remove="wwwroot\lib\jquery-treegrid\tests\**" />
+    <Content Remove="wwwroot\lib\jstree\**" />
+    <Content Remove="wwwroot\lib\luxon\**" />
+    <Content Remove="wwwroot\lib\popper.js\**" />
+    <Content Remove="wwwroot\lib\popperjs\**" />
+    <Content Remove="wwwroot\lib\Sortable\**" />
+    <Content Remove="wwwroot\lib\tempusdominus-bootstrap-4\**" />
+    <EmbeddedResource Remove="Middleware\**" />
+    <EmbeddedResource Remove="Views\FileUploadTest\**" />
+    <EmbeddedResource Remove="Views\OrgSelectorTest\**" />
+    <EmbeddedResource Remove="Views\PeoplePhotoTest\**" />
+    <EmbeddedResource Remove="wwwroot\lib\admin-lte\pages\**" />
+    <EmbeddedResource Remove="wwwroot\lib\Chart.js\**" />
+    <EmbeddedResource Remove="wwwroot\lib\daterangepicker\**" />
+    <EmbeddedResource Remove="wwwroot\lib\eonasdan\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery-treegrid\examples\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery-treegrid\tests\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jstree\**" />
+    <EmbeddedResource Remove="wwwroot\lib\luxon\**" />
+    <EmbeddedResource Remove="wwwroot\lib\popper.js\**" />
+    <EmbeddedResource Remove="wwwroot\lib\popperjs\**" />
+    <EmbeddedResource Remove="wwwroot\lib\Sortable\**" />
+    <EmbeddedResource Remove="wwwroot\lib\tempusdominus-bootstrap-4\**" />
+    <None Remove="Middleware\**" />
+    <None Remove="Views\FileUploadTest\**" />
+    <None Remove="Views\OrgSelectorTest\**" />
+    <None Remove="Views\PeoplePhotoTest\**" />
+    <None Remove="wwwroot\lib\admin-lte\pages\**" />
+    <None Remove="wwwroot\lib\Chart.js\**" />
+    <None Remove="wwwroot\lib\daterangepicker\**" />
+    <None Remove="wwwroot\lib\eonasdan\**" />
+    <None Remove="wwwroot\lib\jquery-treegrid\examples\**" />
+    <None Remove="wwwroot\lib\jquery-treegrid\tests\**" />
+    <None Remove="wwwroot\lib\jstree\**" />
+    <None Remove="wwwroot\lib\luxon\**" />
+    <None Remove="wwwroot\lib\popper.js\**" />
+    <None Remove="wwwroot\lib\popperjs\**" />
+    <None Remove="wwwroot\lib\Sortable\**" />
+    <None Remove="wwwroot\lib\tempusdominus-bootstrap-4\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\CaptchaController.cs" />
+    <Compile Remove="Controllers\FileUploadTestController.cs" />
+    <Compile Remove="Controllers\OrgSelectorTestController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\List.css" />
+    <Content Remove="wwwroot\lib\jquery-treegrid\index.html" />
+    <Content Remove="wwwroot\lib\jquery-treegrid\test.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DNTCaptcha.Core" Version="5.3.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.0" />
+    <PackageReference Include="MimeKit" Version="4.15.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+    <PackageReference Include="Serilog.Sinks.Map" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EHRIS.AdminPortal\EHRIS.AdminPortal.csproj" />
+    <ProjectReference Include="..\EHRIS.Core\EHRIS.Core.csproj" />
+    <ProjectReference Include="..\EHRIS.Security\EHRIS.Security.csproj" />
+    <ProjectReference Include="..\EHRIS.Services\EHRIS.Services.csproj" />
+    <ProjectReference Include="..\EHRIS.SysBasic\EHRIS.SysBasic.csproj">
+      <TreatAsUsed>true</TreatAsUsed>
+    </ProjectReference>
+    <ProjectReference Include="..\EHRIS.Tools\EHRIS.Tools.csproj" />
+    <ProjectReference Include="..\EHRIS.Web.Shared\EHRIS.Web.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\sweetalert2\" />
+  </ItemGroup>
+  
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
+</Project>

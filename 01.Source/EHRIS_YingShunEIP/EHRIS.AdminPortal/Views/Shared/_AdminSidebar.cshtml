@@ -1,0 +1,62 @@
+@model List<MenuSysViewModel>
+@using EHRIS.Core.Models.Common
+@{
+    int currentSysNo = ViewBag.CurrentSysNo ?? 0;
+    var activeModule = Model?.FirstOrDefault(m => m.sys_no == currentSysNo);
+}
+
+<!-- 後台 Sidebar：動態選單（樣式同前台 _Sidebar.cshtml） -->
+<aside id="sidebar-container" class="app-sidebar bg-body-secondary shadow" data-bs-theme="light">
+    <div class="sidebar-brand">
+        <a href="/AdminPortal/Home/Index" class="brand-link text-center">
+            <img src="~/image/Login/Logo.png" alt="回首頁" class="brand-image opacity-75 shadow">
+            <span class="brand-text fw-light"><b>後台客服系統</b></span>
+        </a>
+    </div>
+    <div class="sidebar-wrapper" data-overlayscrollbars="host">
+        <nav class="mt-2">
+            <ul class="nav sidebar-menu flex-column" role="menu" data-lte-toggle="treeview" data-accordion="true">
+
+                @if (activeModule?.ChildrenMenu != null && activeModule.ChildrenMenu.Any())
+                {
+                    @foreach (var child in activeModule.ChildrenMenu)
+                    {
+                        <li class="nav-item has-treeview">
+                            @if (child.SubFunctions != null && child.SubFunctions.Any())
+                            {
+                                <a href="#" class="nav-link">
+                                    <span class="nav-icon nav-char-icon" title="@child.SfuShorten">@(child.SfuShorten?.Length >= 2 ? child.SfuShorten.Substring(0, 2) : child.SfuShorten?.Length > 0 ? child.SfuShorten[0].ToString() : "?")</span>
+                                    <p>@child.SfuName</p>
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="nav-link" onclick="loadMvc('@(!string.IsNullOrEmpty(child.SfuPath) ? child.SfuPath : "#")')">
+                                    <span class="nav-icon nav-char-icon" title="@child.SfuName">@(child.SfuName?.Length >= 2 ? child.SfuName.Substring(0, 2) : child.SfuName?.Length > 0 ? child.SfuName[0].ToString() : "?")</span>
+                                    <p>@child.SfuName</p>
+                                </a>
+                            }
+
+                            @if (child.SubFunctions != null && child.SubFunctions.Any())
+                            {
+                                <ul class="nav nav-treeview d-none">
+                                    @foreach (var grandchild in child.SubFunctions)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" onclick="loadMvc('@(!string.IsNullOrEmpty(grandchild.SfuPath) ? grandchild.SfuPath : "#")')">
+                                                <i class="nav-icon bi bi-journal-text fs-5"></i>
+                                                <p>@grandchild.SfuName</p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </li>
+                    }
+                }
+
+            </ul>
+        </nav>
+    </div>
+</aside>

@@ -1,0 +1,110 @@
+@using System.Text.Json
+@model EHRIS.Web.Shared.Models.OrgSelectorModel
+
+@{
+    var cid = Model.ComponentId;
+    var fieldName = Model.FieldName;
+    var scopeStr = Model.Scope.ToString();
+    var selectedIds = Model.SelectedIds ?? "";
+    var preloaded = Model.PreloadedNodes
+        .Select(n => new { id = n.Id, name = n.Name })
+        .ToList();
+    var preloadedJson = JsonSerializer.Serialize(preloaded);
+}
+
+<div id="@(cid)_wrapper" class="org-selector" data-comp-id="@cid">
+    @if (Model.PreloadedNodes.Count == 0)
+    {
+        <span class="org-selector-empty">尚未選擇單位</span>
+    }
+    else
+    {
+        foreach (var node in Model.PreloadedNodes)
+        {
+            <span class="org-chip" data-id="@node.Id">
+                @node.Name
+                <button type="button" class="org-chip-remove" aria-label="移除">&times;</button>
+            </span>
+        }
+    }
+    <button type="button" class="org-trigger" id="@(cid)_trigger">
+        <i class="fas fa-folder-tree"></i> @Model.ButtonText
+    </button>
+    <input type="hidden" id="@(cid)_ids" name="@fieldName" value="@selectedIds" />
+</div>
+
+<!-- Modal -->
+<div class="modal modal-org fade" id="@(cid)_modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg modal-fullscreen-sm-down">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-sitemap"></i>
+                    <span>@Model.ModalTitle</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="org-toolbar">
+                <div class="org-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="@(cid)_search" placeholder="搜尋名稱..." />
+                </div>
+                <div class="form-check form-switch org-switch-control org-switch m-0">
+                    <input class="form-check-input" type="checkbox" id="@(cid)_includeChildren" @(Model.IncludeChildrenDefault ? "checked" : "") />
+                    <label class="form-check-label" for="@(cid)_includeChildren">包含子節點</label>
+                </div>
+                <button type="button" class="org-toolbar-btn" id="@(cid)_expandAll" title="全部展開">
+                    <i class="fas fa-angles-down"></i>
+                </button>
+                <button type="button" class="org-toolbar-btn" id="@(cid)_collapseAll" title="全部折疊">
+                    <i class="fas fa-angles-up"></i>
+                </button>
+            </div>
+
+            <div class="org-tree-wrapper">
+                <ul class="org-tree" id="@(cid)_treeRoot"></ul>
+                <div class="org-tree-empty" id="@(cid)_empty" style="display:none;">查無符合的單位</div>
+                <div class="org-tree-loading" id="@(cid)_loading">
+                    <i class="fas fa-spinner fa-spin"></i> 載入中...
+                </div>
+            </div>
+
+            <!-- 已選項目面板：方便單位很多時檢視/移除目前選取，可收合 -->
+            <div class="org-selected-panel" id="@(cid)_selectedPanel">
+                <div class="org-selected-panel-title" id="@(cid)_selectedToggle" role="button" tabindex="0" aria-expanded="true">
+                    <i class="fas fa-check-circle"></i>
+                    <span>已選項目</span>
+                    <span class="org-selected-panel-count" id="@(cid)_selectedHeadCount"></span>
+                    <i class="org-selected-caret fas fa-chevron-up"></i>
+                </div>
+                <div class="org-selected-chips" id="@(cid)_selectedChips"></div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="org-selected-count">已選 <b id="@(cid)_count">0</b> 筆</div>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn-org-link" id="@(cid)_clear">清空</button>
+                    <button type="button" class="btn-org-link" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn-org-primary" id="@(cid)_confirm">確定</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="@Url.Content("~/css/OrgSelector.css")" />
+<script src="@Url.Content("~/js/Common/OrgSelector.js")"></script>
+<script>
+    window.OrgSelector.init({
+        cid: '@cid',
+        fieldName: '@fieldName',
+        scope: '@scopeStr',
+        multiple: @(Model.Multiple ? "true" : "false"),
+        includeChildrenDefault: @(Model.IncludeChildrenDefault ? "true" : "false"),
+        baseUrl: '@Url.Content("~/")'.replace(/\/+$/, ''),
+        preloaded: @Html.Raw(preloadedJson)
+    });
+</script>

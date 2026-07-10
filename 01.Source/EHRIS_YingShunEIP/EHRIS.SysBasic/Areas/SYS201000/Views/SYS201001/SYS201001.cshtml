@@ -1,0 +1,189 @@
+﻿@using EHRIS.Web.Shared.Models
+@model EHRIS.Core.Models.SysBasic.SYS201001ViewModel
+@{
+    ViewData["Title"] = "管理者管理";
+    Layout = "_LayoutSub";
+}
+
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+<link href="~/css/MutliSelect.css" rel="stylesheet" />
+<script src="~/js/DepartmentTreeModal.js"></script>
+
+
+<section class="content">
+    <div class="container-fluid">
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "adminTable",
+            Columns = new[]
+            {
+                new TableColDef("單位",     "dt-col-mid"),
+                new TableColDef("姓名",     "dt-col-mid"),
+                new TableColDef("登入帳號", "dt-col-mid"),
+                new TableColDef("帳號狀態", "dt-col-min"),
+                new TableColDef("修改",     "dt-col-action"),
+                new TableColDef("刪除",     "dt-col-action"),
+            }
+        })
+
+    </div>
+</section>
+
+<div class="modal  modal-morandi" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminModalLabel"></h5>
+                <span id="modal-mode-indicator" class="text-danger ms-2"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="adminForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="acc_no" />
+
+                    <div class="col-md-6">
+                        <label for="ddlUnit" class="form-label">單位<span class="text-danger">*</span></label>
+                        <select id="ddlUnit" name="unitId" class="form-select">
+                            <option value="" disabled selected hidden>請選擇</option>
+                            @if (ViewBag.UnitList != null)
+                            {
+                                foreach (var unit in (SelectList)ViewBag.UnitList)
+                                {
+                                    <option value="@unit.Value">@unit.Text</option>
+                                }
+                            }
+                        </select>
+                        <span class="text-danger field-validation" data-valmsg-for="unitId"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ddlProfess" class="form-label">職稱<span class="text-danger">*</span></label>
+                        <select id="ddlProfess" name="proNo" class="form-select">
+                            <option value="" disabled selected hidden>請選擇</option>
+                            @if (ViewBag.ProfessList != null)
+                            {
+                                foreach (var profess in (SelectList)ViewBag.ProfessList)
+                                {
+                                    <option value="@profess.Value">@profess.Text</option>
+                                }
+                            }
+                        </select>
+                        <span class="text-danger field-validation" data-valmsg-for="proNo"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="adm_name" class="form-label">姓名<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="adm_name" name="name" />
+                        <span class="text-danger field-validation" data-valmsg-for="name"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="idNumber" class="form-label">身分證字號<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="idNumber" name="idNumber" />
+                        <span class="text-danger field-validation" data-valmsg-for="idNumber"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="birthDate" class="form-label">出生日期<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="birthDate" name="birthDate" placeholder="年-月-日" autocomplete="off" />
+                        <span class="text-danger field-validation" data-valmsg-for="birthDate"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label d-block">性別<span class="text-danger">*</span></label>
+                        <div class="btn-group" role="group" aria-label="Gender selection">
+                            <input type="radio" class="btn-check" name="sex" id="sex_male" value="false" autocoplete="off" checked>
+                            <label class="btn btn-outline-primary" for="sex_male">男</label>
+
+                            <input type="radio" class="btn-check" name="sex" id="sex_female" value="true" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="sex_female">女</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="adm_email" class="form-label">電子郵件</label>
+                        <input type="email" class="form-control" id="adm_email" name="email" />
+                        <input type="hidden" id="adm_email_bse_no" value="0" />
+                        <span class="text-danger field-validation" data-valmsg-for="email"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="adm_acct" class="form-label">登入帳號<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="adm_acct" name="loginAccount" />
+                        <span class="text-danger field-validation" data-valmsg-for="loginAccount"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="adm_passwd" class="form-label">登入密碼 <span class="text-danger">(新增時必填)</span></label>
+                        <input type="password" class="form-control" id="adm_passwd" name="password" autocomplete="new-password" formmethod="post" />
+                        <span class="text-danger field-validation" data-valmsg-for="password"></span>
+                    </div>
+
+                    <div class="col-12 mt-0">
+                        <small class="form-text text-muted">
+                            <span class="text-warning">★</span> 密碼須包含
+                            <strong class="text-danger">大寫字母、小寫字母、數字等三種</strong>
+                            ，長度需介於 <strong class="text-danger">8-20 碼</strong>。
+                        </small>
+                        <small class="form-text text-muted d-block">
+                            <span class="text-warning">★</span> 密碼不可與帳號相同。
+                        </small>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">可控管人員類別</label>
+                        <div id="personnelTypeContainer" class="pt-2">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">帳號角色<span class="text-danger ms-2">【雙擊即可交換左右】</span></label>
+                        <div class="row">
+                            <div class="col-6"><label class="d-block text-center">未選取</label><select multiple class="form-select" id="unselectedRoles" style="height: 150px;"></select></div>
+                            <div class="col-6"><label class="d-block text-center">已選取</label><select multiple class="form-select" id="selectedRoles" name="selectedRoles" style="height: 150px;"></select></div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-check-label">管理部門類別</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="manageAllDeptsSwitch">
+                            <label class="form-check-label" for="manageAllDeptsSwitch">全部單位</label>
+                        </div>
+                    </div>
+                    <div class="col-12" id="deptSelectionContainer" style="display:none;">
+                        <button type="button" id="btnSelectDepts" class="btn btn-success btn-sm">
+                            選擇管理單位
+                        </button>
+                        <div id="selectedDepartmentsTags" class="d-flex flex-wrap gap-2 mt-2">
+                        </div>
+                        <input type="hidden" id="selectedDepartments" name="selectedDeptIds">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" id="btnSaveAdmin">儲存</button>
+                <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("_DepartmentTreeModal", Model)
+
+<script>
+    window.adminActions = {
+        pageUrl: '@Url.Action("SYS201001", "SYS201001")',
+        getAllAdminsUrl: '@Url.Action("GetAllAdmins", "SYS201001")',
+        getAllPersonnelTypesUrl: '@Url.Action("GetAllPersonnelTypes", "SYS201001")',
+        getAllRolesUrl: '@Url.Action("GetAllRoles", "SYS201001")',
+        getAdminDetailsUrl: '@Url.Action("GetAdminDetails", "SYS201001")',
+        addAdminUrl: '@Url.Action("AddAdmin", "SYS201001")',
+        updateAdminUrl: '@Url.Action("UpdateAdmin", "SYS201001")',
+        deleteAdminUrl: '@Url.Action("DeleteAdmin", "SYS201001")',
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @(ViewBag.CanInsert?.ToString().ToLower() ?? "false")
+    };
+    window.departmentTreeData = @Html.Raw(Json.Serialize(ViewBag.DepartmentTreeData ?? new List<object>()));
+</script>

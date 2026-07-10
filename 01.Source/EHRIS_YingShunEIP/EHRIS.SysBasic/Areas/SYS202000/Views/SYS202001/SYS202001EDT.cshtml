@@ -1,0 +1,63 @@
+﻿@using EHRIS.Web.Shared.Models
+@model EHRIS.Core.Models.SysBasic.SYS202001EDTViewModel
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <form id="editDepartmentForm" class="row g-3" data-parent-id="@Model.parentId">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deptId" value="@Model.deptId" />
+                    <div class="col-md-6">
+                        <label for="parentDeptName" class="form-label">上層部門</label>
+                        <input type="text" class="form-control" id="parentDeptName" value="@Model.parentDeptName" readonly />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="deptCode" class="form-label">部門代碼</label>
+                        <input type="text" class="form-control" id="deptCode" value="@Model.deptCode" readonly />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="deptName" class="form-label">部門名稱</label>
+                        <input type="text" class="form-control" id="deptName" value="@Model.deptName" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="deptOrder" class="form-label">排序編號</label>
+                        <input type="number" class="form-control" id="deptOrder" value="@Model.deptOrder" min="0" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                @if (Model.CanUpdate)
+                {
+                    <button type="button" id="btnSaveEdit" class="btn btn-primary btn-sm">儲存</button>
+                }
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">子部門管理</h5>
+            </div>
+            <div class="card-body">
+                @await Html.PartialAsync("_TableView", new CommonTableModel
+                {
+                    TableId = "subDepartmentTable",
+                                Columns = new[]
+                                {
+                                new TableColDef("部門代碼", "dt-col-mid"),
+                                new TableColDef("部門名稱", "dt-col-max"),
+                                new TableColDef("排序",     "dt-col-order"),
+                                new TableColDef("修建者",   "dt-col-mod"),
+                                new TableColDef("修建時間", "dt-col-time"),
+                                new TableColDef("修改",     "dt-col-action"),
+                                new TableColDef("刪除",     "dt-col-action"),
+                                }
+                                })
+            </div>
+        </div>
+    </div>
+</section>
+
+<input type="hidden" id="hdnDeptLevel" value="@Model.deptLevel" />
+<input type="hidden" id="hdnCanInsertSub" value="@(Model.CanInsert ? "true" : "false")" />

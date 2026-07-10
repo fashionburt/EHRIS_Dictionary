@@ -1,0 +1,16 @@
+﻿@{
+    // AdminPortal 有自己的 Layout，不套用前台的
+    var path = Context.Request.Path.Value ?? "";
+    if (path.StartsWith("/AdminPortal", StringComparison.OrdinalIgnoreCase))
+    {
+        Layout = "_AdminLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+        if (Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+        {
+            Layout = "_LayoutSub"; // Ajax 時改用子版面
+        }
+    }
+}

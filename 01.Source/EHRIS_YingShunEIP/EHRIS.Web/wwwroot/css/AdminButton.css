@@ -1,0 +1,292 @@
+﻿/*--後臺系統--*/
+/*沒有麵包屑 空一列*/
+.admin-workspace .container-fluid {
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+/* ---主列表--- */
+.admin-workspace .card {
+    background-color: #FFF8F3 !important;
+    border: 1px solid #D6C2AF !important;
+    color: #000000;
+}
+
+.admin-workspace .table thead th {
+    background-color: #a06830 !important;
+    color: #f3e4d7 !important;
+}
+
+.admin-workspace .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #eedfd2 !important;
+}
+
+.admin-workspace .table-striped tbody tr:nth-of-type(even) {
+    background-color: #ccbfb2 !important;
+}
+
+.admin-workspace .table-striped tbody tr:hover td {
+    background-color: #b9a895 !important;
+}
+
+/* --- 操作按鈕 --- */
+.admin-workspace .btn-primary,
+.modal-admin #btnSaveSysNotice,
+.modal-admin #btnFinalSaveLevels,
+.modal-admin #btnConfirmRow,
+.modal-admin #btnSaveRole,
+.modal-admin #btnSavePermission,
+.admin-workspace #btnAddRole,
+.modal-admin #btnSaveUser,
+.admin-workspace #btnAdd,
+.admin-workspace .page-link {
+    background-color: #A67C52 !important;
+    border-color: #A67C52 !important;
+    color: #FFF !important;
+}
+
+    .admin-workspace .btn-primary:hover,
+    .modal-admin #btnSaveSysNotice:hover,
+    .modal-admin #btnSaveRole:hover,
+    .modal-admin #btnFinalSaveLevels:hover,
+    .modal-admin #btnConfirmRow:hover,
+    .modal-admin #btnSavePermission:hover,
+    .admin-workspace #btnAddRole:hover,
+    .modal-admin #btnSaveUser:hover,
+    .admin-workspace #btnAdd:hover,
+    .admin-workspace .page-link:hover {
+        background-color: #5A2323 !important;
+    }
+/* --- 其他功能按鈕 --- */
+.admin-workspace .text-primary {
+    color: #A67C52 !important;
+}
+/* --- 分頁與狀態 --- */
+.admin-workspace .page-item.active .page-link {
+    background-color: #b6997b !important;
+    border-color: #B38B6D !important;
+}
+/* 取消 / 關閉按鈕 */
+.modal-admin .btn-secondary {
+    background-color: #E6D5C6 !important;
+    border-color: #E6D5C6 !important;
+    color: #5C4033 !important;
+}
+
+    .modal-admin .btn-secondary:hover {
+        background-color: #5A2323 !important;
+        color: #FFF !important;
+    }
+/* 刪除按鈕 */
+.admin-workspace .deleteRole,
+.admin-workspace .deleteUser,
+.admin-workspace .deleteSysNotice{
+    color: #7A8F45 !important;
+}
+
+    .admin-workspace .deleteRole:hover,
+    .admin-workspace .deleteUser:hover,
+    .admin-workspace .deleteSysNotice:hover{
+        color: #5A2323 !important;
+    }
+/* --- 表單輸入框 --- */
+.admin-workspace .form-control,
+.modal-admin .form-control {
+    background-color: #FFF8F3 !important;
+    border: 1px solid #D6C2AF !important;
+    color: #2F1E17 !important;
+}
+
+    .admin-workspace .form-control:focus,
+    .modal-admin .form-control:focus {
+        border-color: #B38B6D !important;
+        box-shadow: 0 0 0 0.2rem rgba(179, 139, 109, 0.25) !important;
+    }
+
+    .admin-workspace .form-control::placeholder {
+        color: #8B6A4E !important;
+    }
+/* --- 彈窗樣式 --- */
+.modal-admin .modal-content {
+    background-color: #FFF8F3 !important;
+}
+
+.modal-admin .modal-header {
+    background-color: #E6D5C6 !important;
+    border-bottom: 1px solid #D6C2AF !important;
+    color: #5C4033 !important;
+}
+
+.modal-admin .table thead th {
+    background-color: #a06830 !important;
+    color: #f5d6bc !important;
+}
+
+.modal-admin .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #eedfd2 !important;
+}
+
+.modal-admin .table-striped tbody tr:nth-of-type(even) {
+    background-color: #ccbfb2 !important;
+}
+
+.modal-admin .table-hover tbody tr:hover td {
+    background-color: #b9a895 !important;
+}
+
+.admin-workspace .form-check-input:checked,
+.modal-admin .form-check-input:checked {
+    background-color: #A67C52 !important;
+    border-color: #A67C52 !important;
+}
+/* --- 時間文字--- */
+.admin-workspace .text-primary,
+.modal-admin .text-primary {
+    color: #A67C52 !important;
+}
+/* 彈窗內分頁 --- */
+.modal-admin .page-item.active .page-link {
+    background-color: #b6997b !important;
+    border-color: #B38B6D !important;
+}
+
+.admin-workspace .input-group .btn-primary,
+.modal-admin .input-group .btn-primary {
+    background-color: #A67C52 !important;
+    border-color: #A67C52 !important;
+    color: #FFF !important;
+}
+
+.modal-admin .page-link {
+    background-color: #8B6A4E !important;
+    border-color: #8B6A4E !important;
+    color: #FFFFFF !important;
+}
+
+    .modal-admin .page-link:hover {
+        background-color: #5C4033 !important;
+        color: #FFFFFF !important;
+    }
+
+.admin-workspace .page-item.disabled .page-link,
+.modal-admin .page-item.disabled .page-link {
+    background-color: #D6C2AF !important;
+    border-color: #D6C2AF !important;
+    color: #8B6A4E !important;
+}
+/*--唯讀--*/
+input.form-control[readonly],
+input.form-control:read-only {
+    background-color: #cfbba5 !important;
+    cursor: not-allowed;
+}
+/*--下拉選單--*/
+.admin-workspace .form-select,
+.modal-admin .form-select {
+    background-color: #FFF8F3 !important;
+    border: 1px solid #D6C2AF !important;
+    color: #2F1E17 !important;
+}
+
+    .admin-workspace .form-select:focus,
+    .modal-admin .form-select:focus {
+        border-color: #B38B6D !important;
+        box-shadow: 0 0 0 0.2rem rgba(179, 139, 109, 0.25) !important;
+    }
+
+    .modal-admin .form-select option {
+        background-color: #FFF8F3;
+        color: #2F1E17;
+    }
+
+    .admin-workspace .form-select:focus,
+    .modal-admin .form-select:focus {
+        border-color: #A67C52 !important;
+        box-shadow: 0 0 0 0.2rem rgba(166, 124, 82, 0.25) !important;
+        outline: 0 none !important;
+    }
+
+    .modal-admin .form-select option:checked,
+    .modal-admin .form-select option:hover {
+        background-color: #A67C52 !important;
+        color: #FFFFFF !important;
+    }
+/* 自定義滑動開關 */
+.form-switch {
+    --switch-scale: 0.8;
+    padding-left: 0 !important;
+}
+
+    .form-switch .form-check-input {
+        width: calc(3em * var(--switch-scale)) !important;
+        height: calc(1.5em * var(--switch-scale)) !important;
+        margin-left: 0 !important;
+        cursor: pointer;
+        appearance: none;
+        background-color: #ccc !important;
+        border-radius: 3em !important;
+        border: 1px solid #aaa !important;
+        position: relative;
+        background-image: none !important;
+    }
+
+        .form-switch .form-check-input::before {
+            content: '';
+            position: absolute;
+            width: calc(1.1em * var(--switch-scale));
+            height: calc(1.1em * var(--switch-scale));
+            border-radius: 50%;
+            background-color: white;
+            top: 50%;
+            left: calc(0.15em * var(--switch-scale));
+            transform: translateY(-50%);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .form-switch .form-check-input:checked::before {
+            transform: translate(calc(1.4em * var(--switch-scale)), -50%);
+        }
+/*---啟用/不啟用--*/
+.badge-enabled {
+    background-color: #7A8F45 !important;
+    color: #FFFFFF !important;
+}
+
+.badge-disabled {
+    background-color: #B9A895 !important;
+    color: #FFFFFF !important;
+}
+/*平台設定畫面標頭*/
+.admin-workspace .card-header {
+    background-color: #a06830 !important;
+    border-bottom: 1px solid #D6C2AF !important;
+    color: #FFF8F3 !important;
+}
+
+.admin-workspace .card-title i {
+    color: #D6C2AF !important;
+}
+
+.admin-workspace .col-form-label {
+    color: #5C4033;
+    font-weight: 500;
+}
+
+/* --- 訊息等級 Badge --- */
+.badge-urgent,
+.bdg-urgent {
+    background-color: #dc3545 !important;
+    color: #FFFFFF !important;
+}
+
+.badge-important,
+.bdg-important {
+    background-color: #fd7e14 !important;
+    color: #FFFFFF !important;
+}
+
+.badge-normal,
+.bdg-normal {
+    background-color: #0d6efd !important;
+    color: #FFFFFF !important;
+}

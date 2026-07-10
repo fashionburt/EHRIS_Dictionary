@@ -1,0 +1,58 @@
+﻿/* 樹狀選單 */
+/* 自訂莫蘭迪紫灰風格 */
+.modal-morandi .modal-content {
+    border: 0;
+    border-radius: 1rem;
+    background-color: #f5f5f7 ; /* 淺灰底 */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.modal-morandi .modal-header {
+    background-color: #d8d2dc; /* 莫蘭迪紫灰 */
+    border-bottom: none;
+}
+
+.modal-morandi .modal-title {
+    color: #3f3a44; /* 深灰字 */
+    font-weight: 600;
+}
+
+.modal-morandi .modal-body {
+    background-color: #fdfdfd;
+}
+
+.modal-morandi .form-select {
+    border-radius: 0.5rem;
+    border: 1px solid #d8d2dc;
+}
+
+.modal-morandi .modal-footer {
+    border-top: none;
+    background-color: #f5f5f7;
+}
+
+.btn-morandi-primary {
+    background-color: #6c5b7b; /* 深紫灰 */
+    color: #fff;
+    border: none;
+}
+
+    .btn-morandi-primary:hover {
+        background-color: #5a4c67;
+    }
+
+.btn-morandi-secondary {
+    background-color: #d8d2dc;
+    color: #3f3a44;
+    border: none;
+}
+
+    .btn-morandi-secondary:hover {
+        background-color: #c6bdca;
+    }
+
+/* 強制將彈跳視窗內的唯讀輸入框顯示為灰色背景 */
+.modal .form-control[readonly] {
+    background-color: #e9ecef !important;
+    opacity: 1;
+}

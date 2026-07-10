@@ -1,0 +1,84 @@
+﻿@using EHRIS.Web.Shared.Models
+@{
+    ViewData["Title"] = "人員類別管理";
+    Layout = "_LayoutSub";
+}
+
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "ptypeTable",
+                Columns = new[]
+                {
+                new TableColDef("代號",     "dt-col-min"),
+                new TableColDef("人員類別", "dt-col-mid"),
+                new TableColDef("所屬類別", "dt-col-max"),
+                new TableColDef("排序",     "dt-col-order"),
+                new TableColDef("修建者",   "dt-col-mod"),
+                new TableColDef("修建時間", "dt-col-time"),
+                new TableColDef("修改",     "dt-col-action"),
+                new TableColDef("刪除",     "dt-col-action"),
+                }
+                })
+    </div>
+</section>
+
+<div class="modal modal-morandi" id="ptypeModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <span id="modal-mode-indicator" class="ms-2"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="ptypeForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="ptyNo" />
+                    <div class="col-md-6">
+                        <label for="ptyCode" class="form-label">代號<span class="text-danger">*(長度為2位數)</span></label>
+                        <input type="text" class="form-control" id="ptyCode" required maxlength="2" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ptyOrder" class="form-label">排序<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="ptyOrder" required value="0" min="0" />
+                    </div>
+                    <div class="col-md-12">
+                        <label for="ptyName" class="form-label">人員類別<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="ptyName" required maxlength="80" />
+                    </div>
+                    <hr class="my-3" />
+                    <div class="col-12">
+                        <label class="form-label">所屬類別</label>
+                        <div id="personTypesCheckboxes" class="row px-3">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" id="btnSave">儲存</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.permissionAction = {
+        pageUrl: '@Url.Action("SYS202003", "SYS202003")',
+        getPTypeData: '@Url.Action("GetPTypeData", "SYS202003")',
+        getPTypeForEdit: '@Url.Action("GetPTypeForEdit", "SYS202003")',
+        createPType: '@Url.Action("CreatePType", "SYS202003")',
+        updatePType: '@Url.Action("UpdatePType", "SYS202003")',
+        deletePType: '@Url.Action("DeletePType", "SYS202003")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @Html.Raw(Json.Serialize(ViewBag.AddStatus ?? false)),
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")'
+    };
+</script>

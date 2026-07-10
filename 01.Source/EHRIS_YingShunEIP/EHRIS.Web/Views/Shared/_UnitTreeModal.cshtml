@@ -1,0 +1,36 @@
+﻿
+<div class="modal  modal-morandi" id="unitTreeModal" tabindex="-1" aria-labelledby="unitTreeLabel">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="unitTreeModalLabel"><i class="fas fa-sitemap me-2"></i>選擇機關</h5>
+                <div class="form-check ms-3">
+                    @*  <input class="form-check-input" type="checkbox" value="" id="includeSubDept">
+                   <label class="form-check-label" for="includeSubDept">
+                        含子目錄
+                    </label> *@
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <select id="unitSelect" multiple="multiple"
+                        class="form-select shadow-sm" size="10">
+                    @foreach (var department in Model.unitTrees)
+                    {
+                        <option value="@department.Id" data-section="@department.Parent">@department.Text</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer  justify-content-center">
+                <button type="button" class="btn btn-morandi-primary btn-sm " id="saveUnit">確定</button>
+                <button type="button" class="btn btn-morandi-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿<div class="modal modal-admin" id="setPermissionModal" tabindex="-1" aria-labelledby="setPermissionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">角色權限設定</h5>
+                <h5 class="modal-title" id="setPermissionModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="settingsModalBody">
+                @Html.AntiForgeryToken()
+                <div class="text-end mb-2">
+                    <span class="fs-8 text-primary">查詢時間:@($"{DateTime.Now.Year - 1911}/{DateTime.Now:MM/dd HH:mm:ss}")</span>
+                </div>
+                <table id="permissionTable" class="table table-bordered table-hover"
+                       data-get-all="@Url.Action("GetAllRoleList", "ADS999002")"
+                       data-get-upd="@Url.Action("UpdatePermission", "ADS999002")">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">勾選</th>
+                            <th>功能名稱</th>
+                            <th class="text-center" style="width: 80px;">新增</th>
+                            <th class="text-center" style="width: 80px;">修改</th>
+                            <th class="text-center" style="width: 80px;">刪除</th>
+                        </tr>
+                    </thead>
+                    <tbody id="permissionTableBody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnSavePermission" class="btn btn-primary btn-sm">儲存</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

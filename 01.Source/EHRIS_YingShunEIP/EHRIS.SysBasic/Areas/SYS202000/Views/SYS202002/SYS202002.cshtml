@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "功能管理";
+    Layout = "_LayoutSub";
+}
+
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+<link href="~/css/MutliSelect.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="~/lib/bootstrap-table/bootstrap-table.min.css" />
+<link rel="stylesheet" href="~/lib/jquery-treegrid/css/jquery.treegrid.min.css" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+
+                <div id="toolbar">
+                    @if (ViewBag.CanInsert)
+                    {
+                        <button id="btnAddFunction" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#functionModal">
+                            新增功能
+                        </button>
+                    }
+                </div>
+
+                <div class="custom-scroll-on-mobile">
+                    <table id="functionTable" class="table table-striped w-100"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal  modal-morandi" id="functionModal" tabindex="-1" aria-labelledby="functionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="functionModalLabel"></h5>
+                <span id="modal-mode-indicator" class="ms-2"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="functionForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <div class="col-md-6">
+                        <label for="sfuNo" class="form-label">系統編號<span class="text-danger required-asterisk">*</span></label>
+                        <input type="number" class="form-control" id="sfuNo" name="sfuNo" required min="0">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sfuName" class="form-label">系統名稱<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="sfuName" name="sfuName" required maxlength="100">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="sysNo" class="form-label">功能分類<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <select class="form-select" id="sysNo" name="sysNo" required>
+                                <option value="" disabled selected hidden>請選擇主系統</option>
+                            </select>
+                            <select class="form-select" id="sfuParent" name="sfuParent">
+                                <option value="0">無 (頂層功能)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sfuCatalog" class="form-label">系統目錄</label>
+                        <input type="text" class="form-control" id="sfuCatalog" name="sfuCatalog" maxlength="100">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sfuPath" class="form-label">預設頁面</label>
+                        <input type="text" class="form-control" id="sfuPath" name="sfuPath" maxlength="200">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sfuOrder" class="form-label">排列順序</label>
+                        <input type="number" class="form-control" id="sfuOrder" name="sfuOrder" value="0" min="0">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label d-block">功能權限</label>
+                        <div class="form-check form-check-inline pt-2">
+                            <input class="form-check-input" type="checkbox" id="sfuIns" name="sfuIns" value="1">
+                            <label class="form-check-label" for="sfuIns">新增</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sfuEdi" name="sfuEdi" value="1">
+                            <label class="form-check-label" for="sfuEdi">編輯</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sfuDel" name="sfuDel" value="1">
+                            <label class="form-check-label" for="sfuDel">刪除</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label d-block">系統狀態</label>
+                        <div class="form-check form-check-inline pt-2">
+                            <input class="form-check-input" type="radio" name="sfuStatus" id="statusOn" value="1" checked>
+                            <label class="form-check-label" for="statusOn">上架</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sfuStatus" id="statusOff" value="0">
+                            <label class="form-check-label" for="statusOff">下架</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" id="btnSaveFunction">儲存</button>
+                <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="~/lib/jquery-treegrid/js/jquery.treegrid.min.js"></script>
+<script src="~/lib/bootstrap-table/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+
+<script>
+    window.permissionAction = {
+        pageUrl: '@Url.Action("SYS202002", "SYS202002")',
+        getDataForTree: '@Url.Action("GetDataForTree", "SYS202002")',
+        getSystems: '@Url.Action("GetSystems", "SYS202002")',
+        getFunctionsBySystem: '@Url.Action("GetFunctionsBySystem", "SYS202002")',
+        getFunctionDetails: '@Url.Action("GetFunctionDetails", "SYS202002")',
+        createFunction: '@Url.Action("CreateFunction", "SYS202002")',
+        updateFunction: '@Url.Action("UpdateFunction", "SYS202002")',
+        deleteFunction: '@Url.Action("DeleteFunction", "SYS202002")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @Html.Raw(Json.Serialize(ViewBag.AddStatus ?? false))
+    };
+</script>

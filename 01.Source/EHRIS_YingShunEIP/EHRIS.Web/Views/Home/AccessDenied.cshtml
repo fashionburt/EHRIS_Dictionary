@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "拒絕存取";
+}
+
+<style>
+    .access-denied-container {
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    .access-denied-title {
+        font-size: 48px;
+        font-weight: bold;
+        color: #dc3545; /* Bootstrap danger red */
+    }
+
+    .access-denied-message {
+        font-size: 20px;
+        color: #dc3545;
+        margin-top: 20px;
+    }
+
+    .access-denied-icon {
+        font-size: 80px;
+        color: #dc3545;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="access-denied-container">
+    <div class="access-denied-icon">
+        <i class="fas fa-exclamation-triangle"></i> <!-- Font Awesome icon -->
+    </div>
+        <div class="access-denied-title">拒絕存取</div>
+        <div class="access-denied-message">@ViewBag.Message
+    </div>
+</div>

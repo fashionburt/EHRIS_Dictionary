@@ -1,0 +1,96 @@
+﻿@using EHRIS.Web.Shared.Models
+@{
+    ViewData["Title"] = "職稱資料管理";
+    Layout = "_LayoutSub";
+}
+
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "professTable",
+                Columns = new[]
+                {
+                new TableColDef("代號",     "dt-col-min"),
+                new TableColDef("職稱中文", "dt-col-mid"),
+                new TableColDef("職稱英文", "dt-col-mid"),
+                new TableColDef("主管",     "dt-col-min"),
+                new TableColDef("排序",     "dt-col-order"),
+                new TableColDef("修建者",   "dt-col-mod"),
+                new TableColDef("修建時間", "dt-col-time"),
+                new TableColDef("修改",     "dt-col-action"),
+                new TableColDef("刪除",     "dt-col-action"),
+                }
+                })
+    </div>
+</section>
+
+<div class="modal modal-morandi" id="professModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <span id="modal-mode-indicator" class="ms-2"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="professForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="proNo" />
+                    <div class="col-md-6">
+                        <label for="proCode" class="form-label">代號<span class="text-danger">*(長度為4位數)</span></label>
+                        <input type="text" class="form-control" id="proCode" required maxlength="4" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="proOrder" class="form-label">排序<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="proOrder" required value="0" min="0" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="proName" class="form-label">職稱中文<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="proName" required maxlength="80" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="proEnglish" class="form-label">職稱英文</label>
+                        <input type="text" class="form-control" id="proEnglish" maxlength="80" />
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">是否為主管<span class="text-danger">*</span></label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="proIsManager" id="isManagerYes" value="1">
+                                <label class="form-check-label" for="isManagerYes">是</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="proIsManager" id="isManagerNo" value="0" checked>
+                                <label class="form-check-label" for="isManagerNo">否</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" id="btnSave">儲存</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.permissionAction = {
+        pageUrl: '@Url.Action("SYS202004", "SYS202004")',
+        getProfessData: '@Url.Action("GetProfessData", "SYS202004")',
+        getProfessForEdit: '@Url.Action("GetProfessForEdit", "SYS202004")',
+        createProfess: '@Url.Action("CreateProfess", "SYS202004")',
+        updateProfess: '@Url.Action("UpdateProfess", "SYS202004")',
+        deleteProfess: '@Url.Action("DeleteProfess", "SYS202004")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @Html.Raw(Json.Serialize(ViewBag.AddStatus ?? false)),
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")'
+    };
+</script>

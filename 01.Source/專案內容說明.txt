@@ -10,6 +10,7 @@ EHRIS.Services       服務API
 EHRIS.AdminPortal    後台管理API
 EHRIS.Attendance     差勤管理API
 EHRIS.Dictionary     資料庫字典API
+EHRIS.YingShunEIP    中央登入站API
 
 EHRIS.Web.Shared     網站控制模組
 EHRIS.Web            主網站專案

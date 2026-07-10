@@ -1,0 +1,76 @@
+@using EHRIS.Web.Shared.Models
+@model dynamic
+@{
+    ViewData["Title"] = "人事參數設定";
+    Layout = "_LayoutSub";
+}
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "itemTable",
+            Columns = new[]
+            {
+                new TableColDef("參數變數", "dt-col-mid"),
+                new TableColDef("參數說明", "dt-col-mid"),
+                new TableColDef("系統參數值", "dt-col-mid"),
+                new TableColDef("所屬單位", "dt-col-action"),
+                new TableColDef("修改", "dt-col-action")
+            }
+        })
+    </div>
+</section>
+
+<div class="modal modal-morandi" id="itemModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="itemModalLabel">修改參數</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="itemForm">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-2">
+                        <label class="form-label">參數變數</label>
+                        <input type="text" class="form-control" id="arg_variable" name="arg_variable" readonly>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">參數說明<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="arg_describe" name="arg_describe" maxlength="50">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" id="btnSaveItem">儲存</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("SYS202100EDT")
+
+<script>
+    window.permissionAction = {
+        pageUrl: '@Url.Action("SYS202100", "SYS202100")',
+        GetList: '@Url.Action("GetList", "SYS202100")',
+        GetByVariable: '@Url.Action("GetByVariable", "SYS202100")',
+        Update: '@Url.Action("Update", "SYS202100")',
+        GetDeptList: '@Url.Action("GetDeptList", "SYS202100")',
+        UpdateDept: '@Url.Action("UpdateDept", "SYS202100")',
+        DeleteDept: '@Url.Action("DeleteDept", "SYS202100")',
+        GetSchedList: '@Url.Action("GetSchedList", "SYS202100")',
+        UpdateAllDept: '@Url.Action("UpdateAllDept", "SYS202100")',
+        UpdateSched: '@Url.Action("UpdateSched", "SYS202100")',
+        DeleteSched: '@Url.Action("DeleteSched", "SYS202100")',
+        GetDepOptions: '@Url.Action("GetDepartmentOptions", "SYS202100")',
+        SetLang: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val()
+    };
+</script>

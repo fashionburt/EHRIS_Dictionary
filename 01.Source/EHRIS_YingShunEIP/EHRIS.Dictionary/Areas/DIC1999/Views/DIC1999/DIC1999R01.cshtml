@@ -1,0 +1,147 @@
+﻿@using EHRIS.Web.Shared.Models
+@model dynamic
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fa-solid fa-database me-2"></i>資料庫：<span class="text-primary">@ViewBag.DbKey</span>
+                    </h4>
+                    <div class="d-flex gap-2">
+                        @if (ViewBag.InsertStatus == true)
+                        {
+                            <button type="button" class="btn btn-morandi-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createTableModal">
+                                新增資料表
+                            </button>
+                        }
+                        @if (User.Identity?.Name != "Test2025")
+                        {
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="loadMvc('/DIC1999/DIC1999')">
+                                <i class="fa-solid fa-arrow-left me-1"></i>返回資料庫列表
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "tableTables",
+            Columns = new[]
+            {
+                new TableColDef("資料表名稱", "dt-col-max"),
+                new TableColDef("描述",       "dt-col-max"),
+                new TableColDef("更名",       "dt-col-min"),
+                new TableColDef("紀錄",       "dt-col-min"),
+                new TableColDef("刪除",       "dt-col-min"),
+            }
+        })
+
+        @if (ViewBag.UpdateStatus == true)
+        {
+            <div class="mt-2 text-end">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnSaveTableBatchDesc">
+                    <i class="fas fa-save me-1"></i>儲存描述變更
+                </button>
+            </div>
+        }
+    </div>
+</section>
+
+<div class="modal fade modal-morandi" id="renameModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">重新命名資料表</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="renameSheetId" />
+                <input type="hidden" id="renameOldName" />
+                <div class="mb-3">
+                    <label class="form-label fw-bold">新名稱</label>
+                    <input type="text" id="renameNewName" class="form-control form-control-sm" placeholder="請輸入新表名" autocomplete="off" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnConfirmRename">確認更名</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-morandi" id="createTableModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">新增資料表 (@ViewBag.DbKey)</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                <div class="mb-2">
+                    <label class="form-label fw-bold">資料表名稱</label>
+                    <input type="text" id="newTableName" class="form-control form-control-sm" placeholder="例如：Users" />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label fw-bold">描述</label>
+                    <input type="text" id="newTableDesc" class="form-control form-control-sm" placeholder="資料表中文說明" />
+                </div>
+                <hr />
+                <h6 class="text-primary mb-2">主鍵設定</h6>
+                <div class="row">
+                    <div class="col-6 mb-2">
+                        <label class="form-label fw-bold">主鍵名稱</label>
+                        <input type="text" id="newPkName" class="form-control form-control-sm" value="Id" />
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label fw-bold">型別</label>
+                        <select id="newPkType" class="form-select form-select-sm">
+                            <option value="int">int</option>
+                            <option value="uniqueidentifier">uniqueidentifier</option>
+                        </select>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label fw-bold">自動遞增</label>
+                        <select id="newPkIdentity" class="form-select form-select-sm">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label class="form-label fw-bold">主鍵描述</label>
+                        <input type="text" id="newPkDesc" class="form-control form-control-sm" value="唯一識別碼" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnConfirmCreate">確認建立</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.permissionAction = {
+        getData: '@Url.Action("GetData", "DIC1999R01")',
+        updateDesc: '@Url.Action("UpdateDescriptions", "DIC1999R01")',
+        deleteTable: '@Url.Action("DeleteTable", "DIC1999R01")',
+        renameTable: '@Url.Action("RenameTable", "DIC1999R01")',
+        createTable: '@Url.Action("CreateTable", "DIC1999R01")',
+        logUrl: '/DIC1997/DIC1997',
+        columnList: '/DIC1999R02/DIC1999R02',
+        dbKey: '@ViewBag.DbKey',
+        sid: '@ViewBag.Sid',
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        canUpdate: @Html.Raw(Json.Serialize(ViewBag.UpdateStatus ?? false)),
+        canDelete: @Html.Raw(Json.Serialize(ViewBag.DeleteStatus ?? false))
+    };
+</script>

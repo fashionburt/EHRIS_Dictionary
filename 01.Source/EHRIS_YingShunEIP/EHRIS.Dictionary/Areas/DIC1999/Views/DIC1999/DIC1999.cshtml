@@ -1,0 +1,117 @@
+﻿@using EHRIS.Web.Shared.Models
+@model dynamic
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <label for="filterServer" class="form-label fw-bold"><i class="fa-solid fa-server me-2"></i>選擇伺服器實體</label>
+                        <select id="filterServer" class="form-select border-primary">
+                            <option value="192.168.11.111">192.168.11.111 </option>
+                            <option value="192.168.11.112">192.168.11.112 </option>
+                        </select>
+                    </div>
+                    <div class="col-md-8 text-end pt-4">
+                        @if (ViewBag.InsertStatus == true)
+                        {
+                            <button id="btnCreate" class="btn btn-success btn-sm">
+                                新增此伺服器資料庫描述
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "dbTable",
+            Columns = new[]
+                    {
+                new TableColDef("資料庫名稱", "dt-col-mid"),
+                new TableColDef("描述",       "dt-col-max"),
+                new TableColDef("刪除[描述]", "dt-col-action"),
+                new TableColDef("Excel",      "dt-col-action"),
+                new TableColDef("Json",       "dt-col-action"),
+                new TableColDef("操作紀錄",   "dt-col-action"),
+            }
+        })
+
+        @if (ViewBag.UpdateStatus == true)
+        {
+            <div class="mt-2 text-end">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnSaveDesc">
+                    <i class="fas fa-save me-1"></i>儲存描述變更
+                </button>
+            </div>
+        }
+    </div>
+</section>
+
+<div class="modal fade modal-morandi" id="dbModal" tabindex="-1" aria-labelledby="dbModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dbModalLabel">新增資料庫描述</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="dbForm" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="modalServerIp" name="serverIp" />
+                    <div class="col-12">
+                        <label for="dbSelect" class="form-label fw-bold">選擇資料庫系統實體<span class="text-danger">*</span></label>
+                        <select id="dbSelect" class="form-select">
+                            <option value="">請選擇...</option>
+                            @if (ViewBag.AllDatabases != null)
+                            {
+                                foreach (var db in (List<string>)ViewBag.AllDatabases)
+                                {
+                                    <option value="@db">@db</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="menuName" class="form-label fw-bold">資料庫顯示名稱</label>
+                        <input type="text" class="form-control" id="menuName" name="menuName" readonly autocomplete="off" />
+                        <span class="text-danger field-validation" data-valmsg-for="menuName"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="menuDesc" class="form-label fw-bold">描述內容</label>
+                        <textarea class="form-control" id="menuDesc" name="menuDesc" rows="3" placeholder="請輸入對該資料庫的詳細描述"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnSaveDb">儲存</button>
+                <button type="button" class="btn btn-morandi-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.permissionAction = {
+        getData: '@Url.Action("GetData", "DIC1999")',
+        toggle: '@Url.Action("ToggleStatus", "DIC1999")',
+        delete: '@Url.Action("Delete", "DIC1999")',
+        updateDesc: '@Url.Action("UpdateDescriptions", "DIC1999")',
+        addDesc: '@Url.Action("AddDescription", "DIC1999")',
+        exportExcel: '@Url.Action("ExportExcel", "DIC1999")',
+        exportJson: '@Url.Action("ExportJson", "DIC1999")',
+        getAvailableDatabases: '@Url.Action("GetAvailableDatabases", "DIC1999")',
+        logUrl: '/DIC1997/DIC1997',
+        tableList: '/DIC1999R01/DIC1999R01',
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @Html.Raw(Json.Serialize(ViewBag.InsertStatus ?? false))
+    };
+</script>

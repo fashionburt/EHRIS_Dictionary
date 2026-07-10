@@ -1,0 +1,54 @@
+﻿@model List<MenuSysViewModel>
+@using EHRIS.Core.Models.Common
+@{
+    // 解決變數定義問題：在最上方明確宣告
+    int currentSysNo = ViewBag.CurrentSysNo ?? 0;
+
+    // 從完整的 Model 中找出「目前要顯示在側邊欄」的那個模組
+    var activeModule = Model?.FirstOrDefault(m => m.sys_no == currentSysNo);
+}
+<!-- [Claude] Left Sidebar
+     sidebar-brand 背景色由 EHRISsite.css .sidebar-brand 控制（深藍 #1a2d56）
+     sidebar-wrapper 背景色由 EHRISsite.css .sidebar-wrapper 控制（白色 #ffffff）
+     data-bs-theme="light" 保留，確保 AdminLTE 子選單箭頭使用淺色主題 -->
+@* [Claude] 保留 bg-body-secondary 讓 AdminLTE JS 選擇器正常運作（迴紋針切換依賴此 class）
+   實際背景色由 EHRISsite.css 的 .app-sidebar、.sidebar-wrapper 以 !important 覆蓋為白色 *@
+<aside id="sidebar-container" class="app-sidebar bg-body-secondary shadow" data-bs-theme="light">
+    <div class="sidebar-brand">
+        <a href="~/Home/Index" class="brand-link text-center">
+            <img src="~/image/Login/Logo.png" alt="回首頁" class="brand-image opacity-75 shadow">
+            <span class="brand-text fw-light"><b>@AppConfig.syi_title</b></span>
+        </a>
+    </div>
+    <div class="sidebar-wrapper" data-overlayscrollbars="host">
+        <nav class="mt-2">
+            <ul class="nav  sidebar-menu flex-column " role="menu" data-lte-toggle="treeview" data-accordion="true">
+            </ul>
+        </nav>
+    </div>
+</aside>
+<ul id="sidebar-header-source" style="display:none;">
+    @foreach (var sys in Model)
+    {
+        <li class="nav-item dynamic-module">
+            <a href="javascript:void(0);"
+               data-sys-no="@sys.sys_no"
+               data-sys-path="@sys.sys_path"
+               class="nav-link module-link">
+
+                <div class="module-icon-wrapper">
+                    @if (!string.IsNullOrEmpty(sys.sys_defaltpic))
+                    {
+                        <img src="@Url.Content(sys.sys_defaltpic)" style="width:35px; height:35px;" class="mb-1">
+                    }
+                    else
+                    {
+                        <i class="@sys.sys_overpicture fs-2 mb-1"></i>
+                    }
+                </div>
+
+                <span class="module-text">@sys.sys_name</span>
+            </a>
+        </li>
+    }
+</ul>

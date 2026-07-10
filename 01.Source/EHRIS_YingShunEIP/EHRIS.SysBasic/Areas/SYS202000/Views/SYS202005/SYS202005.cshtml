@@ -1,0 +1,74 @@
+﻿@using EHRIS.Web.Shared.Models
+@model dynamic
+@{
+    ViewData["Title"] = "職等資料管理";
+    Layout = "_LayoutSub";
+}
+
+<link href="~/css/DataTableStyles.css" rel="stylesheet" />
+<link href="~/css/EHRISsite.css" rel="stylesheet" />
+<link href="~/css/Button.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "itemTable",
+                Columns = new[]
+                {
+                new TableColDef("代碼",     "dt-col-min"),
+                new TableColDef("職等",     "dt-col-mid"),
+                new TableColDef("修建者",   "dt-col-mod"),
+                new TableColDef("修建時間", "dt-col-time"),
+                new TableColDef("修改",     "dt-col-action"),
+                new TableColDef("刪除",     "dt-col-action"),
+                }
+                })
+    </div>
+</section>
+
+<div class="modal modal-morandi" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="itemModalLabel"></h5>
+                <span id="modal-mode-indicator" class="ms-2"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="itemForm">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-2">
+                        <label class="form-label">代碼<span class="text-danger">*(長度為3位數)</span></label>
+                        <input type="text" class="form-control" id="ple_code" name="ple_code" maxlength="3">
+                        <span class="text-danger field-validation" data-valmsg-for="ple_code"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">職等<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="ple_name" name="ple_name" maxlength="100">
+                        <span class="text-danger field-validation" data-valmsg-for="ple_name"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" id="btnSaveItem">儲存</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.permissionAction = {
+        pageUrl: '@Url.Action("SYS202005", "SYS202005")',
+        GetList: '@Url.Action("GetList", "SYS202005")',
+        GetByNo: '@Url.Action("GetByNo", "SYS202005")',
+        Add: '@Url.Action("Add", "SYS202005")',
+        Update: '@Url.Action("Update", "SYS202005")',
+        Delete: '@Url.Action("Delete", "SYS202005")',
+        SetLang: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @Html.Raw(Json.Serialize(ViewBag.AddStatus ?? false))
+    };
+</script>

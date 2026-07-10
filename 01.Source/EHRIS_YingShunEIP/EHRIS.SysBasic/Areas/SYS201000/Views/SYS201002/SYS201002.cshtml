@@ -1,0 +1,99 @@
+﻿@using EHRIS.Core.Models.SysBasic
+@using EHRIS.Web.Shared.Models
+@model List<RoleListViewModel>
+@{
+    ViewData["Title"] = "角色設定";
+    Layout = "_LayoutSub";
+}
+<link href="~/css/Button.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/bootstrap-table/bootstrap-table.min.css" />
+<link rel="stylesheet" href="~/lib/jquery-treegrid/css/jquery.treegrid.min.css" />
+<script src="~/lib/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="~/lib/jquery-treegrid/js/jquery.treegrid.min.js"></script>
+<script src="~/lib/bootstrap-table/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+
+<!-- 內容區 -->
+<section class="content">
+    <div class="container-fluid">
+        @await Html.PartialAsync("_TableView", new CommonTableModel
+        {
+            TableId = "roleTable",
+                Columns = new[]
+                {
+                new TableColDef("角色名稱",  "",             "15%"),
+                new TableColDef("描述",      "",             "26%"),
+                new TableColDef("是否開放",  "text-center",  "10%"),
+                new TableColDef("修建者",  "",             "10%"),
+                new TableColDef("修建時間",  "",             "15%"),
+                new TableColDef("人員明細",  "text-center",  "7%"),
+                new TableColDef("設定權限",  "text-center",  "7%"),
+                new TableColDef("修改",      "text-center",  "5%"),
+                new TableColDef("刪除",      "text-center",  "5%")
+                }
+                })
+    </div>
+</section>
+
+<!-- 新增/編輯共用 Modal Start-->
+<div class="modal modal-morandi" id="roleModal" tabindex="-1" aria-labelledby="roleModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="roleModalLabel">新增角色</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="roleForm">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-2">
+                        <label class="form-label">角色名稱<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="rol_name" name="rol_name">
+                        <span class="text-danger field-validation" data-valmsg-for="rol_name"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">角色備註</label>
+                        <textarea class="form-control" id="rol_memo" rows="3"></textarea>
+                    </div>
+                    <div class="mb-2">
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="rol_open" name="rol_open">
+                            <label class="form-check-label" for="rol_open">啟用</label>
+                        </div>
+                        <span class="text-danger field-validation" data-valmsg-for="rol_open"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" id="btnSaveRole">儲存</button>
+                <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 新增/編輯共用 Modal End-->
+<!-- 權限設定 Modal START  -->
+@await Html.PartialAsync("SYS201002P01", Model)
+<!-- 權限設定 Modal End -->
+<!-- 人員明細 Modal START  -->
+@await Html.PartialAsync("_PeopleDeptModal", Model)
+<!-- 人員明細 Modal End -->
+<!-- DataTables 啟用 -->
+
+<script>
+    window.permissionAction = {
+        pageUrl: '@Url.Action("SYS201002", "SYS201002")',
+        GetAllRoleList: '@Url.Action("GetAllRoleList", "SYS201002")',
+        UpdatePermission: '@Url.Action("UpdatePermission", "SYS201002")',
+        GetRoleByNo: '@Url.Action("GetRoleByNo", "SYS201002")',
+        DeleteRole: '@Url.Action("DeleteRole", "SYS201002")',
+        GetPermission: '@Url.Action("GetPermission", "SYS201002")',
+        GetPeople: '@Url.Action("GetPeople", "SYS201002")',
+        AddRole: '@Url.Action("AddRole", "SYS201002")',
+        UpdateRole: '@Url.Action("UpdateRole", "SYS201002")',
+        dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
+        tokenName: '__RequestVerificationToken',
+        tokenValue: $('input[name="__RequestVerificationToken"]').val(),
+        hasInsertPermission: @(ViewBag.AddStatus?.ToString().ToLower() ?? "false")
+    };
+</script>
+    

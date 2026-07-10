@@ -1,0 +1,46 @@
+@using System.Text.Json
+@model EHRIS.Web.Shared.Models.OrgSelectorDropdownModel
+
+@{
+    var cid = Model.ComponentId;
+    var fieldName = Model.FieldName;
+    var scopeStr = Model.Scope.ToString();
+    var selId = Model.PreloadedNode?.Id ?? (string.IsNullOrWhiteSpace(Model.SelectedId) ? "" : Model.SelectedId.Trim());
+    var selName = Model.PreloadedNode?.Name ?? "";
+    var hasSel = !string.IsNullOrEmpty(selName);
+}
+
+<div id="@(cid)_wrapper" class="org-dd" data-comp-id="@cid">
+    <button type="button" class="org-dd-trigger" id="@(cid)_trigger" aria-haspopup="listbox" aria-expanded="false">
+        <span class="org-dd-text @(hasSel ? "" : "is-placeholder")" id="@(cid)_text">@(hasSel ? selName : Model.Placeholder)</span>
+        <i class="org-dd-clear fas fa-times" id="@(cid)_clear" title="清除" style="@(hasSel ? "" : "display:none;")"></i>
+        <i class="org-dd-caret fas fa-chevron-down"></i>
+    </button>
+    <input type="hidden" id="@(cid)_id" name="@fieldName" value="@selId" />
+
+    <div class="org-dd-panel" id="@(cid)_panel">
+        <div class="org-dd-search">
+            <i class="fas fa-search"></i>
+            <input type="text" id="@(cid)_search" placeholder="搜尋名稱..." autocomplete="off" />
+        </div>
+        <div class="org-dd-tree-wrap">
+            <ul class="org-dd-tree" id="@(cid)_treeRoot"></ul>
+            <div class="org-dd-empty" id="@(cid)_empty" style="display:none;">查無符合的單位</div>
+            <div class="org-dd-loading" id="@(cid)_loading"><i class="fas fa-spinner fa-spin"></i> 載入中...</div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="@Url.Content("~/css/OrgSelectorDropdown.css")" />
+<script src="@Url.Content("~/js/Common/OrgSelectorDropdown.js")"></script>
+<script>
+    window.OrgSelectorDropdown.init({
+        cid: '@cid',
+        fieldName: '@fieldName',
+        scope: '@scopeStr',
+        showRoot: @(Model.ShowRoot ? "true" : "false"),
+        placeholder: @Html.Raw(JsonSerializer.Serialize(Model.Placeholder)),
+        baseUrl: '@Url.Content("~/")'.replace(/\/+$/, ''),
+        preloaded: @Html.Raw(JsonSerializer.Serialize(new { id = selId, name = selName }))
+    });
+</script>

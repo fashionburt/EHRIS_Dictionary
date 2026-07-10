@@ -1,0 +1,95 @@
+﻿@using System.Data
+@model DataTable
+@{
+    ViewData["Title"] = "資料內容";
+    Layout = "_LayoutSub";
+    var pkList = ViewBag.PrimaryKeys as List<string> ?? new List<string>();
+    var fkList = ViewBag.ForeignKeys as List<string> ?? new List<string>();
+    var colDescDict = ViewBag.ColumnDescriptions as Dictionary<string, string> ?? new Dictionary<string, string>();
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fa-solid fa-database me-1 text-muted"></i>@ViewBag.DbKey
+                        <i class="fa-solid fa-caret-right mx-2 text-muted"></i>
+                        <i class="fa-solid fa-table me-2"></i>資料內容：<span class="text-primary">@ViewBag.TableName</span>
+                    </h4>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-secondary btn-sm"
+                                onclick="loadMvc('/DIC1999R02/DIC1999R02?dbKey=@ViewBag.DbKey&tableName=@ViewBag.TableName&sid=@ViewBag.Sid')">
+                            <i class="fa-solid fa-arrow-left me-1"></i>返回欄位列表
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">關鍵字</span>
+                            <input type="text" id="dataKeyword" class="form-control" value="@ViewBag.Keyword" placeholder="全文檢索..." />
+                            <button type="button" class="btn btn-primary"
+                                    onclick="loadMvc('/DIC1999R02/DIC1999R03?dbKey=@ViewBag.DbKey&tableName=@ViewBag.TableName&sid=@ViewBag.Sid&keyword=' + encodeURIComponent($('#dataKeyword').val()))">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead class="table-light text-center">
+                            <tr>
+                                @foreach (DataColumn col in Model.Columns)
+                                {
+                                    <th>@(colDescDict.TryGetValue(col.ColumnName, out var desc) ? desc : col.ColumnName)</th>
+                                }
+                            </tr>
+                            <tr>
+                                @foreach (DataColumn col in Model.Columns)
+                                {
+                                    <th>
+                                        @col.ColumnName
+                                        @if (pkList.Contains(col.ColumnName))
+                                        {
+                                            <span class="badge bg-warning text-dark">PK</span>
+                                        }
+                                        @if (fkList.Contains(col.ColumnName))
+                                        {
+                                            <span class="badge bg-info">FK</span>
+                                        }
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Rows.Count == 0)
+                            {
+                                <tr><td colspan="@Model.Columns.Count" class="text-center">無資料</td></tr>
+                            }
+                            else
+                            {
+                                foreach (DataRow row in Model.Rows)
+                                {
+                                    <tr>
+                                        @foreach (var cell in row.ItemArray)
+                                        {
+                                            <td>@cell?.ToString()</td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

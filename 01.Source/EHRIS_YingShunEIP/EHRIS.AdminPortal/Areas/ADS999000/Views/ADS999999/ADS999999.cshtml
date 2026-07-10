@@ -1,0 +1,205 @@
+﻿@using EHRIS.Core.Models.AdminPortal
+@model ADS999999ViewModel
+@{
+    bool isAjax = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+    Layout = isAjax ? null : "_AdminLayout";
+}
+
+<link href="~/css/Button.css" rel="stylesheet" />
+<link href="~/css/AdminButton.css" rel="stylesheet" />
+
+<section class="content admin-workspace">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fa-solid fa-gears me-2"></i>平台管理</h3>
+            </div>
+            <div class="card-body">
+                <form id="systemInfoForm">
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">系統名稱</label>
+                        <div class="col-sm-10">
+                            <span class="form-control-plaintext fw-bold text-primary">@Model.SyiName</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">@Html.DisplayNameFor(m => m.SyiTitle)<span class="text-danger">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="SyiTitle" value="@Model.SyiTitle" required>
+                        </div>
+                        <label class="col-sm-2 col-form-label">@Html.DisplayNameFor(m => m.SyiSubTitle)<span class="text-danger">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="SyiSubTitle" value="@Model.SyiSubTitle" required>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">@Html.DisplayNameFor(m => m.SyiSmtpServer)<span class="text-danger">*</span></label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" name="SyiSmtpServer" value="@Model.SyiSmtpServer" required>
+                        </div>
+                        <label class="col-sm-2 col-form-label text-sm-end">Email Port</label>
+                        <div class="col-sm-2">
+                            <input type="number" class="form-control" name="SyiSmtpPort" value="@Model.SyiSmtpPort">
+                        </div>
+                        <div class="col-sm-3 d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <label class="form-check-label" for="SyiSmtpSsl">SSL驗証</label>
+                                <div class="switch-container d-flex align-items-center gap-2">
+                                    <span class="switch-label off-text">關</span>
+                                    <div class="form-check form-switch p-0 m-0">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="SyiSmtpSsl" name="SyiSmtpSsl" @(Model.SyiSmtpSsl ? "checked" : "")>
+                                    </div>
+                                    <span class="switch-label on-text">開</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">@Html.DisplayNameFor(m => m.SyiEmailAddr)<span class="text-danger">*</span></label>
+                        <div class="col-sm-3">
+                            <input type="email" class="form-control" name="SyiEmailAddr" value="@Model.SyiEmailAddr" required>
+                        </div>
+                        <label class="col-sm-2 col-form-label text-sm-end">版本</label>
+                        <div class="col-sm-2">
+                            <input type="number" class="form-control" name="SyiEmailPwdKeyVersion" value="@Model.SyiEmailPwdKeyVersion">
+                        </div>
+
+                        <div class="col-sm-3 d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <label class="form-check-label" for="SyiMultipleMode">多重模式</label>
+                                <div class="switch-container d-flex align-items-center gap-2">
+                                    <span class="switch-label off-text">關</span>
+                                    <div class="form-check form-switch p-0 m-0">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="SyiMultipleMode" name="SyiMultipleMode" @(Model.SyiMultipleMode == 1 ? "checked" : "")>
+                                    </div>
+                                    <span class="switch-label on-text">開</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">寄信密碼</label>
+                        <div class="col-sm-3">
+                            <input type="password" class="form-control" name="SyiEmailPwdPlain" placeholder="若不修改請留空" autocomplete="new-password">
+                        </div>
+                        <div class="col-sm-7 text-end">
+                            <small class="text-muted">最後修改：@Model.ModifyName (@Model.ModifyTime.ToString("yyyy/MM/dd HH:mm"))</small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-end">
+                <button type="button" class="btn btn-primary" id="btnSave">儲存修改</button>
+                <button type="button" class="btn btn-secondary" id="btnCancel">取消</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content admin-workspace">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fa-solid fa-cloud-arrow-up me-1"></i>平台背景圖片</h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">圖片上傳處</label>
+                    <div class="col-sm-8">
+                        <input type="file" class="form-control" id="BackgroundImage" accept=".png">
+                        <small class="text-muted">限制 20MB，僅支援 PNG 格式。</small>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary" id="btnUploadBg">上傳 </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--權限管理-->
+<section class="content admin-workspace">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fa-solid fa-shield-halved me-1"></i>權限管理</h3>
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <label class="col-sm-2 col-form-label">權限管理操作</label>
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-outline-primary" id="btnManageLevels">
+                            <i class="fa-solid fa-list-check me-1"></i> 開啟權限管理視窗
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade modal-admin" id="levelManagerModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">權限管理</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="levelManagerContent">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnFinalSaveLevels">儲存</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-admin" id="levelEditModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-primary">
+            <div class="modal-header">
+                <h6 class="modal-title" id="editModalLabel">編輯權限管理</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="tempIndex" value="-1">
+                <div class="mb-3">
+                    <label class="form-label">權限名稱</label>
+                    <input type="text" class="form-control" id="inpName">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">權限值</label>
+                    <input type="number" class="form-control" id="inpRank">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">狀態</label>
+                    <select class="form-select" id="inpStatus">
+                        <option value="1">啟用</option>
+                        <option value="0">關閉</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnConfirmRow">儲存</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.ads999999Config = {
+        updateUrl: '@Url.Action("UpdateSystemInfo", "ADS999999")',
+        refreshUrl: '@Url.Action("ADS999999", "ADS999999")',
+        uploadBgUrl: '@Url.Action("UploadBackgroundImage", "ADS999999")'
+    };
+</script>
