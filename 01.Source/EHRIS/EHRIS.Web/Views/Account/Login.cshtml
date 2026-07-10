@@ -1016,7 +1016,7 @@
                                 @Html.AntiForgeryToken()
                                 <!-- 登入類型（隨 Tab 切換更新） -->
                                 <input type="hidden" id="loginType" name="LoginType" value="normal" />
-
+                                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
                                 @if (!ViewData.ModelState.IsValid)
                                 {
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -1029,13 +1029,6 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 }
-
-                                <!-- ③ 多元登入 Tabs -->
-                                <div class="login-tabs">
-                                    <div class="login-tab active" data-tab="normal" data-type="normal" onclick="switchTab(this)">一般登入</div>
-                                    <div class="login-tab" data-tab="cert" data-type="cert" onclick="switchTab(this)">自然人憑證登入</div>
-                                    <div class="login-tab" data-tab="ad" data-type="ad" onclick="switchTab(this)">AD驗證登入</div>
-                                </div>
 
                                 <!-- Tab 面板：一般登入（帳號 + 密碼 + 驗證碼） -->
                                 <div class="tab-panel" id="panel-normal">

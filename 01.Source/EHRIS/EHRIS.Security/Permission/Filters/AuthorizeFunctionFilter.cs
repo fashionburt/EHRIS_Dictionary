@@ -1,5 +1,6 @@
 ﻿using EHRIS.Security.Permission.Attributes;
 using EHRIS.Security.Permission.Contracts;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -37,6 +38,13 @@ namespace EHRIS.Security.Permission.Filters
                 return;
             }
 
+            if (context.HttpContext.User?.Identity?.IsAuthenticated != true)
+            {
+                await context.HttpContext.ChallengeAsync();
+                context.Result = new EmptyResult();
+                return;
+            }
+
             controller.SetFunctionContext(attr.SfuNO, attr.Action);
 
             if (!controller.HasPermission(attr.Action))
@@ -48,6 +56,4 @@ namespace EHRIS.Security.Permission.Filters
             await next();
         }
     }
-
-
 }

@@ -9,9 +9,10 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@AppConfig.syi_title</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>穎順|資料庫字典系統</title>
+    <link rel="icon" type="image/png" href="~/image/Login/Logo2.png">
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="~/lib/admin-lte/css/adminlte.css">
         <!-- Select2 CSS -->
@@ -543,22 +544,31 @@
                                     @await Component.InvokeAsync("Menu")
                             </ul>
                                 <!-- Header -->
-                                <nav class="app-header navbar navbar-expand bg-body" id="navigation">
-                                    <div class="container-fluid d-flex align-items-center p-0">
-                                        <!-- 手機版：九宮格按鈕 -->
+                            <nav class="app-header navbar navbar-expand bg-body" id="navigation">
+                                <div class="container-fluid d-flex align-items-center p-0">
+                                    <!-- 手機版：九宮格按鈕 -->
+                                    @if (User.Identity?.Name != "Test2025")
+                                    {
                                         <div class="d-md-none flex-shrink-0 text-center" style="width: 75px;">
                                             <a href="javascript:void(0);" id="btn-mobile-launcher" class="nav-link">
                                                 <i class="bi bi-grid-3x3-gap-fill fs-1"></i>
                                             </a>
                                         </div>
-                                        <!--手機版：中央系統名稱 (僅在手機版顯示) -->
-                                        <div class="d-md-none flex-grow-1 text-center overflow-hidden">
-                                            <span class="fw-bold text-truncate" style="font-size: 1.15rem; color: #ffffff; letter-spacing: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.3);">
-                                                @AppConfig.syi_title
-                                            </span>
-                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="d-md-none flex-shrink-0" style="width: 75px;"></div>
+                                    }
+                                    <!--手機版：中央系統名稱 (僅在手機版顯示) -->
+                                    <div class="d-md-none flex-grow-1 text-center overflow-hidden">
+                                        <span class="fw-bold text-truncate" style="font-size: 1.15rem; color: #ffffff; letter-spacing: 1px; text-shadow: 0 1px 4px rgba(0,0,0,0.3);">
+                                            @AppConfig.syi_title
+                                        </span>
+                                    </div>
 
-                                        <!-- 電腦版：橫向選單 -->
+                                    <!-- 電腦版：橫向選單 -->
+                                    @if (User.Identity?.Name != "Test2025")
+                                    {
                                         <div class="header-nav-wrapper d-none d-md-flex flex-grow-1">
                                             <a href="/Home/Index" class="header-home-btn flex-shrink-0" title="回首頁">
                                                 <img src="~/image/Login/Logo.png" alt="回首頁">
@@ -571,34 +581,42 @@
                                                 <i class="bi bi-chevron-right"></i>
                                             </button>
                                         </div>
-                                        <!-- 右側垂直資訊列 -->
-                                        <ul class="navbar-nav ms-auto flex-shrink-0 flex-column align-items-end justify-content-center px-2" style="height: 75px;">
-                                            <!-- [Claude] 第一列：主題選擇器 -->
-                                            <li class="nav-item vertical-nav-row1">
-                                                <div class="dropdown">
-                                                    <a href="#" class="nav-link p-0 d-flex align-items-center theme-picker-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="佈景主題">
-                                                        <span id="theme-current-dot" style="width:11px;height:11px;border-radius:50%;background:#2a5298;border:2px solid rgba(255,255,255,0.65);display:inline-block;flex-shrink:0;margin-right:3px;"></span>
-                                                        <i class="bi bi-palette2 small"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end theme-menu">
-                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="blue"   data-color="#2a5298"><span class="theme-menu-dot" style="background:#2a5298"></span>深海藍</a></li>
-                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="green"  data-color="#1e6e4a"><span class="theme-menu-dot" style="background:#1e6e4a"></span>墨綠</a></li>
-                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="purple" data-color="#5a3a8a"><span class="theme-menu-dot" style="background:#5a3a8a"></span>深紫</a></li>
-                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="teal"   data-color="#1a6872"><span class="theme-menu-dot" style="background:#1a6872"></span>深青</a></li>
-                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="wine"   data-color="#8a2040"><span class="theme-menu-dot" style="background:#8a2040"></span>酒紅</a></li>
-                                                        <li><a class="dropdown-item theme-option" href="#" data-theme="slate"  data-color="#374c60"><span class="theme-menu-dot" style="background:#374c60"></span>鐵灰</a></li>
-                                                    </ul>
-                                                </div>
-                                            </li>
+                                    }
+                                    else
+                                    {
+                                        <div class="flex-grow-1"></div>
+                                    }
+
+                                    <!-- 右側垂直資訊列 -->
+                                    <ul class="navbar-nav ms-auto flex-shrink-0 flex-column align-items-end justify-content-center px-2" style="height: 75px;">
+                                        <!-- [Claude] 第一列：主題選擇器 -->
+                                        <li class="nav-item vertical-nav-row1">
+                                            <div class="dropdown">
+                                                <a href="#" class="nav-link p-0 d-flex align-items-center theme-picker-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="佈景主題">
+                                                    <span id="theme-current-dot" style="width:11px;height:11px;border-radius:50%;background:#2a5298;border:2px solid rgba(255,255,255,0.65);display:inline-block;flex-shrink:0;margin-right:3px;"></span>
+                                                    <i class="bi bi-palette2 small"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end theme-menu">
+                                                    <li><a class="dropdown-item theme-option" href="#" data-theme="blue"   data-color="#2a5298"><span class="theme-menu-dot" style="background:#2a5298"></span>深海藍</a></li>
+                                                    <li><a class="dropdown-item theme-option" href="#" data-theme="green"  data-color="#1e6e4a"><span class="theme-menu-dot" style="background:#1e6e4a"></span>墨綠</a></li>
+                                                    <li><a class="dropdown-item theme-option" href="#" data-theme="purple" data-color="#5a3a8a"><span class="theme-menu-dot" style="background:#5a3a8a"></span>深紫</a></li>
+                                                    <li><a class="dropdown-item theme-option" href="#" data-theme="teal"   data-color="#1a6872"><span class="theme-menu-dot" style="background:#1a6872"></span>深青</a></li>
+                                                    <li><a class="dropdown-item theme-option" href="#" data-theme="wine"   data-color="#8a2040"><span class="theme-menu-dot" style="background:#8a2040"></span>酒紅</a></li>
+                                                    <li><a class="dropdown-item theme-option" href="#" data-theme="slate"  data-color="#374c60"><span class="theme-menu-dot" style="background:#374c60"></span>鐵灰</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        @if (User.Identity?.Name != "Test2025")
+                                        {
                                             <li class="nav-item vertical-nav-item">
-                                                <div class="timer-wrapper">
-                                                    <i class="bi bi-clock tiny-icon"></i>
-                                                    <span id="idle-timer-count">--:--</span>
-                                                </div>
+                                                <a href="@Url.Action("Logout", "Account")" class="nav-link p-0 d-flex align-items-center" title="登出">
+                                                    <i class="bi bi-box-arrow-right"></i>
+                                                </a>
                                             </li>
-                                        </ul>
+                                        }
+                                    </ul>                                
                                     </div>
-                                </nav>
+                                    </nav>
 
                                 <!-- 手機版方塊選單容器 -->
                                 <div id="mobile-launcher-overlay" class="launcher-overlay d-none">
@@ -702,7 +720,6 @@
                                 })();
                             </script>
                             <!-- 倒數 js -->
-                            <script src="~/js/IdleTimer.js"></script>
                             @await Html.PartialAsync("_SwalMessages")
                             @RenderSection("Scripts", required: false)
 

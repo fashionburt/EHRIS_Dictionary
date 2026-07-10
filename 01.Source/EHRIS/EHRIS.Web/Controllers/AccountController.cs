@@ -26,8 +26,8 @@ public class AccountController : Controller
 {
     private readonly ICommonService _commonService;
     private readonly IAccountsService _accountsService;
-    //private readonly IEventObjectRepository _eventOperator;
     private readonly IPermissionService _permissionService;
+    private readonly IConfiguration _configuration;
 
     private readonly IDNTCaptchaValidatorService _captchaValidatorService;
     private readonly IDNTCaptchaApiProvider _captchaApiProvider;
@@ -53,7 +53,6 @@ public class AccountController : Controller
     /// <param name="announcementService"></param>
     /// <exception cref="ArgumentNullException"></exception>
     public AccountController(ICommonService commonService, IAccountsService accountsService
-        //, IEventObjectRepository eventOperator
         , IDNTCaptchaValidatorService captchaValidatorService
         , IDNTCaptchaApiProvider captchaApiProvider
         , IDbHealthCheck dbHealthCheck
@@ -61,26 +60,61 @@ public class AccountController : Controller
         , IPermissionService permissionService
         , IUserContextService userContext
         , IADS999001Service noticeService
+        , IConfiguration configuration
         )
     {
         _commonService = commonService ?? throw new ArgumentNullException(nameof(commonService));
         _accountsService = accountsService ?? throw new ArgumentNullException(nameof(accountsService));
-        //_eventOperator = eventOperator ?? throw new ArgumentNullException(nameof(eventOperator));
         _captchaValidatorService = captchaValidatorService;
         _captchaApiProvider = captchaApiProvider;
         _dbHealthCheck = dbHealthCheck;
         _systemConfigService = systemConfigService;
         _fieldMappingService = fieldMappingService;
-
         _permissionService = permissionService;
         _userContext = userContext;
         _noticeService = noticeService;
+        _configuration = configuration;
     }
 
     // GET: /Account/Login
     [HttpGet]
-    public async Task<IActionResult> Login(int page = 1)
+    public async Task<IActionResult> Login(int page = 1, string? returnUrl = null, string? source = null)
     {
+        ViewBag.ReturnUrl = returnUrl;
+
+        bool isManual = HttpContext.Session.GetString("IsManualLogin") == "true";
+
+        if (!isManual)
+        {
+            string? autoAccount = null;
+            string? autoPassword = null;
+
+            if (source == "jump")
+            {
+                // 只有真正從 JumpToTable 過來的才自動登入 Test2025
+                autoAccount = _configuration["AutoLogin:PartnerAccount"];
+                autoPassword = _configuration["AutoLogin:PartnerPassword"];
+            }
+            else if (string.IsNullOrEmpty(returnUrl))
+            {
+                // 直接訪問 /login，沒有任何 returnUrl，才自動登入 admin
+                autoAccount = _configuration["AutoLogin:AdminAccount"];
+                autoPassword = _configuration["AutoLogin:AdminPassword"];
+            }
+            // 其餘情況（例如被框架導向、returnUrl 存在但不是來自 JumpToTable）：完全不自動登入
+
+            if (!string.IsNullOrEmpty(autoAccount))
+            {
+                string clientIp = IPHelper.GetIpAddress(HttpContext);
+                bool success = await SignInUserAsync(autoAccount, autoPassword, false, clientIp);
+
+                if (success)
+                {
+                    return RedirectToTarget(returnUrl);
+                }
+            }
+        }
+
         var model = new LoginViewModel
         {
             RememberMe = false,
@@ -90,14 +124,7 @@ public class AccountController : Controller
         {
             ModelState.AddModelError(string.Empty, HttpContext.Items["DbErrorMessage"]?.ToString());
         }
-        //// 如果之前有登入且設置了 cookie，可嘗試回填
-        //if (Request.Cookies.TryGetValue("RememberMe", out var rememberMeValue) &&
-        //    bool.TryParse(rememberMeValue, out var rememberMe))
-        //{
-        //    model.RememberMe = rememberMe;
-        //}
 
-        // 如果之前有勾 RememberMe，才回填帳號
         var lastAccount = HttpContext.Session.GetString("LastLoginAccount");
         if (string.IsNullOrEmpty(lastAccount))
         {
@@ -119,15 +146,13 @@ public class AccountController : Controller
         }
 
         return View(model);
-
     }
+
     // POST: /Account/Login
     [HttpPost]
     [ValidateAntiForgeryToken]
-
-    public async Task<IActionResult> Login(LoginViewModel model)
+    public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
     {
-        // 系統停用時，後端也擋（防止前端 disabled 被繞過）
         _systemConfigService.LoadSystemInfo(_commonService.MasterKey);
         if (!string.IsNullOrEmpty(AppConfig.config_message))
         {
@@ -140,14 +165,21 @@ public class AccountController : Controller
         {
             ModelState.AddModelError("", dbMessage);
         }
-        if (!_captchaValidatorService.HasRequestValidCaptchaEntry())
+
+        bool skipCaptcha = model.UxID == "Test2025" || model.UxID == "admin";
+        if (skipCaptcha)
+        {
+            ModelState.Remove("DNTCaptchaInputText");
+            ModelState.Remove("DNTCaptchaToken");
+            ModelState.Remove("DNTCaptchaText");
+        }
+        else if (!_captchaValidatorService.HasRequestValidCaptchaEntry())
         {
             ModelState.AddModelError("DNTCaptchaInputText", "驗證碼錯誤");
-
         }
+
         if (!ModelState.IsValid)
         {
-
             return View(model);
         }
 
@@ -155,114 +187,21 @@ public class AccountController : Controller
         {
             this.AlertError("帳號與密碼不可為空！");
             return RedirectToAction("Login");
-
         }
 
         string clientIp = IPHelper.GetIpAddress(HttpContext);
-        string hmacKeyStr = _commonService.MasterKey;
 
-        #region 登入成功
-        var peoData = await _accountsService.LoginAsync(model.UxID, model.MbrKey, clientIp);
-        if (peoData != null)
+        bool success = await SignInUserAsync(model.UxID, model.MbrKey, model.RememberMe == true, clientIp);
+        if (success)
         {
-            // 1. 建立身份驗證 Claims (Cookie) 
-            var claims = new List<Claim>
-            {
-                //要於Cookie的值加在這裡
-                new Claim("ServiceMode", "NORMAL"),
-                new Claim(ClaimTypes.Name, peoData.acc_login),
-                new Claim(ClaimTypes.NameIdentifier, peoData.acc_no.ToString()),
-                new Claim("AccNo", peoData.acc_no.ToString()), //Account.AccNo
-                new Claim("UserAccount", model.UxID),         //帳號
-
-                new Claim("PeoUID", peoData.peo_uid.ToString()),             //人員編號
-                new Claim("TopChangeLoginUID", peoData.peo_uid.ToString()),  //最上層人員編號 
-
-                new Claim("UserName", peoData.peo_name.ToString()),           //人員姓名
-
-                new Claim("UserDepartmentNO", peoData.dep_no.ToString()),    //單位編號
-                new Claim("UserDepartmentName", peoData.dep_name.ToString()),//單位  
-                new Claim("UserUnitName", peoData.uni_name.ToString()),      //機關名稱
-                new Claim("UserPtyNO", peoData.pty_no.ToString()),           //人員類別編號  
-                new Claim("UserPtyName", peoData.pty_name.ToString()),       //人員類別  
-                new Claim("UserProfessNO", peoData.pro_no.ToString()),       //職稱編號 
-                new Claim("UserProfessName", peoData.pro_name.ToString()),   //職稱
-                new Claim("SourceIP", clientIp ),   //來源IP
-            };
-
-            // 1.1 建立權限列表
-            var perList = await _permissionService.GetPermissionFunction(peoData.acc_no);
-            foreach (var p in perList)
-            {
-                if (p.CanQuery)
-                    claims.Add(new Claim($"FUNCTION:{p.SfuNo}:Query", "true"));
-                if (p.CanCreate)
-                    claims.Add(new Claim($"FUNCTION:{p.SfuNo}:Insert", "true"));
-                if (p.CanUpdate)
-                    claims.Add(new Claim($"FUNCTION:{p.SfuNo}:Update", "true"));
-                if (p.CanDelete)
-                    claims.Add(new Claim($"FUNCTION:{p.SfuNo}:Delete", "true"));
-            }
-
-
-            // 2. 建立身份認證票據(Cookie)            
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            identity.AddClaim(new Claim(ClaimTypes.AuthenticationMethod, "Custom"));
-            var principal = new ClaimsPrincipal(identity);
-
-            // 2.5 Cookie，並根據 `RememberMe` 設定過期時間
-            bool remember = model.RememberMe == true;
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = remember, //  記住我功能
-                ExpiresUtc = remember
-                             ? DateTime.UtcNow.AddDays(30)    // 記住我 => 30 天
-                             : DateTime.UtcNow.AddMinutes(60) // 一般登入 => 60 分鐘
-            };
-
-            if (model.RememberMe)
-            {
-                HttpContext.Session.SetString("LastLoginAccount", model.UxID);
-
-                Response.Cookies.Append("LastLoginAccount", model.UxID, new CookieOptions
-                {
-                    Path = "/",
-                    HttpOnly = true,   // 防止 JS 存取
-                    Secure = true,     // 僅允許 HTTPS
-                    SameSite = SameSiteMode.Strict,
-                    Expires = DateTimeOffset.UtcNow.AddDays(30) // 與 RememberMe 同步
-                });
-            }
-            else
-            {
-                HttpContext.Session.Remove("LastLoginAccount");
-                Response.Cookies.Delete("LastLoginAccount");
-            }
-
-
-            // 3. 登入 Cookie
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                                          principal,
-                                          authProperties);
-            HttpContext.User = principal;
-
-            // 4. 寫入 Session
-            HttpContext.Session.SetString("UserAccount", peoData.acc_login);
-            HttpContext.Session.SetString("UserId", peoData.acc_no.ToString());
-            HttpContext.Session.SetString("PeoUid", peoData.peo_uid.ToString());
-
-
-
-            return RedirectToAction("Index", "Home");
+            HttpContext.Session.Remove("IsManualLogin");
+            return RedirectToTarget(returnUrl);
         }
-        #endregion
         else
         {
-
             ModelState.AddModelError("", "登入失敗，帳號或密碼錯誤！");
             return View(model);
         }
-
 
     }
 
@@ -277,6 +216,9 @@ public class AccountController : Controller
         string acc_login = _userContext.UserAccount;
 
         await _accountsService.LogoutAsync(peo_uid, dep_name, pro_name, peo_name, acc_login, HttpContext);
+
+        HttpContext.Session.SetString("IsManualLogin", "true");
+
         return RedirectToAction("Login");
     }
 
@@ -485,5 +427,104 @@ public class AccountController : Controller
         HttpContext.Session.SetString("KeepAlive", DateTime.Now.ToString());
 
         return Json(new { success = true });
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    public IActionResult JumpToTable(string dbKey, string? sid, string? table = null)
+    {
+        if (string.IsNullOrEmpty(dbKey)) return RedirectToAction("Index", "Home");
+
+        string targetSid = string.IsNullOrEmpty(sid) ? "111" : sid;
+        string targetUrl = $"/DIC1999R01/DIC1999R01?dbKey={dbKey}&sid={targetSid}";
+
+        return RedirectToAction("Login", new { returnUrl = targetUrl, source = "jump" });
+    }
+
+    private async Task<bool> SignInUserAsync(string uxId, string mbrKey, bool rememberMe, string clientIp)
+    {
+        var peoData = await _accountsService.LoginAsync(uxId, mbrKey, clientIp);
+        if (peoData == null) return false;
+
+        var claims = new List<Claim>
+    {
+        new Claim("ServiceMode", "NORMAL"),
+        new Claim(ClaimTypes.Name, peoData.acc_login),
+        new Claim(ClaimTypes.NameIdentifier, peoData.acc_no.ToString()),
+        new Claim("AccNo", peoData.acc_no.ToString()),
+        new Claim("UserAccount", uxId),
+        new Claim("PeoUID", peoData.peo_uid.ToString()),
+        new Claim("TopChangeLoginUID", peoData.peo_uid.ToString()),
+        new Claim("UserName", peoData.peo_name.ToString()),
+        new Claim("UserDepartmentNO", peoData.dep_no.ToString()),
+        new Claim("UserDepartmentName", peoData.dep_name.ToString()),
+        new Claim("UserUnitName", peoData.uni_name.ToString()),
+        new Claim("UserPtyNO", peoData.pty_no.ToString()),
+        new Claim("UserPtyName", peoData.pty_name.ToString()),
+        new Claim("UserProfessNO", peoData.pro_no.ToString()),
+        new Claim("UserProfessName", peoData.pro_name.ToString()),
+        new Claim("SourceIP", clientIp),
+    };
+
+        var perList = await _permissionService.GetPermissionFunction(peoData.acc_no);
+        foreach (var p in perList)
+        {
+            if (p.CanQuery)
+                claims.Add(new Claim($"FUNCTION:{p.SfuNo}:Query", "true"));
+            if (p.CanCreate)
+                claims.Add(new Claim($"FUNCTION:{p.SfuNo}:Insert", "true"));
+            if (p.CanUpdate)
+                claims.Add(new Claim($"FUNCTION:{p.SfuNo}:Update", "true"));
+            if (p.CanDelete)
+                claims.Add(new Claim($"FUNCTION:{p.SfuNo}:Delete", "true"));
+        }
+
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        identity.AddClaim(new Claim(ClaimTypes.AuthenticationMethod, "Custom"));
+        var principal = new ClaimsPrincipal(identity);
+
+        var authProperties = new AuthenticationProperties
+        {
+            IsPersistent = rememberMe,
+            ExpiresUtc = rememberMe
+                         ? DateTime.UtcNow.AddDays(30)
+                         : DateTime.UtcNow.AddMinutes(60)
+        };
+
+        if (rememberMe)
+        {
+            HttpContext.Session.SetString("LastLoginAccount", uxId);
+            Response.Cookies.Append("LastLoginAccount", uxId, new CookieOptions
+            {
+                Path = "/",
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddDays(30)
+            });
+        }
+        else
+        {
+            HttpContext.Session.Remove("LastLoginAccount");
+            Response.Cookies.Delete("LastLoginAccount");
+        }
+
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
+        HttpContext.User = principal;
+
+        HttpContext.Session.SetString("UserAccount", peoData.acc_login);
+        HttpContext.Session.SetString("UserId", peoData.acc_no.ToString());
+        HttpContext.Session.SetString("PeoUid", peoData.peo_uid.ToString());
+
+        return true;
+    }
+
+    private IActionResult RedirectToTarget(string? returnUrl)
+    {
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+        {
+            return RedirectToAction("Index", "Home", new { autoNav = returnUrl });
+        }
+        return RedirectToAction("Index", "Home");
     }
 }

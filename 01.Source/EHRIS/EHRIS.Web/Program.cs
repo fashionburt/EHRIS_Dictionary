@@ -267,21 +267,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.Events.OnRedirectToLogin = context =>
         {
             var pathBase = context.Request.PathBase.HasValue ? context.Request.PathBase.Value : "";
-            context.Response.Redirect(pathBase + options.LoginPath);
+            var redirectUri = context.RedirectUri;
+
+            if (!string.IsNullOrEmpty(pathBase) && !redirectUri.StartsWith(pathBase))
+            {
+                redirectUri = pathBase + redirectUri;
+            }
+
+            context.Response.Redirect(redirectUri);
             return Task.CompletedTask;
         };
-        options.Events.OnRedirectToLogout = context =>
-        {
-            var pathBase = context.Request.PathBase.HasValue ? context.Request.PathBase.Value : "";
-            context.Response.Redirect(pathBase + options.LogoutPath);
-            return Task.CompletedTask;
-        };
-        options.Events.OnRedirectToAccessDenied = context =>
-        {
-            var pathBase = context.Request.PathBase.HasValue ? context.Request.PathBase.Value : "";
-            context.Response.Redirect(pathBase + options.AccessDeniedPath);
-            return Task.CompletedTask;
-        };
+
 
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60); //  設定 Cookie 失效時間
         options.SlidingExpiration = true; // 讓登入時間根據使用者行為動態延長

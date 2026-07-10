@@ -1240,3 +1240,16 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const autoNav = urlParams.get('autoNav');
+            if (autoNav && typeof loadMvc === 'function') {
+                loadMvc(decodeURIComponent(autoNav));
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+}
