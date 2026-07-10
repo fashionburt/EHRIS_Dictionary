@@ -431,6 +431,7 @@ public class AccountController : Controller
 
     [AllowAnonymous]
     [HttpGet]
+    [HttpPost]
     public IActionResult JumpToTable(string dbKey, string? sid, string? table = null)
     {
         if (string.IsNullOrEmpty(dbKey)) return RedirectToAction("Index", "Home");
