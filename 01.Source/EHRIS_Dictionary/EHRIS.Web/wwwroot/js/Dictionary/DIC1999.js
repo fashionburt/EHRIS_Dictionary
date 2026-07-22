@@ -47,27 +47,28 @@
                     render: function (data, type, row) {
                         const safeData = self.htmlEncode(data);
                         return `<input type="text" class="form-control form-control-sm desc-input" 
-                               data-id="${row.menuId}" 
-                               data-original="${safeData}" 
-                               value="${safeData}" />`;
+                   data-id="${row.menuId}" 
+                   data-original="${safeData}" 
+                   value="${safeData}" />`;
                     }
                 },
-                { data: 'deleteAction', className: 'text-center' },
-                { data: 'excelAction', className: 'text-center' },
-                { data: 'jsonAction', className: 'text-center' },
+                { data: 'deleteAction', className: 'text-center', orderable:false },
+                { data: 'excelAction', className: 'text-center', orderable: false },
+                { data: 'wordAction', className: 'text-center', orderable: false },
+                { data: 'jsonAction', className: 'text-center', orderable: false },
                 {
                     data: 'menuName',
                     className: 'text-center',
+                    orderable: false,
                     render: function (data, type, row) {
                         return `<button type="button" class="btn btn-outline-info btn-sm" 
-                                        onclick="window.DIC1999.showLogs('${encodeURIComponent(data)}')">
-                                    <i class="fa-solid fa-clock-rotate-left"></i>
-                                </button>`;
+                            onclick="window.DIC1999.showLogs('${encodeURIComponent(data)}')">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </button>`;
                     }
                 }
             ],
             onInitComplete: function (api) {
-                // no additional buttons injected here; btnCreate already exists in cshtml
             }
         });
 
@@ -98,6 +99,12 @@
 
         $('#btnSaveDb').off('click').on('click', function () {
             self.saveNewDatabase();
+        });
+
+        $('#dbTable').off('click', '.exportWord').on('click', '.exportWord', function () {
+            const id = $(this).data('id');
+            const ip = $('#filterServer').val();
+            window.location.href = `${self.urls.exportWord}?menuId=${id}&serverIp=${encodeURIComponent(ip)}`;
         });
 
         $('#dbTable').off('click', '.exportExcel').on('click', '.exportExcel', function () {

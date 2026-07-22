@@ -103,6 +103,15 @@ public class DIC1999Controller : BaseController
         return File(content, "application/json", fileName);
     }
 
+    [HttpGet]
+    [AuthorizeFunction(SFUNO, FunctionAction.Query)]
+    public async Task<IActionResult> ExportWord(int menuId, string serverIp)
+    {
+        var (content, fileName) = await _service.ExportWordAsync(menuId, serverIp);
+        if (content.Length == 0) return RedirectToAction(nameof(DIC1999));
+        return File(content, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
+    }
+
     [HttpPost]
     [AuthorizeFunction(SFUNO, FunctionAction.Query)]
     public async Task<IActionResult> GetData([FromBody] DataTableRequest request)
@@ -123,6 +132,7 @@ public class DIC1999Controller : BaseController
             menuDesc = WebUtility.HtmlEncode(a.MenuDesc),
             deleteAction = GetDelButtons(a.MenuId, a.MenuName, serverIp),
             excelAction = $"<button type='button' class='icon-btn text-success exportExcel' data-id='{a.MenuId}' data-ip='{serverIp}' title='匯出Excel'><i class='fa-solid fa-file-excel'></i></button>",
+            wordAction = $"<button type='button' class='icon-btn text-primary exportWord' data-id='{a.MenuId}' data-ip='{serverIp}' title='匯出Word'><i class='fa-solid fa-file-word'></i></button>",
             jsonAction = $"<button type='button' class='icon-btn text-dark exportJson' data-id='{a.MenuId}' data-ip='{serverIp}' title='匯出Json'><i class='fa-solid fa-code'></i></button>",
             logAction = $"<button type='button' class='icon-btn text-info showLogs' data-name='{WebUtility.HtmlEncode(a.MenuName)}' data-ip='{serverIp}' title='操作紀錄'><i class='fa-solid fa-clock-rotate-left'></i></button>"
         });

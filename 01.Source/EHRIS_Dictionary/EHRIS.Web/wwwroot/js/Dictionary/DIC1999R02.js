@@ -73,7 +73,8 @@
                 },
                 {
                     data: 'deleteAction',
-                    className: 'text-center'
+                    className: 'text-center',
+                    orderable: false
                 }
             ]
         });

@@ -31,13 +31,14 @@
         {
             TableId = "dbTable",
             Columns = new[]
-                    {
-                new TableColDef("資料庫名稱", "dt-col-mid"),
-                new TableColDef("描述",       "dt-col-max"),
-                new TableColDef("刪除[描述]", "dt-col-action"),
-                new TableColDef("Excel",      "dt-col-action"),
-                new TableColDef("Json",       "dt-col-action"),
-                new TableColDef("操作紀錄",   "dt-col-action"),
+            {
+        new TableColDef("資料庫名稱", "dt-col-mid"),
+        new TableColDef("描述",       "dt-col-max"),
+        new TableColDef("刪除[描述]", "dt-col-min"),
+        new TableColDef("Excel",      "dt-col-min"),
+        new TableColDef("Word",       "dt-col-min"),
+        new TableColDef("Json",       "dt-col-min"),
+        new TableColDef("操作紀錄",   "dt-col-min"),
             }
         })
 
@@ -105,6 +106,7 @@
         updateDesc: '@Url.Action("UpdateDescriptions", "DIC1999")',
         addDesc: '@Url.Action("AddDescription", "DIC1999")',
         exportExcel: '@Url.Action("ExportExcel", "DIC1999")',
+        exportWord: '@Url.Action("ExportWord", "DIC1999")',
         exportJson: '@Url.Action("ExportJson", "DIC1999")',
         getAvailableDatabases: '@Url.Action("GetAvailableDatabases", "DIC1999")',
         logUrl: '/DIC1997/DIC1997',
@@ -113,5 +115,5 @@
         tokenName: '__RequestVerificationToken',
         tokenValue: $('input[name="__RequestVerificationToken"]').val(),
         hasInsertPermission: @Html.Raw(Json.Serialize(ViewBag.InsertStatus ?? false))
-    };
+        };
 </script>

@@ -49,11 +49,13 @@
                 },
                 {
                     data: 'editAction',
-                    className: 'text-center'
+                    className: 'text-center',
+                    orderable: false
                 },
                 {
                     data: 'tableName',
                     className: 'text-center',
+                    orderable: false,
                     render: function (data, type, row) {
                         return `<button type="button" class="btn btn-outline-info btn-sm" 
                                         onclick="window.DIC1999R01.showLogs('${encodeURIComponent(data)}')">
@@ -63,7 +65,8 @@
                 },
                 {
                     data: 'deleteAction',
-                    className: 'text-center'
+                    className: 'text-center',
+                    orderable: false
                 }
             ]
         });

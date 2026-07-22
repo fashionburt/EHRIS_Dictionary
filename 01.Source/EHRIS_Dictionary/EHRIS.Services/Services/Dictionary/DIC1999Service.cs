@@ -167,4 +167,91 @@ public class DIC1999Service : IDIC1999Service
         });
         return (Encoding.UTF8.GetBytes(jsonString), $"{dbInfo.Desc}({dbInfo.Name}).json");
     }
+    public async Task<(byte[] content, string fileName)> ExportWordAsync(int menuId, string serverIp)
+    {
+        var dbInfo = await _repository.GetDatabaseInfoAsync(menuId, serverIp);
+        if (string.IsNullOrEmpty(dbInfo.Name)) return (Array.Empty<byte>(), "");
+
+        var sheetMeta = (await _repository.GetSheetMetadataAsync(menuId, serverIp)).ToDictionary(x => x.TableName, x => x.TableDesc, StringComparer.OrdinalIgnoreCase);
+        var rowMeta = await _repository.GetRowMetadataAsync(menuId, serverIp);
+        var rowMetaDict = rowMeta.GroupBy(x => x.TableName, StringComparer.OrdinalIgnoreCase)
+                                 .ToDictionary(g => g.Key, g => g.ToDictionary(x => x.ColumnName, x => x.RowDesc, StringComparer.OrdinalIgnoreCase), StringComparer.OrdinalIgnoreCase);
+
+        var schema = await _repository.GetFullSchemaForWordExportAsync(serverIp, dbInfo.Name);
+        var tableGroups = schema.GroupBy(x => x.TableName, StringComparer.OrdinalIgnoreCase)
+                                 .OrderBy(g => g.Key, StringComparer.OrdinalIgnoreCase)
+                                 .ToList();
+
+        var doc = new EHRIS.Tools.Office.Word.WordGenerater();
+
+        string? currentSection = null;
+
+        foreach (var tableGroup in tableGroups)
+        {
+            var tableName = tableGroup.Key;
+            var firstLetter = tableName.Substring(0, 1).ToUpperInvariant();
+
+            if (firstLetter != currentSection)
+            {
+                currentSection = firstLetter;
+                doc.AddHeading(currentSection, 1);
+            }
+
+            var tableDesc = sheetMeta.GetValueOrDefault(tableName, "");
+
+            var headerColumns = new List<EHRIS.Tools.Office.Package.OpenXmlWordHelper.WordTableColumn>
+        {
+            new() { Header = "序號", WidthDxa = 700 },
+            new() { Header = "欄位(中文)", WidthDxa = 2600 },
+            new() { Header = "欄位(英文)", WidthDxa = 2200 },
+            new() { Header = "型態", WidthDxa = 1300 },
+            new() { Header = "長度", WidthDxa = 700 },
+            new() { Header = "Null", WidthDxa = 700 },
+            new() { Header = "鍵值", WidthDxa = 700 }
+        };
+
+            var rows = new List<List<EHRIS.Tools.Office.Package.OpenXmlWordHelper.WordTableCellSpec>>
+        {
+            new()
+            {
+                new() { Text = "資料表名稱", ColSpan = 2, Bold = true },
+                new() { Text = $"{tableDesc}【{tableName}】", ColSpan = 5, Bold = true }
+            },
+            new()
+            {
+                new() { Text = "序號" },
+                new() { Text = "欄位(中文)" },
+                new() { Text = "欄位(英文)" },
+                new() { Text = "型態" },
+                new() { Text = "長度" },
+                new() { Text = "Null" },
+                new() { Text = "鍵值" }
+            }
+        };
+
+            int seq = 1;
+            var colDescDict = rowMetaDict.GetValueOrDefault(tableName);
+
+            foreach (var col in tableGroup)
+            {
+                rows.Add(new List<EHRIS.Tools.Office.Package.OpenXmlWordHelper.WordTableCellSpec>
+            {
+                new() { Text = seq.ToString() },
+                new() { Text = colDescDict?.GetValueOrDefault(col.ColumnName, "") ?? "" },
+                new() { Text = col.ColumnName },
+                new() { Text = col.DataType },
+                new() { Text = col.Length?.ToString() ?? "" },
+                new() { Text = col.IsNullable ? "YES" : "No" },
+                new() { Text = col.KeyType }
+            });
+                seq++;
+            }
+
+            doc.AddTable(headerColumns, rows);
+            doc.AddParagraph("");
+        }
+
+        var (stream, contentType, extension) = doc.Export();
+        return (stream.ToArray(), $"{dbInfo.Name}.{extension}");
+    }
 }

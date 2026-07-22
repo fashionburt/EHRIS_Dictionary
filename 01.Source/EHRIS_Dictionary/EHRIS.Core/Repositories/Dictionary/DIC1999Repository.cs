@@ -289,4 +289,58 @@ public class DIC1999Repository : BaseRepository, IDIC1999Repository
         }
         return columns;
     }
+    public async Task<List<(string TableName, string ColumnName, string DataType, int? Length, bool IsNullable, string KeyType)>> GetFullSchemaForWordExportAsync(string serverIp, string targetDbName)
+    {
+        var builder = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder(string.Format(_connectionTemplate, serverIp))
+        {
+            InitialCatalog = targetDbName
+        };
+
+        var result = new List<(string TableName, string ColumnName, string DataType, int? Length, bool IsNullable, string KeyType)>();
+
+        using var conn = new Microsoft.Data.SqlClient.SqlConnection(builder.ConnectionString);
+        await conn.OpenAsync();
+
+        var sql = @"
+        SELECT 
+            c.TABLE_NAME,
+            c.COLUMN_NAME,
+            c.DATA_TYPE,
+            c.CHARACTER_MAXIMUM_LENGTH,
+            c.IS_NULLABLE,
+            CASE 
+                WHEN pk.COLUMN_NAME IS NOT NULL THEN 'PK'
+                WHEN fk.COLUMN_NAME IS NOT NULL THEN 'FK'
+                ELSE ''
+            END AS KEY_TYPE
+        FROM INFORMATION_SCHEMA.COLUMNS c
+        LEFT JOIN (
+            SELECT ku.TABLE_NAME, ku.COLUMN_NAME
+            FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE ku
+            WHERE OBJECTPROPERTY(OBJECT_ID(ku.CONSTRAINT_SCHEMA + '.' + ku.CONSTRAINT_NAME), 'IsPrimaryKey') = 1
+        ) pk ON pk.TABLE_NAME = c.TABLE_NAME AND pk.COLUMN_NAME = c.COLUMN_NAME
+        LEFT JOIN (
+            SELECT ku.TABLE_NAME, ku.COLUMN_NAME
+            FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE ku
+            WHERE OBJECTPROPERTY(OBJECT_ID(ku.CONSTRAINT_SCHEMA + '.' + ku.CONSTRAINT_NAME), 'IsForeignKey') = 1
+        ) fk ON fk.TABLE_NAME = c.TABLE_NAME AND fk.COLUMN_NAME = c.COLUMN_NAME
+        WHERE c.TABLE_NAME != 'sysdiagrams'
+        ORDER BY c.TABLE_NAME, c.ORDINAL_POSITION";
+
+        using var cmd = new Microsoft.Data.SqlClient.SqlCommand(sql, conn);
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            result.Add((
+                reader.GetString(0),
+                reader.GetString(1),
+                reader.GetString(2),
+                reader.IsDBNull(3) ? null : (int?)reader.GetInt32(3),
+                reader.GetString(4) == "YES",
+                reader.GetString(5)
+            ));
+        }
+
+        return result;
+    }
 }

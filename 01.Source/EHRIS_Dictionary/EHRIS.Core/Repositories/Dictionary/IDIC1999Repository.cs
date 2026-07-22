@@ -25,4 +25,6 @@ public interface IDIC1999Repository
     Task<bool> AddAsync(Menu entity, string detail, IDataLogger dataLogger);
     Task<bool> UpdateAsync(Menu entity, string detail, IDataLogger dataLogger);
     Task<bool> DeleteByIdAsync(int id, string detail, IDataLogger dataLogger);
+    Task<List<(string TableName, string ColumnName, string DataType, int? Length, bool IsNullable, string KeyType)>> GetFullSchemaForWordExportAsync(string serverIp, string targetDbName);
+
 }

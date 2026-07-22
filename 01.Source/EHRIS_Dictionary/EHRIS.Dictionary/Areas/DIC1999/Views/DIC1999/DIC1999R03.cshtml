@@ -1,8 +1,6 @@
 ﻿@using System.Data
 @model DataTable
 @{
-    ViewData["Title"] = "資料內容";
-    Layout = "_LayoutSub";
     var pkList = ViewBag.PrimaryKeys as List<string> ?? new List<string>();
     var fkList = ViewBag.ForeignKeys as List<string> ?? new List<string>();
     var colDescDict = ViewBag.ColumnDescriptions as Dictionary<string, string> ?? new Dictionary<string, string>();
