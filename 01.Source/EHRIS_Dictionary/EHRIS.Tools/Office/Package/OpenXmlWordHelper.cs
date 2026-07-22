@@ -27,6 +27,9 @@ namespace EHRIS.Tools.Office.Package
             public WordHorizontalAlignment Alignment { get; set; } = WordHorizontalAlignment.Center;
         }
 
+        private const string EastAsiaFont = "微軟正黑體";
+        private const string LatinFont = "Calibri";
+
         private readonly MemoryStream _stream;
         private readonly WordprocessingDocument _document;
         private readonly Body _body;
@@ -38,18 +41,41 @@ namespace EHRIS.Tools.Office.Package
             var mainPart = _document.AddMainDocumentPart();
             mainPart.Document = new Document();
             _body = mainPart.Document.AppendChild(new Body());
+
+            var stylesPart = mainPart.AddNewPart<StyleDefinitionsPart>();
+            stylesPart.Styles = new Styles(
+                new DocDefaults(
+                    new RunPropertiesDefault(
+                        new RunProperties(
+                            new RunFonts { Ascii = LatinFont, HighAnsi = LatinFont, EastAsia = EastAsiaFont },
+                            new FontSize { Val = "20" }
+                        )
+                    )
+                )
+            );
+            stylesPart.Styles.Save();
+
+            _body.Append(new SectionProperties(
+                new PageMargin { Top = 720, Bottom = 720, Left = 720, Right = 720 }
+            ));
         }
 
         public void AddHeading(string text, int level = 1)
         {
             var paragraph = new Paragraph();
             var paragraphProperties = new ParagraphProperties(
-                new ParagraphStyleId { Val = $"Heading{level}" }
+                new SpacingBetweenLines { Before = "240", After = "120" },
+                new KeepNext()
             );
             paragraph.Append(paragraphProperties);
 
             var run = new Run(new Text(text));
-            run.PrependChild(new RunProperties(new Bold(), new FontSize { Val = (24 - (level * 2)).ToString() }));
+            var runProps = new RunProperties(
+                new RunFonts { Ascii = LatinFont, HighAnsi = LatinFont, EastAsia = EastAsiaFont },
+                new Bold(),
+                new FontSize { Val = (32 - (level * 4)).ToString() }
+            );
+            run.PrependChild(runProps);
             paragraph.Append(run);
 
             _body.Append(paragraph);
@@ -59,12 +85,16 @@ namespace EHRIS.Tools.Office.Package
         {
             var paragraph = new Paragraph();
             var paragraphProperties = new ParagraphProperties(
-                new Justification { Val = ToJustificationValue(alignment) }
+                new Justification { Val = ToJustificationValue(alignment) },
+                new SpacingBetweenLines { Before = "0", After = "120" }
             );
             paragraph.Append(paragraphProperties);
 
             var run = new Run(new Text(text) { Space = SpaceProcessingModeValues.Preserve });
-            var runProps = new RunProperties(new FontSize { Val = (fontSize * 2).ToString() });
+            var runProps = new RunProperties(
+                new RunFonts { Ascii = LatinFont, HighAnsi = LatinFont, EastAsia = EastAsiaFont },
+                new FontSize { Val = (fontSize * 2).ToString() }
+            );
             if (bold) runProps.Append(new Bold());
             run.PrependChild(runProps);
             paragraph.Append(run);
@@ -72,9 +102,10 @@ namespace EHRIS.Tools.Office.Package
             _body.Append(paragraph);
         }
 
-        public void AddTable(List<WordTableColumn> columns, List<List<WordTableCellSpec>> rows)
+        public void AddTable(List<WordTableColumn> columns, List<List<WordTableCellSpec>> rows, int headerRowCount = 2)
         {
             var table = new Table();
+            int tableWidthTotal = columns.Sum(c => c.WidthDxa);
 
             var tableProperties = new TableProperties(
                 new TableBorders(
@@ -85,7 +116,14 @@ namespace EHRIS.Tools.Office.Package
                     new InsideHorizontalBorder { Val = BorderValues.Single, Size = 4 },
                     new InsideVerticalBorder { Val = BorderValues.Single, Size = 4 }
                 ),
-                new TableWidth { Type = TableWidthUnitValues.Auto }
+                new TableWidth { Type = TableWidthUnitValues.Dxa, Width = tableWidthTotal.ToString() },
+                new TableLayout { Type = TableLayoutValues.Fixed },
+                new TableCellMarginDefault(
+                    new TopMargin { Type = TableWidthUnitValues.Dxa, Width = "40" },
+                    new BottomMargin { Type = TableWidthUnitValues.Dxa, Width = "40" },
+                    new TableCellLeftMargin { Type = TableWidthValues.Dxa, Width = 80 },
+                    new TableCellRightMargin { Type = TableWidthValues.Dxa, Width = 80 }
+                )
             );
             table.AppendChild(tableProperties);
 
@@ -96,13 +134,32 @@ namespace EHRIS.Tools.Office.Package
             }
             table.Append(grid);
 
-            foreach (var rowCells in rows)
+            for (int r = 0; r < rows.Count; r++)
             {
+                var rowCells = rows[r];
                 var tableRow = new TableRow();
+
+                if (r < headerRowCount)
+                {
+                    tableRow.Append(new TableRowProperties(new TableHeader()));
+                }
+
+                int colIdx = 0;
                 foreach (var cellSpec in rowCells)
                 {
+                    int span = cellSpec.ColSpan;
+                    int cellWidth = 0;
+                    for (int i = 0; i < span && (colIdx + i) < columns.Count; i++)
+                    {
+                        cellWidth += columns[colIdx + i].WidthDxa;
+                    }
+                    colIdx += span;
+
                     var tableCell = new TableCell();
-                    var cellProperties = new TableCellProperties();
+                    var cellProperties = new TableCellProperties(
+                        new TableCellWidth { Type = TableWidthUnitValues.Dxa, Width = cellWidth.ToString() },
+                        new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }
+                    );
                     if (cellSpec.ColSpan > 1)
                     {
                         cellProperties.Append(new GridSpan { Val = cellSpec.ColSpan });
@@ -113,7 +170,10 @@ namespace EHRIS.Tools.Office.Package
                         new ParagraphProperties(new Justification { Val = ToJustificationValue(cellSpec.Alignment) })
                     );
                     var run = new Run(new Text(cellSpec.Text ?? "") { Space = SpaceProcessingModeValues.Preserve });
-                    var runProps = new RunProperties();
+                    var runProps = new RunProperties(
+                        new RunFonts { Ascii = LatinFont, HighAnsi = LatinFont, EastAsia = EastAsiaFont },
+                        new FontSize { Val = "20" }
+                    );
                     if (cellSpec.Bold) runProps.Append(new Bold());
                     run.PrependChild(runProps);
                     paragraph.Append(run);

@@ -101,22 +101,22 @@
             self.saveNewDatabase();
         });
 
-        $('#dbTable').off('click', '.exportWord').on('click', '.exportWord', function () {
-            const id = $(this).data('id');
-            const ip = $('#filterServer').val();
-            window.location.href = `${self.urls.exportWord}?menuId=${id}&serverIp=${encodeURIComponent(ip)}`;
-        });
-
         $('#dbTable').off('click', '.exportExcel').on('click', '.exportExcel', function () {
             const id = $(this).data('id');
             const ip = $('#filterServer').val();
-            window.location.href = `${self.urls.exportExcel}?menuId=${id}&serverIp=${encodeURIComponent(ip)}`;
+            self.downloadWithLoading(`${self.urls.exportExcel}?menuId=${id}&serverIp=${encodeURIComponent(ip)}`);
+        });
+
+        $('#dbTable').off('click', '.exportWord').on('click', '.exportWord', function () {
+            const id = $(this).data('id');
+            const ip = $('#filterServer').val();
+            self.downloadWithLoading(`${self.urls.exportWord}?menuId=${id}&serverIp=${encodeURIComponent(ip)}`);
         });
 
         $('#dbTable').off('click', '.exportJson').on('click', '.exportJson', function () {
             const id = $(this).data('id');
             const ip = $('#filterServer').val();
-            window.location.href = `${self.urls.exportJson}?menuId=${id}&serverIp=${encodeURIComponent(ip)}`;
+            self.downloadWithLoading(`${self.urls.exportJson}?menuId=${id}&serverIp=${encodeURIComponent(ip)}`);
         });
 
         $('#dbTable').off('click', '.deleteBtn').on('click', '.deleteBtn', function () {
@@ -129,6 +129,27 @@
         $(document).off('change', '#dbSelect').on('change', '#dbSelect', function () {
             $('#menuName').val($(this).val());
         });
+    },
+
+    downloadWithLoading: function (url) {
+        Swal.fire({
+            title: '檔案產生中，請稍候...',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = url;
+        document.body.appendChild(iframe);
+
+        setTimeout(() => {
+            Swal.close();
+            document.body.removeChild(iframe);
+        }, 1500);
     },
 
     showLogs: function (dbKey) {
