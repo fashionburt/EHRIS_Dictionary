@@ -38,4 +38,9 @@ namespace EHRIS.Core.Models.Dictionary
         public int TableCount { get; set; }
         public int ColumnCount { get; set; }
     }
+    public class DIC1999R01ImportTableData
+    {
+        public string? SheetDesc { get; set; }
+        public Dictionary<string, string>? Columns { get; set; }
+    }
 }

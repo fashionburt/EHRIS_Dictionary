@@ -52,7 +52,6 @@
                    value="${safeData}" />`;
                     }
                 },
-                { data: 'deleteAction', className: 'text-center', orderable:false },
                 { data: 'excelAction', className: 'text-center', orderable: false },
                 { data: 'wordAction', className: 'text-center', orderable: false },
                 { data: 'jsonAction', className: 'text-center', orderable: false },
@@ -66,7 +65,8 @@
                         <i class="fa-solid fa-clock-rotate-left"></i>
                     </button>`;
                     }
-                }
+                },
+                { data: 'deleteAction', className: 'text-center', orderable: false },
             ],
             onInitComplete: function (api) {
             }
@@ -141,15 +141,50 @@
             }
         });
 
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = url;
-        document.body.appendChild(iframe);
+        fetch(url, { credentials: 'same-origin' })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error(`下載失敗（狀態碼 ${response.status}）`);
+                }
 
-        setTimeout(() => {
-            Swal.close();
-            document.body.removeChild(iframe);
-        }, 1500);
+                const disposition = response.headers.get('Content-Disposition') || '';
+                let fileName = 'download';
+
+                const starMatch = disposition.match(/filename\*=UTF-8''([^;]+)/i);
+                if (starMatch && starMatch[1]) {
+                    fileName = decodeURIComponent(starMatch[1]);
+                } else {
+                    const plainMatch = disposition.match(/filename="?([^";]+)"?/i);
+                    if (plainMatch && plainMatch[1]) {
+                        fileName = plainMatch[1];
+                    }
+                }
+
+                return response.blob().then(function (blob) {
+                    return { blob: blob, fileName: fileName };
+                });
+            })
+            .then(function (result) {
+                Swal.close();
+
+                if (result.blob.size === 0) {
+                    ehrisAlert.warning('沒有可匯出的資料');
+                    return;
+                }
+
+                const blobUrl = window.URL.createObjectURL(result.blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = result.fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(blobUrl);
+            })
+            .catch(function (err) {
+                Swal.close();
+                ehrisAlert.error(err.message || '下載失敗，請稍後再試');
+            });
     },
 
     showLogs: function (dbKey) {

@@ -14,5 +14,5 @@ public interface IDIC1999R01Repository
     Task<(bool success, string message)> RenameTableAsync(string dbKey, string serverIp, string oldName, string newName, int sheetId, IDataLogger dataLogger);
     Task<string?> GetSheetDescAsync(int sheetId, string serverIp);
     Task<(bool success, string message)> CreatePhysicalTableAsync(DIC1999R01CreateViewModel model, string serverIp, IDataLogger dataLogger);
-    Task<(int tableCount, int columnCount)> ImportDictionaryAsync(string dbKey, string serverIp, Dictionary<string, Dictionary<string, string>> data, string detail, IDataLogger dataLogger);
+    Task<(int tableCount, int columnCount)> ImportDictionaryAsync(string dbKey, string serverIp, Dictionary<string, DIC1999R01ImportTableData> data, string detail, IDataLogger dataLogger);
 }

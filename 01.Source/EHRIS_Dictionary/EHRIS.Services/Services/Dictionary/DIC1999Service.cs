@@ -143,11 +143,12 @@ public class DIC1999Service : IDIC1999Service
         if (string.IsNullOrEmpty(dbInfo.Name)) return (Array.Empty<byte>(), "");
 
         var physicalTables = await _repository.GetPhysicalTablesAsync(serverIp, dbInfo.Name);
+        var sheetMeta = (await _repository.GetSheetMetadataAsync(menuId, serverIp)).ToDictionary(x => x.TableName, x => x.TableDesc, StringComparer.OrdinalIgnoreCase);
         var rowMeta = await _repository.GetRowMetadataAsync(menuId, serverIp);
         var rowMetaDict = rowMeta.GroupBy(x => x.TableName, StringComparer.OrdinalIgnoreCase)
                                  .ToDictionary(g => g.Key, g => g.ToDictionary(x => x.ColumnName, x => x.RowDesc, StringComparer.OrdinalIgnoreCase), StringComparer.OrdinalIgnoreCase);
 
-        var jsonResult = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
+        var jsonResult = new Dictionary<string, DIC1999R01ImportTableData>(StringComparer.OrdinalIgnoreCase);
         foreach (var tableName in physicalTables)
         {
             var columns = await _repository.GetPhysicalSchemaAsync(serverIp, dbInfo.Name, tableName);
@@ -157,7 +158,14 @@ public class DIC1999Service : IDIC1999Service
                 var desc = rowMetaDict.GetValueOrDefault(tableName)?.GetValueOrDefault(col.ColumnName, "");
                 tableDict[col.ColumnName] = string.IsNullOrEmpty(desc) ? col.ColumnName : desc;
             }
-            jsonResult[tableName] = tableDict;
+
+            var tableDesc = sheetMeta.GetValueOrDefault(tableName, "");
+
+            jsonResult[tableName] = new DIC1999R01ImportTableData
+            {
+                SheetDesc = string.IsNullOrEmpty(tableDesc) ? tableName : tableDesc,
+                Columns = tableDict
+            };
         }
 
         var jsonString = JsonSerializer.Serialize(jsonResult, new JsonSerializerOptions

@@ -338,7 +338,7 @@ public class DIC1999R01Repository : BaseRepository, IDIC1999R01Repository
         }
     }
 
-    public async Task<(int tableCount, int columnCount)> ImportDictionaryAsync(string dbKey, string serverIp, Dictionary<string, Dictionary<string, string>> data, string detail, IDataLogger dataLogger)
+    public async Task<(int tableCount, int columnCount)> ImportDictionaryAsync(string dbKey, string serverIp, Dictionary<string, DIC1999R01ImportTableData> data, string detail, IDataLogger dataLogger)
     {
         var sheets = await (from s in _context.Sheets
                             join m in _context.Menus on s.MenuId equals m.MenuId
@@ -357,35 +357,41 @@ public class DIC1999R01Repository : BaseRepository, IDIC1999R01Repository
             var physicalColumnNames = await GetPhysicalColumnNamesAsync(serverIp, dbKey, tableName);
             if (physicalColumnNames.Count == 0) continue;
 
-            await SyncTableFieldsForImportAsync(dbKey, serverIp, tableName, sheet.SheetId, dataLogger);
-
-            var rows = await _context.Rows
-                .Where(r => r.SheetId == sheet.SheetId && r.ServerIP == serverIp)
-                .ToListAsync();
+            var rows = await SyncTableFieldsForImportAsync(dbKey, serverIp, tableName, sheet.SheetId, dataLogger);
 
             bool tableTouched = false;
 
-            foreach (var col in sheetGroup.Value)
+            var sheetDesc = sheetGroup.Value.SheetDesc;
+            if (!string.IsNullOrWhiteSpace(sheetDesc) && sheetDesc != tableName)
             {
-                var colName = col.Key;
-                var colDesc = col.Value;
-
-                if (string.IsNullOrWhiteSpace(colDesc)) continue;
-                if (colDesc == colName) continue;
-                if (!physicalColumnNames.Contains(colName)) continue;
-
-                var row = rows.FirstOrDefault(r => r.RowName == colName);
-                if (row == null) continue;
-
-                row.RowDesc = colDesc;
-                columnCount++;
+                sheet.SheetDesc = sheetDesc;
                 tableTouched = true;
+            }
+
+            if (sheetGroup.Value.Columns != null)
+            {
+                foreach (var col in sheetGroup.Value.Columns)
+                {
+                    var colName = col.Key;
+                    var colDesc = col.Value;
+
+                    if (string.IsNullOrWhiteSpace(colDesc)) continue;
+                    if (colDesc == colName) continue;
+                    if (!physicalColumnNames.Contains(colName)) continue;
+
+                    var row = rows.FirstOrDefault(r => r.RowName == colName);
+                    if (row == null) continue;
+
+                    row.RowDesc = colDesc;
+                    columnCount++;
+                    tableTouched = true;
+                }
             }
 
             if (tableTouched) tableCount++;
         }
 
-        if (columnCount > 0)
+        if (tableCount > 0)
         {
             _context.Logs.Add(new Log
             {
@@ -415,7 +421,7 @@ public class DIC1999R01Repository : BaseRepository, IDIC1999R01Repository
         return columns;
     }
 
-    private async Task SyncTableFieldsForImportAsync(string dbKey, string serverIp, string tableName, int sheetId, IDataLogger dataLogger)
+    private async Task<List<Row>> SyncTableFieldsForImportAsync(string dbKey, string serverIp, string tableName, int sheetId, IDataLogger dataLogger)
     {
         var physicalFields = new List<(string RowName, string DataType, int? Length, bool IsNullable)>();
 
@@ -423,8 +429,8 @@ public class DIC1999R01Repository : BaseRepository, IDIC1999R01Repository
         {
             await conn.OpenAsync();
             using var cmd = new SqlCommand(@"SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, 
-                                              CASE WHEN IS_NULLABLE = 'YES' THEN 1 ELSE 0 END 
-                                              FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName", conn);
+                                          CASE WHEN IS_NULLABLE = 'YES' THEN 1 ELSE 0 END 
+                                          FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName", conn);
             cmd.Parameters.AddWithValue("@TableName", tableName);
             using var reader = await cmd.ExecuteReaderAsync();
             while (await reader.ReadAsync())
@@ -439,13 +445,14 @@ public class DIC1999R01Repository : BaseRepository, IDIC1999R01Repository
         }
 
         var existingRows = await _context.Rows.Where(x => x.SheetId == sheetId && x.ServerIP == serverIp).ToListAsync();
+        var resultRows = new List<Row>();
 
         foreach (var field in physicalFields)
         {
             var row = existingRows.FirstOrDefault(r => r.RowName == field.RowName);
             if (row == null)
             {
-                _context.Rows.Add(new Row
+                row = new Row
                 {
                     SheetId = sheetId,
                     ServerIP = serverIp,
@@ -456,7 +463,8 @@ public class DIC1999R01Repository : BaseRepository, IDIC1999R01Repository
                     RowLength = field.Length,
                     RowNull = field.IsNullable,
                     SortOrder = 1
-                });
+                };
+                _context.Rows.Add(row);
             }
             else
             {
@@ -464,6 +472,10 @@ public class DIC1999R01Repository : BaseRepository, IDIC1999R01Repository
                 row.RowLength = field.Length;
                 row.RowNull = field.IsNullable;
             }
+
+            resultRows.Add(row);
         }
+
+        return resultRows;
     }
 }

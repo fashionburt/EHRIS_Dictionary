@@ -71,10 +71,10 @@ public class DIC1999R01Service : IDIC1999R01Service
             return new DIC1999R01ImportResult { Success = false, Message = "檔案內容為空" };
         }
 
-        Dictionary<string, Dictionary<string, string>>? data;
+        Dictionary<string, DIC1999R01ImportTableData>? data;
         try
         {
-            data = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(jsonContent);
+            data = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, DIC1999R01ImportTableData>>(jsonContent);
         }
         catch (Exception ex)
         {
@@ -95,14 +95,17 @@ public class DIC1999R01Service : IDIC1999R01Service
 
             if (sheetGroup.Value == null)
             {
-                return new DIC1999R01ImportResult { Success = false, Message = $"檔案格式錯誤：資料表【{sheetGroup.Key}】底下的內容格式不符（應為欄位名稱對應描述的結構）" };
+                return new DIC1999R01ImportResult { Success = false, Message = $"檔案格式錯誤：資料表【{sheetGroup.Key}】底下的內容格式不符" };
             }
 
-            foreach (var col in sheetGroup.Value)
+            if (sheetGroup.Value.Columns != null)
             {
-                if (string.IsNullOrWhiteSpace(col.Key))
+                foreach (var col in sheetGroup.Value.Columns)
                 {
-                    return new DIC1999R01ImportResult { Success = false, Message = $"檔案格式錯誤：資料表【{sheetGroup.Key}】內有空白的欄位名稱" };
+                    if (string.IsNullOrWhiteSpace(col.Key))
+                    {
+                        return new DIC1999R01ImportResult { Success = false, Message = $"檔案格式錯誤：資料表【{sheetGroup.Key}】內有空白的欄位名稱" };
+                    }
                 }
             }
         }

@@ -134,14 +134,33 @@
 </div>
 
 <div class="modal fade modal-morandi" id="importDictModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">匯入資料字典 (@ViewBag.DbKey)</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p class="text-muted small">請選擇 JSON 格式的資料字典檔案。已存在的欄位描述將會被覆蓋，尚未同步實體欄位的資料表將會被略過。</p>
+                <div class="alert alert-light border small mb-3">
+                    <p class="fw-bold mb-2"><i class="fa-solid fa-circle-info me-1"></i>檔案格式說明</p>
+                    <pre class="mb-2 p-2 bg-white border rounded" style="font-size: 0.78rem;">
+{
+    "資料表英文名稱": {
+        "sheetDesc": "資料表中文描述",
+        "columns": {
+            "欄位英文名稱": "欄位中文描述"
+        }
+    }
+}
+</pre>
+                    <p class="fw-bold mb-2">匯入規則（符合以下任一情況將被略過、不覆蓋原有描述）</p>
+                    <ul class="mb-0 ps-3">
+                        <li>描述內容為空字串</li>
+                        <li>描述內容與資料表／欄位英文名稱完全相同</li>
+                        <li>該資料表或欄位目前不存在於實際資料庫中</li>
+                    </ul>
+                    <p class="mt-2 mb-0 text-muted">符合條件的資料將<strong>直接覆蓋</strong>現有描述；尚未同步過的資料表會自動同步後再套用描述。</p>
+                </div>
                 <input type="file" id="importDictFile" class="form-control form-control-sm" accept=".json" />
             </div>
             <div class="modal-footer">
