@@ -1,5 +1,10 @@
 ﻿@using EHRIS.Web.Shared.Models
 @model dynamic
+@{
+    ViewData["Title"] = "資料表列表管理";
+    Layout = "_LayoutSub";
+}
+
 <link href="~/css/DataTableStyles.css" rel="stylesheet" />
 <link href="~/css/EHRISsite.css" rel="stylesheet" />
 <link href="~/css/Button.css" rel="stylesheet" />
@@ -13,6 +18,12 @@
                         <i class="fa-solid fa-database me-2"></i>資料庫：<span class="text-primary">@ViewBag.DbKey</span>
                     </h4>
                     <div class="d-flex gap-2">
+                        @if (ViewBag.UpdateStatus == true)
+                        {
+                            <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#importDictModal">
+                                <i class="fa-solid fa-file-import me-1"></i>匯入資料字典
+                            </button>
+                        }
                         @if (ViewBag.InsertStatus == true)
                         {
                             <button type="button" class="btn btn-morandi-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createTableModal">
@@ -127,6 +138,24 @@
     </div>
 </div>
 
+<div class="modal fade modal-morandi" id="importDictModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">匯入資料字典 (@ViewBag.DbKey)</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted small">請選擇 JSON 格式的資料字典檔案。已存在的欄位描述將會被覆蓋，尚未同步實體欄位的資料表將會被略過。</p>
+                <input type="file" id="importDictFile" class="form-control form-control-sm" accept=".json" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnConfirmImport">確認匯入</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     window.permissionAction = {
         getData: '@Url.Action("GetData", "DIC1999R01")',
@@ -134,6 +163,7 @@
         deleteTable: '@Url.Action("DeleteTable", "DIC1999R01")',
         renameTable: '@Url.Action("RenameTable", "DIC1999R01")',
         createTable: '@Url.Action("CreateTable", "DIC1999R01")',
+        importDict: '@Url.Action("ImportDictionary", "DIC1999R01")',
         logUrl: '/DIC1997/DIC1997',
         columnList: '/DIC1999R02/DIC1999R02',
         dbKey: '@ViewBag.DbKey',
@@ -142,6 +172,6 @@
         tokenName: '__RequestVerificationToken',
         tokenValue: $('input[name="__RequestVerificationToken"]').val(),
         canUpdate: @Html.Raw(Json.Serialize(ViewBag.UpdateStatus ?? false)),
-        canDelete: @Html.Raw(Json.Serialize(ViewBag.DeleteStatus ?? false))
-    };
+            canDelete: @Html.Raw(Json.Serialize(ViewBag.DeleteStatus ?? false))
+        };
 </script>

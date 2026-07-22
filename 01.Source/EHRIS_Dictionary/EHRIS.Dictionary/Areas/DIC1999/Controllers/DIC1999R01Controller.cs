@@ -1,4 +1,5 @@
-﻿using EHRIS.Core.Models.Dictionary;
+﻿using EHRIS.Core.Entities;
+using EHRIS.Core.Models.Dictionary;
 using EHRIS.Core.Models.Event;
 using EHRIS.Security.Permission.Attributes;
 using EHRIS.Security.Permission.Enums;
@@ -7,6 +8,7 @@ using EHRIS.Services.Common;
 using EHRIS.Services.Dictionary;
 using EHRIS.Tools.Web;
 using EHRIS.Web.Shared.Controllers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -142,6 +144,42 @@ public class DIC1999R01Controller : BaseController
 
         return Json(new { success = result.success, message = WebUtility.HtmlEncode(result.message) });
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [AuthorizeFunction(SFUNO, FunctionAction.Update)]
+    public async Task<IActionResult> ImportDictionary(IFormFile file, [FromForm] string dbKey, [FromForm] string sid)
+    {
+        if (file == null || file.Length == 0)
+        {
+            return Json(new { success = false, message = "請選擇要匯入的 JSON 檔案" });
+        }
+
+        var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+        if (extension != ".json")
+        {
+            return Json(new { success = false, message = "僅允許上傳 .json 格式的檔案" });
+        }
+
+        const long maxFileSize = 10 * 1024 * 1024;
+        if (file.Length > maxFileSize)
+        {
+            return Json(new { success = false, message = "檔案過大，請確認內容是否正確（上限 10MB）" });
+        }
+
+        string serverIp = GetRealIp(sid);
+        string jsonContent;
+        using (var reader = new StreamReader(file.OpenReadStream()))
+        {
+            jsonContent = await reader.ReadToEndAsync();
+        }
+
+        var dataLogger = BuildDataLogger(En_DataEventMode.ModEvent, "匯入資料字典", serverIp);
+        var result = await _service.ImportDictionaryAsync(dbKey, serverIp, jsonContent, dataLogger);
+
+        return Json(new { success = result.Success, message = WebUtility.HtmlEncode(result.Message) });
+    }
+
 
     private string GetEditButtons(int id, string name)
     {

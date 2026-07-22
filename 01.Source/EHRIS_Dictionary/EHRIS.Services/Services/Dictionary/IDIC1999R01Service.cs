@@ -1,4 +1,5 @@
-﻿using EHRIS.Core.Models.Common;
+﻿using EHRIS.Core.Entities;
+using EHRIS.Core.Models.Common;
 using EHRIS.Core.Models.Dictionary;
 using EHRIS.Core.Models.Event;
 
@@ -11,4 +12,5 @@ public interface IDIC1999R01Service
     Task<(bool success, string message)> DeleteTableAsync(string dbKey, string serverIp, string tableName, int sheetId, IDataLogger dataLogger);
     Task<(bool success, string message)> RenameTableAsync(string dbKey, string serverIp, int sheetId, string oldName, string newName, IDataLogger dataLogger);
     Task<(bool success, string message)> CreateTableAsync(DIC1999R01CreateViewModel model, string serverIp, IDataLogger dataLogger);
+    Task<DIC1999R01ImportResult> ImportDictionaryAsync(string dbKey, string serverIp, string jsonContent, IDataLogger dataLogger);
 }

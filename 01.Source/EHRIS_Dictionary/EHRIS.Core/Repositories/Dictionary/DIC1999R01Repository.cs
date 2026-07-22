@@ -337,4 +337,133 @@ public class DIC1999R01Repository : BaseRepository, IDIC1999R01Repository
             return (false, ex.Message);
         }
     }
+
+    public async Task<(int tableCount, int columnCount)> ImportDictionaryAsync(string dbKey, string serverIp, Dictionary<string, Dictionary<string, string>> data, string detail, IDataLogger dataLogger)
+    {
+        var sheets = await (from s in _context.Sheets
+                            join m in _context.Menus on s.MenuId equals m.MenuId
+                            where m.MenuName == dbKey && m.ServerIP == serverIp && s.ServerIP == serverIp
+                            select s).ToListAsync();
+
+        int tableCount = 0;
+        int columnCount = 0;
+
+        foreach (var sheetGroup in data)
+        {
+            var tableName = sheetGroup.Key;
+            var sheet = sheets.FirstOrDefault(s => s.SheetName == tableName);
+            if (sheet == null) continue;
+
+            var physicalColumnNames = await GetPhysicalColumnNamesAsync(serverIp, dbKey, tableName);
+            if (physicalColumnNames.Count == 0) continue;
+
+            await SyncTableFieldsForImportAsync(dbKey, serverIp, tableName, sheet.SheetId, dataLogger);
+
+            var rows = await _context.Rows
+                .Where(r => r.SheetId == sheet.SheetId && r.ServerIP == serverIp)
+                .ToListAsync();
+
+            bool tableTouched = false;
+
+            foreach (var col in sheetGroup.Value)
+            {
+                var colName = col.Key;
+                var colDesc = col.Value;
+
+                if (string.IsNullOrWhiteSpace(colDesc)) continue;
+                if (colDesc == colName) continue;
+                if (!physicalColumnNames.Contains(colName)) continue;
+
+                var row = rows.FirstOrDefault(r => r.RowName == colName);
+                if (row == null) continue;
+
+                row.RowDesc = colDesc;
+                columnCount++;
+                tableTouched = true;
+            }
+
+            if (tableTouched) tableCount++;
+        }
+
+        if (columnCount > 0)
+        {
+            _context.Logs.Add(new Log
+            {
+                DbKey = dbKey,
+                ServerIP = serverIp,
+                TableName = "",
+                PkName = "",
+                State = 20,
+                Detail = detail,
+                Date = DateTime.Now
+            });
+        }
+
+        await SaveChangesAsync(dataLogger);
+        return (tableCount, columnCount);
+    }
+
+    private async Task<HashSet<string>> GetPhysicalColumnNamesAsync(string serverIp, string dbKey, string tableName)
+    {
+        var columns = new HashSet<string>(StringComparer.Ordinal);
+        using var conn = new SqlConnection(GetTargetConnStr(serverIp, dbKey));
+        await conn.OpenAsync();
+        using var cmd = new SqlCommand("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName", conn);
+        cmd.Parameters.AddWithValue("@TableName", tableName);
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync()) columns.Add(reader.GetString(0));
+        return columns;
+    }
+
+    private async Task SyncTableFieldsForImportAsync(string dbKey, string serverIp, string tableName, int sheetId, IDataLogger dataLogger)
+    {
+        var physicalFields = new List<(string RowName, string DataType, int? Length, bool IsNullable)>();
+
+        using (var conn = new SqlConnection(GetTargetConnStr(serverIp, dbKey)))
+        {
+            await conn.OpenAsync();
+            using var cmd = new SqlCommand(@"SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, 
+                                              CASE WHEN IS_NULLABLE = 'YES' THEN 1 ELSE 0 END 
+                                              FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName", conn);
+            cmd.Parameters.AddWithValue("@TableName", tableName);
+            using var reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                physicalFields.Add((
+                    reader.GetString(0),
+                    reader.GetString(1),
+                    reader.IsDBNull(2) ? null : (int?)reader.GetInt32(2),
+                    reader.GetInt32(3) == 1
+                ));
+            }
+        }
+
+        var existingRows = await _context.Rows.Where(x => x.SheetId == sheetId && x.ServerIP == serverIp).ToListAsync();
+
+        foreach (var field in physicalFields)
+        {
+            var row = existingRows.FirstOrDefault(r => r.RowName == field.RowName);
+            if (row == null)
+            {
+                _context.Rows.Add(new Row
+                {
+                    SheetId = sheetId,
+                    ServerIP = serverIp,
+                    RowName = field.RowName,
+                    RowDesc = "",
+                    RowRemark = "",
+                    RowType = field.DataType,
+                    RowLength = field.Length,
+                    RowNull = field.IsNullable,
+                    SortOrder = 1
+                });
+            }
+            else
+            {
+                row.RowType = field.DataType;
+                row.RowLength = field.Length;
+                row.RowNull = field.IsNullable;
+            }
+        }
+    }
 }

@@ -30,4 +30,12 @@ namespace EHRIS.Core.Models.Dictionary
         public bool PkIdentity { get; set; } = true;
         public string? PkDescription { get; set; }
     }
+
+    public class DIC1999R01ImportResult
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; } = string.Empty;
+        public int TableCount { get; set; }
+        public int ColumnCount { get; set; }
+    }
 }

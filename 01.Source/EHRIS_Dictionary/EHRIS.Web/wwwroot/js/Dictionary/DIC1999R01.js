@@ -242,5 +242,49 @@
                 }
             });
         });
+
+        $('#btnConfirmImport').off('click').on('click', function () {
+            const fileInput = document.getElementById('importDictFile');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                ehrisAlert.warning("請先選擇檔案");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const fileName = file.name.toLowerCase();
+            if (!fileName.endsWith('.json')) {
+                ehrisAlert.warning("僅允許上傳 .json 格式的檔案");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('dbKey', self.urls.dbKey);
+            formData.append('sid', self.urls.sid);
+
+            Swal.fire({ title: '匯入中...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+
+            $.ajax({
+                url: `${self.urls.importDict}?sid=${self.urls.sid}`,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    Swal.close();
+                    ehrisAlert.handle(res).then(function () {
+                        if (res.success) {
+                            $('#importDictModal').modal('hide');
+                            fileInput.value = '';
+                            self.dt.ajax.reload(null, false);
+                        }
+                    });
+                },
+                error: function (xhr) {
+                    Swal.close();
+                    ehrisAlert.handleError(xhr);
+                }
+            });
+        });
     }
 };

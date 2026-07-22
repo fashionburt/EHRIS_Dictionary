@@ -1,4 +1,5 @@
-﻿using EHRIS.Core.Models.Common;
+﻿using EHRIS.Core.Entities;
+using EHRIS.Core.Models.Common;
 using EHRIS.Core.Models.Dictionary;
 using EHRIS.Core.Models.Event;
 using EHRIS.Core.Repositories.Dictionary;
@@ -61,5 +62,60 @@ public class DIC1999R01Service : IDIC1999R01Service
     {
         if (string.IsNullOrEmpty(model.DbKey)) return (false, "未指定資料庫");
         return await _repository.CreatePhysicalTableAsync(model, serverIp, dataLogger);
+    }
+
+    public async Task<DIC1999R01ImportResult> ImportDictionaryAsync(string dbKey, string serverIp, string jsonContent, IDataLogger dataLogger)
+    {
+        if (string.IsNullOrWhiteSpace(jsonContent))
+        {
+            return new DIC1999R01ImportResult { Success = false, Message = "檔案內容為空" };
+        }
+
+        Dictionary<string, Dictionary<string, string>>? data;
+        try
+        {
+            data = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(jsonContent);
+        }
+        catch (Exception ex)
+        {
+            return new DIC1999R01ImportResult { Success = false, Message = $"JSON 格式錯誤：{ex.Message}" };
+        }
+
+        if (data == null || data.Count == 0)
+        {
+            return new DIC1999R01ImportResult { Success = false, Message = "檔案內容為空或格式不符" };
+        }
+
+        foreach (var sheetGroup in data)
+        {
+            if (string.IsNullOrWhiteSpace(sheetGroup.Key))
+            {
+                return new DIC1999R01ImportResult { Success = false, Message = "檔案格式錯誤：資料表名稱不可為空" };
+            }
+
+            if (sheetGroup.Value == null)
+            {
+                return new DIC1999R01ImportResult { Success = false, Message = $"檔案格式錯誤：資料表【{sheetGroup.Key}】底下的內容格式不符（應為欄位名稱對應描述的結構）" };
+            }
+
+            foreach (var col in sheetGroup.Value)
+            {
+                if (string.IsNullOrWhiteSpace(col.Key))
+                {
+                    return new DIC1999R01ImportResult { Success = false, Message = $"檔案格式錯誤：資料表【{sheetGroup.Key}】內有空白的欄位名稱" };
+                }
+            }
+        }
+
+        var detail = $"匯入資料字典（{dbKey}）";
+        var (tableCount, columnCount) = await _repository.ImportDictionaryAsync(dbKey, serverIp, data, detail, dataLogger);
+
+        return new DIC1999R01ImportResult
+        {
+            Success = true,
+            Message = $"匯入完成，共更新 {tableCount} 張表、{columnCount} 個欄位",
+            TableCount = tableCount,
+            ColumnCount = columnCount
+        };
     }
 }
