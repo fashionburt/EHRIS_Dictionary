@@ -74,12 +74,17 @@ public class DIC1999R01Service : IDIC1999R01Service
         Dictionary<string, DIC1999R01ImportTableData>? data;
         try
         {
-            data = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, DIC1999R01ImportTableData>>(jsonContent);
+            var options = new System.Text.Json.JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            data = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, DIC1999R01ImportTableData>>(jsonContent, options);
         }
         catch (Exception ex)
         {
             return new DIC1999R01ImportResult { Success = false, Message = $"JSON 格式錯誤：{ex.Message}" };
         }
+
 
         if (data == null || data.Count == 0)
         {
