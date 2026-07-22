@@ -5,7 +5,6 @@
   <Folder Name="/Tools/">
     <Project Path="EHRIS.Tools/EHRIS.Tools.csproj" />
   </Folder>
-  <Project Path="EHRIS.AdminPortal/EHRIS.AdminPortal.csproj" />
   <Project Path="EHRIS.Core/EHRIS.Core.csproj" />
   <Project Path="EHRIS.Infrastructure/EHRIS.Infrastructure.csproj" />
   <Project Path="EHRIS.Security/EHRIS.Security.csproj" />
@@ -13,4 +12,5 @@
   <Project Path="EHRIS.SysBasic/EHRIS.SysBasic.csproj" />
   <Project Path="EHRIS.Web.Shared/EHRIS.Web.Shared.csproj" />
   <Project Path="EHRIS.Web/EHRIS.Web.csproj" />
+  <Project Path="EHRIS.YingShunEIP/EHRIS.YingShunEIP.csproj" Id="eba08c57-4921-408d-96cc-b760145ad160" />
 </Solution>

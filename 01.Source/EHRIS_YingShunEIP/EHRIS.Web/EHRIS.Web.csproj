@@ -97,7 +97,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EHRIS.AdminPortal\EHRIS.AdminPortal.csproj" />
     <ProjectReference Include="..\EHRIS.Core\EHRIS.Core.csproj" />
     <ProjectReference Include="..\EHRIS.Security\EHRIS.Security.csproj" />
     <ProjectReference Include="..\EHRIS.Services\EHRIS.Services.csproj" />
