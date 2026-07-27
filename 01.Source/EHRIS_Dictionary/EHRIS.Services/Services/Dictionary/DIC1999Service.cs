@@ -175,7 +175,13 @@ public class DIC1999Service : IDIC1999Service
         });
         return (Encoding.UTF8.GetBytes(jsonString), $"{dbInfo.Desc}({dbInfo.Name}).json");
     }
-    public async Task<(byte[] content, string fileName)> ExportWordAsync(int menuId, string serverIp)
+
+    public async Task<List<(string TableName, string TableDesc)>> GetTableListAsync(int menuId, string serverIp)
+    {
+        return await _repository.GetSheetMetadataAsync(menuId, serverIp);
+    }
+
+    public async Task<(byte[] content, string fileName)> ExportWordAsync(int menuId, string serverIp, List<string>? selectedTables = null)
     {
         var dbInfo = await _repository.GetDatabaseInfoAsync(menuId, serverIp);
         if (string.IsNullOrEmpty(dbInfo.Name)) return (Array.Empty<byte>(), "");
@@ -186,9 +192,18 @@ public class DIC1999Service : IDIC1999Service
                                  .ToDictionary(g => g.Key, g => g.ToDictionary(x => x.ColumnName, x => x.RowDesc, StringComparer.OrdinalIgnoreCase), StringComparer.OrdinalIgnoreCase);
 
         var schema = await _repository.GetFullSchemaForWordExportAsync(serverIp, dbInfo.Name);
+
+        if (selectedTables != null && selectedTables.Count > 0)
+        {
+            var selectedSet = new HashSet<string>(selectedTables, StringComparer.OrdinalIgnoreCase);
+            schema = schema.Where(x => selectedSet.Contains(x.TableName)).ToList();
+        }
+
         var tableGroups = schema.GroupBy(x => x.TableName, StringComparer.OrdinalIgnoreCase)
                                  .OrderBy(g => g.Key, StringComparer.OrdinalIgnoreCase)
                                  .ToList();
+
+        if (tableGroups.Count == 0) return (Array.Empty<byte>(), "");
 
         var doc = new EHRIS.Tools.Office.Word.WordGenerater();
 

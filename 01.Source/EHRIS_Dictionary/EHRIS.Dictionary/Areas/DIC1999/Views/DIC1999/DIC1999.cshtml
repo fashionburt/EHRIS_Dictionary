@@ -98,6 +98,29 @@
     </div>
 </div>
 
+<div class="modal fade modal-morandi" id="exportWordModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">選擇要匯出的資料表 (<span id="exportWordDbName"></span>)</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="btnToggleAllTables">全選 / 取消全選</button>
+                    <span class="text-muted small"><span id="exportWordSelectedCount">0</span> / <span id="exportWordTotalCount">0</span> 已選</span>
+                </div>
+                <div id="exportWordTableList" class="border rounded p-2" style="max-height: 400px; overflow-y: auto;">
+                    <div class="text-center text-muted py-3">載入中...</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-morandi-primary btn-sm" id="btnConfirmExportWord">確認匯出</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     window.permissionAction = {
         getData: '@Url.Action("GetData", "DIC1999")',
@@ -109,11 +132,12 @@
         exportWord: '@Url.Action("ExportWord", "DIC1999")',
         exportJson: '@Url.Action("ExportJson", "DIC1999")',
         getAvailableDatabases: '@Url.Action("GetAvailableDatabases", "DIC1999")',
+        getTableListForExport: '@Url.Action("GetTableListForExport", "DIC1999")',
         logUrl: '/DIC1997/DIC1997',
         tableList: '/DIC1999R01/DIC1999R01',
         dataTableLangUrl: '@Url.Content("~/lib/datatables.net/plug-ins/i18n/zh-HANT.json")',
         tokenName: '__RequestVerificationToken',
         tokenValue: $('input[name="__RequestVerificationToken"]').val(),
         hasInsertPermission: @Html.Raw(Json.Serialize(ViewBag.InsertStatus ?? false))
-        };
+    };
 </script>

@@ -78,6 +78,37 @@
     bindEvents: function () {
         const self = this;
 
+        $(document).off('change', '.export-table-check').on('change', '.export-table-check', function () {
+            self.updateExportWordCount();
+        });
+
+        $('#btnToggleAllTables').off('click').on('click', function () {
+            const $checks = $('.export-table-check');
+            const allChecked = $checks.length === $checks.filter(':checked').length;
+            $checks.prop('checked', !allChecked);
+            self.updateExportWordCount();
+        });
+
+        $('#btnConfirmExportWord').off('click').on('click', function () {
+            const selectedTables = $('.export-table-check:checked').map(function () {
+                return $(this).val();
+            }).get();
+
+            if (selectedTables.length === 0) {
+                ehrisAlert.warning('請至少選擇一張資料表');
+                return;
+            }
+
+            $('#exportWordModal').modal('hide');
+
+            const params = new URLSearchParams();
+            params.append('menuId', self.exportWordMenuId);
+            params.append('serverIp', self.exportWordServerIp);
+            selectedTables.forEach(t => params.append('tables', t));
+
+            self.downloadWithLoading(`${self.urls.exportWord}?${params.toString()}`);
+        });
+
         $('#filterServer').off('change').on('change', function () {
             self.dt.ajax.reload();
         });
@@ -109,8 +140,8 @@
 
         $('#dbTable').off('click', '.exportWord').on('click', '.exportWord', function () {
             const id = $(this).data('id');
-            const ip = $('#filterServer').val();
-            self.downloadWithLoading(`${self.urls.exportWord}?menuId=${id}&serverIp=${encodeURIComponent(ip)}`);
+            const ip = $(this).data('ip');
+            self.openExportWordModal(id, ip);
         });
 
         $('#dbTable').off('click', '.exportJson').on('click', '.exportJson', function () {
@@ -129,6 +160,44 @@
         $(document).off('change', '#dbSelect').on('change', '#dbSelect', function () {
             $('#menuName').val($(this).val());
         });
+    },
+
+    openExportWordModal: function (menuId, serverIp) {
+        const self = this;
+        self.exportWordMenuId = menuId;
+        self.exportWordServerIp = serverIp;
+
+        $('#exportWordDbName').text('');
+        $('#exportWordTableList').html('<div class="text-center text-muted py-3">載入中...</div>');
+        $('#exportWordModal').modal('show');
+
+        $.post(self.urls.getTableListForExport, { menuId: menuId, serverIp: serverIp }, function (res) {
+            if (!res.success || !res.data || res.data.length === 0) {
+                $('#exportWordTableList').html('<div class="text-center text-muted py-3">此資料庫沒有任何資料表</div>');
+                return;
+            }
+
+            let html = '';
+            res.data.forEach(function (t) {
+                const safeName = self.htmlEncode(t.tableName);
+                const safeDesc = self.htmlEncode(t.tableDesc || '');
+                html += `<div class="form-check">
+                <input class="form-check-input export-table-check" type="checkbox" value="${safeName}" id="chk_${safeName}" checked>
+                <label class="form-check-label" for="chk_${safeName}">
+                    ${safeDesc ? safeDesc + '【' + safeName + '】' : safeName}
+                </label>
+            </div>`;
+            });
+            $('#exportWordTableList').html(html);
+            self.updateExportWordCount();
+        });
+    },
+
+    updateExportWordCount: function () {
+        const total = $('.export-table-check').length;
+        const checked = $('.export-table-check:checked').length;
+        $('#exportWordTotalCount').text(total);
+        $('#exportWordSelectedCount').text(checked);
     },
 
     downloadWithLoading: function (url) {

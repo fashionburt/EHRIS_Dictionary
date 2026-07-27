@@ -14,5 +14,7 @@ public interface IDIC1999Service
     Task<(bool success, string message)> ToggleStatusAsync(int menuId, string serverIp, IDataLogger dataLogger);
     Task<(byte[] content, string fileName)> ExportExcelAsync(int menuId, string serverIp);
     Task<(byte[] content, string fileName)> ExportJsonAsync(int menuId, string serverIp);
-    Task<(byte[] content, string fileName)> ExportWordAsync(int menuId, string serverIp);
+    Task<(byte[] content, string fileName)> ExportWordAsync(int menuId, string serverIp, List<string>? selectedTables = null);
+
+    Task<List<(string TableName, string TableDesc)>> GetTableListAsync(int menuId, string serverIp);
 }

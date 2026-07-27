@@ -103,12 +103,21 @@ public class DIC1999Controller : BaseController
         return File(content, "application/json", fileName);
     }
 
+    [HttpPost]
+    [AuthorizeFunction(SFUNO, FunctionAction.Query)]
+    public async Task<IActionResult> GetTableListForExport(int menuId, string serverIp)
+    {
+        var tables = await _service.GetTableListAsync(menuId, serverIp);
+        var data = tables.Select(t => new { tableName = t.TableName, tableDesc = t.TableDesc }).ToList();
+        return Json(new { success = true, data });
+    }
+
     [HttpGet]
     [AuthorizeFunction(SFUNO, FunctionAction.Query)]
-    public async Task<IActionResult> ExportWord(int menuId, string serverIp)
+    public async Task<IActionResult> ExportWord(int menuId, string serverIp, [FromQuery] List<string>? tables = null)
     {
-        var (content, fileName) = await _service.ExportWordAsync(menuId, serverIp);
-        if (content.Length == 0) return RedirectToAction(nameof(DIC1999));
+        var (content, fileName) = await _service.ExportWordAsync(menuId, serverIp, tables);
+        if (content.Length == 0) return NotFound("找不到該資料庫的資料，或未選擇任何資料表");
         return File(content, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
     }
 
