@@ -11,9 +11,9 @@ using EHRIS.Web.Shared.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace EHRIS.Dictionary.Areas.Dictionary.Controllers;
+namespace EHRIS.Dictionary.Controllers;
 
-[Area("DIC1999")]
+[Area("DIC1900")]
 [Route("/[controller]/[action]")]
 public class DIC1999Controller : BaseController
 {

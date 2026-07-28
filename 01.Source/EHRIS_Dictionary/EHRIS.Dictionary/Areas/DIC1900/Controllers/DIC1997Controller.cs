@@ -7,12 +7,13 @@ using EHRIS.Services.Common;
 using EHRIS.Services.Dictionary;
 using EHRIS.Tools.Web;
 using EHRIS.Web.Shared.Controllers;
+using MathNet.Numerics.Distributions;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace EHRIS.Dictionary.Areas.Dictionary.Controllers;
+namespace EHRIS.Dictionary.Controllers;
 
-[Area("DIC1997")]
+[Area("DIC1900")]
 [Route("/[controller]/[action]")]
 public class DIC1997Controller : BaseController
 {
@@ -61,8 +62,7 @@ public class DIC1997Controller : BaseController
         ViewBag.InitialTableName = tableName;
         ViewBag.InitialPkName = pkName;
         ViewBag.Sid = sid;
-
-        return PartialView("~/Areas/DIC1997/Views/DIC1997/DIC1997.cshtml");
+        return PartialView("~/Areas/DIC1900/Views/DIC1997/DIC1997.cshtml");
     }
 
     [HttpPost]

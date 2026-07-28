@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace EHRIS.Dictionary.Areas.Dictionary.Controllers;
+namespace EHRIS.Dictionary.Controllers;
 
-[Area("DIC1999")]
+[Area("DIC1900")]
 [Route("/[controller]/[action]")]
 public class DIC1999R01Controller : BaseController
 {
@@ -70,7 +70,7 @@ public class DIC1999R01Controller : BaseController
         ViewBag.UpdateStatus = HasPermission(FunctionAction.Update);
         ViewBag.DeleteStatus = HasPermission(FunctionAction.Delete);
 
-        return PartialView("~/Areas/DIC1999/Views/DIC1999/DIC1999R01.cshtml");
+        return PartialView("~/Areas/DIC1900/Views/DIC1999/DIC1999R01.cshtml");
     }
 
     [HttpPost]
