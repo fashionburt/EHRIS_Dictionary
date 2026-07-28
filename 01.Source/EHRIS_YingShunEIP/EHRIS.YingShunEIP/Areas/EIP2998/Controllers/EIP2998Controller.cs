@@ -9,4 +9,4 @@ using EHRIS.Tools.Web;
 using EHRIS.Web.Shared.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EHRIS.SysBasic.Areas.YingShunEIP.Controllers;
+namespace EHRIS.YingShunEIP.Areas.YingShunEIP.Controllers;
