@@ -5,4 +5,4 @@ namespace EHRIS.Core.Models.YingShunEIP;
 public class EIP2994ViewModel
 {
 
-} 
+}
