@@ -1,6 +1,5 @@
 ﻿using EHRIS.Core.Models;
 using EHRIS.Security.User;
-using EHRIS.Services.Dictionary;
 using EHRIS.Tools.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +12,11 @@ namespace EHRIS.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserContextService _userContext;
-        private readonly IDIC1996Service _announcementService;
 
-        public HomeController(ILogger<HomeController> logger, IUserContextService userContext, IDIC1996Service announcementService)
+        public HomeController(ILogger<HomeController> logger, IUserContextService userContext)
         {
             _logger = logger;
             _userContext = userContext;
-            _announcementService = announcementService;
         }
 
         public async Task<IActionResult> Index()
@@ -40,8 +37,6 @@ namespace EHRIS.Web.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-
-            ViewBag.Announcements = await _announcementService.GetActiveAnnouncementsAsync();
 
             return View();
         }

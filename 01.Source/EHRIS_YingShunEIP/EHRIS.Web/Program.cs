@@ -4,8 +4,8 @@ using EHRIS.Core.Repositories;
 using EHRIS.Core.Repositories.Event;
 using EHRIS.Core.Repositories.SysBasic;
 using EHRIS.Core.Repositories.AdminPortal;
-using EHRIS.Services.Dictionary;
-using EHRIS.Core.Repositories.Dictionary;
+using EHRIS.Services.YingShunEIP;
+using EHRIS.Core.Repositories.YingShunEIP;
 using EHRIS.Services.Services.SysBasic;
 using EHRIS.Services.Services.AdminPortal;
 using EHRIS.Security.Middleware;
@@ -208,19 +208,19 @@ builder.Services.AddScoped<IADS999999Service, ADS999999Service>();
 #endregion
 
 #region YingShunEIP中央管理
-builder.Services.AddScoped<IEIP2999Repository, EIP2999Repository>();
-builder.Services.AddScoped<IEIP2999R01Repository, EIP2999R01Repository>();
-builder.Services.AddScoped<IEIP2999R02Repository, EIP2999R02Repository>();
-builder.Services.AddScoped<IEIP2998Repository, EIP2998Repository>();
-builder.Services.AddScoped<IEIP2997Repository, EIP2997Repository>();
-builder.Services.AddScoped<IEIP2996Repository, EIP2996Repository>();
+//builder.Services.AddScoped<IEIP2999Repository, EIP2999Repository>();
+//builder.Services.AddScoped<IEIP2999R01Repository, EIP2999R01Repository>();
+//builder.Services.AddScoped<IEIP2999R02Repository, EIP2999R02Repository>();
+//builder.Services.AddScoped<IEIP2998Repository, EIP2998Repository>();
+//builder.Services.AddScoped<IEIP2997Repository, EIP2997Repository>();
+//builder.Services.AddScoped<IEIP2996Repository, EIP2996Repository>();
 
-builder.Services.AddScoped<IEIP2999Service, EIP2999Service>();
-builder.Services.AddScoped<IEIP2999R01Service, EIP2999R01Service>();
-builder.Services.AddScoped<IEIP2999R02Service, EIP2999R02Service>();
-builder.Services.AddScoped<IEIP2998Service, EIP2998Service>();
-builder.Services.AddScoped<IEIP2997Service, EIP2997Service>();
-builder.Services.AddScoped<IEIP2996Service, EIP2996Service>();
+//builder.Services.AddScoped<IEIP2999Service, EIP2999Service>();
+//builder.Services.AddScoped<IEIP2999R01Service, EIP2999R01Service>();
+//builder.Services.AddScoped<IEIP2999R02Service, EIP2999R02Service>();
+//builder.Services.AddScoped<IEIP2998Service, EIP2998Service>();
+//builder.Services.AddScoped<IEIP2997Service, EIP2997Service>();
+//builder.Services.AddScoped<IEIP2996Service, EIP2996Service>();
 #endregion
 
 // 設定 DbContext

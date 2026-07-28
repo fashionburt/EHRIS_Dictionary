@@ -6,3 +6,8 @@ using EHRIS.Core.Repositories.YingShunEIP;
 using EHRIS.Tools.Extensions;
 
 namespace EHRIS.Services.YingShunEIP;
+
+public class EIP2995Service : IEIP2995Service
+{
+
+}

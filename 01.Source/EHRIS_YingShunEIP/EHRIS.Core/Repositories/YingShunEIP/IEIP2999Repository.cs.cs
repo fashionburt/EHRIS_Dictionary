@@ -4,3 +4,8 @@ using EHRIS.Core.Models.YingShunEIP;
 using EHRIS.Core.Models.Event;
 
 namespace EHRIS.Core.Repositories.YingShunEIP;
+
+public interface IEIP2999Repository
+{
+
+}
