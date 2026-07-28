@@ -84,37 +84,6 @@ public class AccountController : Controller
 
         bool isManual = HttpContext.Session.GetString("IsManualLogin") == "true";
 
-        if (!isManual)
-        {
-            string? autoAccount = null;
-            string? autoPassword = null;
-
-            if (source == "jump")
-            {
-                // 只有真正從 JumpToTable 過來的才自動登入 Test2025
-                autoAccount = _configuration["AutoLogin:PartnerAccount"];
-                autoPassword = _configuration["AutoLogin:PartnerPassword"];
-            }
-            else if (string.IsNullOrEmpty(returnUrl))
-            {
-                // 直接訪問 /login，沒有任何 returnUrl，才自動登入 admin
-                autoAccount = _configuration["AutoLogin:AdminAccount"];
-                autoPassword = _configuration["AutoLogin:AdminPassword"];
-            }
-            // 其餘情況（例如被框架導向、returnUrl 存在但不是來自 JumpToTable）：完全不自動登入
-
-            if (!string.IsNullOrEmpty(autoAccount))
-            {
-                string clientIp = IPHelper.GetIpAddress(HttpContext);
-                bool success = await SignInUserAsync(autoAccount, autoPassword, false, clientIp);
-
-                if (success)
-                {
-                    return RedirectToTarget(returnUrl);
-                }
-            }
-        }
-
         var model = new LoginViewModel
         {
             RememberMe = false,
@@ -164,18 +133,6 @@ public class AccountController : Controller
         if (!string.IsNullOrEmpty(dbMessage) && !ModelState.Values.SelectMany(v => v.Errors).Any(e => e.ErrorMessage == dbMessage))
         {
             ModelState.AddModelError("", dbMessage);
-        }
-
-        bool skipCaptcha = model.UxID == "Test2025" || model.UxID == "admin";
-        if (skipCaptcha)
-        {
-            ModelState.Remove("DNTCaptchaInputText");
-            ModelState.Remove("DNTCaptchaToken");
-            ModelState.Remove("DNTCaptchaText");
-        }
-        else if (!_captchaValidatorService.HasRequestValidCaptchaEntry())
-        {
-            ModelState.AddModelError("DNTCaptchaInputText", "驗證碼錯誤");
         }
 
         if (!ModelState.IsValid)
