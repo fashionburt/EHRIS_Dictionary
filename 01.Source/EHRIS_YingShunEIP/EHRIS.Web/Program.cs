@@ -207,20 +207,20 @@ builder.Services.AddScoped<IADS999004Service, ADS999004Service>();
 builder.Services.AddScoped<IADS999999Service, ADS999999Service>();
 #endregion
 
-#region Dictionary字典管理
-builder.Services.AddScoped<IDIC1999Repository, DIC1999Repository>();
-builder.Services.AddScoped<IDIC1999R01Repository, DIC1999R01Repository>();
-builder.Services.AddScoped<IDIC1999R02Repository, DIC1999R02Repository>();
-builder.Services.AddScoped<IDIC1998Repository, DIC1998Repository>();
-builder.Services.AddScoped<IDIC1997Repository, DIC1997Repository>();
-builder.Services.AddScoped<IDIC1996Repository, DIC1996Repository>();
+#region YingShunEIP中央管理
+builder.Services.AddScoped<IEIP2999Repository, EIP2999Repository>();
+builder.Services.AddScoped<IEIP2999R01Repository, EIP2999R01Repository>();
+builder.Services.AddScoped<IEIP2999R02Repository, EIP2999R02Repository>();
+builder.Services.AddScoped<IEIP2998Repository, EIP2998Repository>();
+builder.Services.AddScoped<IEIP2997Repository, EIP2997Repository>();
+builder.Services.AddScoped<IEIP2996Repository, EIP2996Repository>();
 
-builder.Services.AddScoped<IDIC1999Service, DIC1999Service>();
-builder.Services.AddScoped<IDIC1999R01Service, DIC1999R01Service>();
-builder.Services.AddScoped<IDIC1999R02Service, DIC1999R02Service>();
-builder.Services.AddScoped<IDIC1998Service, DIC1998Service>();
-builder.Services.AddScoped<IDIC1997Service, DIC1997Service>();
-builder.Services.AddScoped<IDIC1996Service, DIC1996Service>();
+builder.Services.AddScoped<IEIP2999Service, EIP2999Service>();
+builder.Services.AddScoped<IEIP2999R01Service, EIP2999R01Service>();
+builder.Services.AddScoped<IEIP2999R02Service, EIP2999R02Service>();
+builder.Services.AddScoped<IEIP2998Service, EIP2998Service>();
+builder.Services.AddScoped<IEIP2997Service, EIP2997Service>();
+builder.Services.AddScoped<IEIP2996Service, EIP2996Service>();
 #endregion
 
 // 設定 DbContext

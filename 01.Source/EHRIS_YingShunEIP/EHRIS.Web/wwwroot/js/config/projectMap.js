@@ -31,12 +31,12 @@
     //Attendance
     ATT111001: "Attendance",
 
-    //Dictionary
-    DIC1999: "Dictionary",
-    DIC1999R01: "Dictionary",
-    DIC1999R02: "Dictionary",
-    DIC1999R03: "Dictionary",
-    DIC1998: "Dictionary",
-    DIC1997: "Dictionary",
-    DIC1996: "Dictionary",
+    //YingShunEIP中央管理
+    EIP2999: "YingShunEIP",
+    EIP2998: "YingShunEIP",
+    EIP2997: "YingShunEIP",
+    EIP2996: "YingShunEIP",
+    EIP2995: "YingShunEIP",
+    EIP2994: "YingShunEIP",
+
 };

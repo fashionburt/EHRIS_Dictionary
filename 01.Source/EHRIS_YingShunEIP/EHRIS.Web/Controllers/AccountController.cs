@@ -429,19 +429,6 @@ public class AccountController : Controller
         return Json(new { success = true });
     }
 
-    [AllowAnonymous]
-    [HttpGet]
-    [HttpPost]
-    public IActionResult JumpToTable(string dbKey, string? sid, string? table = null)
-    {
-        if (string.IsNullOrEmpty(dbKey)) return RedirectToAction("Index", "Home");
-
-        string targetSid = string.IsNullOrEmpty(sid) ? "111" : sid;
-        string targetUrl = $"/DIC1999R01/DIC1999R01?dbKey={dbKey}&sid={targetSid}";
-
-        return RedirectToAction("Login", new { returnUrl = targetUrl, source = "jump" });
-    }
-
     private async Task<bool> SignInUserAsync(string uxId, string mbrKey, bool rememberMe, string clientIp)
     {
         var peoData = await _accountsService.LoginAsync(uxId, mbrKey, clientIp);
