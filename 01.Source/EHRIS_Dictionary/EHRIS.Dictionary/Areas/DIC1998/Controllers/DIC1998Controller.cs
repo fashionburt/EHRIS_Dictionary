@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 
-namespace EHRIS.SysBasic.Areas.Dictionary.Controllers;
+namespace EHRIS.Dictionary.Areas.Dictionary.Controllers;
 
 [Area("DIC1998")]
 [Route("/[controller]/[action]")]
